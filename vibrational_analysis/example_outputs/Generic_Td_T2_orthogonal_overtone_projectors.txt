@@ -1,0 +1,61 @@
+============================================================
+Target overtone manifold: Sym^2(T2) in Td
+============================================================
+Number of Td elements = 24
+All T2 matrices are orthogonal: True
+Class tally:
+{{C2, 3}, {E, 1}, {S4, 6}, {sigmad, 6}, {C3, 8}}
+T2 character tally from matrices:
+{{-1, 9}, {0, 8}, {1, 6}, {3, 1}}
+
+Building Sym^2(T2) representation...
+Fock-space dimension = 6
+
+Fock basis order:
+Column[{1 -> |200>, 2 -> |110>, 3 -> |101>, 4 -> |020>, 5 -> |011>, 6 -> |002>}]
+Induced matrices are orthogonal: True
+
+--- Character Decomposition ---
+DisplayForm[FormBox[1, TraditionalForm]] A1   + DisplayForm[FormBox[1, TraditionalForm]] E   + DisplayForm[FormBox[1, TraditionalForm]] T2  
+Multiplicities:
+<|A1 -> 1, A2 -> 0, E -> 1, T1 -> 0, T2 -> 1|>
+
+--- Projector Checks ---
+P_A1^2 = P_A1: True
+P_A1 symmetric: True
+Rank P_A1 = 1  expected = 1
+P_E^2 = P_E: True
+P_E symmetric: True
+Rank P_E = 2  expected = 2
+P_T2^2 = P_T2: True
+P_T2 symmetric: True
+Rank P_T2 = 3  expected = 3
+Completeness of active projectors: True
+Mutual orthogonality of active projectors:
+P_A1 P_E = 0: True
+P_A1 P_T2 = 0: True
+P_E P_T2 = 0: True
+
+--- Symmetry-Adapted Basis Dimensions ---
+A1 basis dimension = 1
+E basis dimension = 2
+T2 basis dimension = 3
+
+--- Symmetry-Adapted Fock States ---
+
+A1 states:
+Column[{(Ket[|002>] + Ket[|020>] + Ket[|200>])/Sqrt[3]}]
+
+E states:
+Column[{(-Ket[|002>] + Ket[|200>])/Sqrt[2], -((Ket[|002>] - 2*Ket[|020>] + Ket[|200>])/Sqrt[6])}]
+
+T2 states:
+Column[{Ket[|110>], Ket[|101>], Ket[|011>]}]
+
+Block-diagonalizing matrix U dimensions: {6, 6}
+U is orthogonal: True
+
+Sample block-diagonalized representation matrix:
+MatrixForm[{{1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0}, {0, 0, 0, -1, 0, 0}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, -1}}]
+
+Done.

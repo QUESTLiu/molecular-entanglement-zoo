@@ -26,6 +26,7 @@ and its entanglement across the three sectors is a property of the triple. This 
 | `species_tables/fusion_tex.py` | LaTeX for that section |
 | `species_tables/ghz_points.py` | Searches the N = 2 spaces for GHZ-type members |
 | `species_tables/check_paper_examples.py` | Regression check against the H₂O, NH₃/CaOCH₃ and CH₄ tables of the accompanying paper |
+| [`vibrational_analysis/`](vibrational_analysis) | Wolfram Language code for the vibrational sector: general SALC Fock basis (GTPack), C₃ᵥ E-mode and T_d T₂-mode overtone projectors, and the Mathematica admissible-species notebook. See its [README](vibrational_analysis/README.md) |
 
 ## Scope
 
@@ -107,3 +108,5 @@ The first full run takes a few hours, mostly on the numerical tensor-rank search
 ## Requirements
 
 Python ≥ 3.10 with NumPy, SciPy, mpmath and Matplotlib; a LaTeX installation (pdflatex, booktabs, longtable) to build the PDF.
+
+The `vibrational_analysis/` scripts need Mathematica or the Wolfram Engine (tested 14.3) and, for two of them, GTPack (tested 1.4).
