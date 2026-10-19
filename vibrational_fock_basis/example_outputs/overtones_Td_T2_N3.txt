@@ -1,0 +1,22 @@
+|Td| = 24,  classes {{3C2, 3}, {E, 1}, {6S4, 6}, {6sd, 6}, {8C3, 8}}
+U is a representation (U(R)U(S) = U(RS) for all R,S): True
+Irrep matrices are unitary representations: True
+E basis check: D^E(C3[111]) = diag(w, w^2): True,  D^E(sigma_d x<->y) = swap: True
+
+Sym^3(T2): dimension 10 = A1 + T1 + 2T2
+SALCs orthonormal and complete: True
+SALCs transform with the irrep matrices: True
+
+Kets |n_x n_y n_z> (quanta in the Cartesian components of the T2 mode):
+A1:  1 |111>
+T1, x:  1/Sqrt[2] |120> - 1/Sqrt[2] |102>
+T1, y:  -1/Sqrt[2] |210> + 1/Sqrt[2] |012>
+T1, z:  1/Sqrt[2] |201> - 1/Sqrt[2] |021>
+T2 copy 1, x:  1 |300>
+T2 copy 1, y:  1 |030>
+T2 copy 1, z:  1 |003>
+T2 copy 2, x:  1/Sqrt[2] |120> + 1/Sqrt[2] |102>
+T2 copy 2, y:  1/Sqrt[2] |210> + 1/Sqrt[2] |012>
+T2 copy 2, z:  1/Sqrt[2] |201> + 1/Sqrt[2] |021>
+
+Done.

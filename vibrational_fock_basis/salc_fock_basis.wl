@@ -1,17 +1,33 @@
 (* ::Package:: *)
 
-(* Symmetry-adapted (SALC) vibrational Fock basis for an arbitrary excitation pattern v,
-   following Theorem 2 / Eqs. (S1)-(S5) of the phase-space paper.
+(* ============================================================================
+   salc_fock_basis.wl
+
+   Symmetry-adapted (SALC) vibrational Fock basis for an arbitrary excitation pattern v,
+   following the main text: Lemma 2 (Fock-space action, Eqs. (21)-(22)) and Theorem 1
+   (Symmetry-adapted Fock encoding, Eqs. (23)-(25)), proved in Appendix S3 (Eqs. (S1)-(S5)).
 
    Input : point group, the irrep carried by each normal mode, and the quanta v_s in each mode.
    Output: (i)   characters chi_v(R) = Tr U_v(R) of the reducible representation on H(v),
-           (ii)  its decomposition  Gamma_red = (+)_Gamma m_Gamma(v) Gamma          [Eq. (S4)],
-           (iii) the SALC states |Gamma mu, k> for every copy k = 1..m_Gamma and partner
-                 mu = 1..d_Gamma, built with the matrix-valued projectors P^Gamma_{mu nu}  [Eq. (S3)].
+           (ii)  its decomposition Gamma_red = (+)_Gamma m_Gamma(v) Gamma           [Eq. (S5)],
+           (iii) the SALC states |mu Gamma; k> for every copy k = 1..m_Gamma and partner
+                 mu = 1..d_Gamma, built with the matrix-valued projectors P^Gamma_{mu nu} [Eq. (25)]:
+                 |1 Gamma; k> spans the range of P^Gamma_{11}, |mu Gamma; k> = P^Gamma_{mu 1}|1 Gamma; k>.
 
    Group elements, character table and explicit irrep matrices all come from GTPack.
-   Convention: R a_i^dag R^-1 = Sum_j D_ji(R) a_j^dag, so a single quantum transforms as the
-   irrep basis vector and the partners obey U(R)|Gamma nu,k> = Sum_mu D_mu nu(R) |Gamma mu,k>. *)
+   Convention (Eq. (21)): U(R) a_i^dag U(R)^dag = Sum_j D_ji(R) a_j^dag, so a single quantum
+   transforms as the irrep basis vector and U(R)|nu Gamma;k> = Sum_mu D_mu nu(R) |mu Gamma;k>.
+
+   Circular basis (circular = True): every 2D irrep is rotated so that the lowest-order proper
+   rotation is diagonal with partner 1 = 1E carrying the positive phase (C3 -> diag(w, w^2)),
+   and one reflection is a pure swap -- the basis used for rotation and nuclear spin in the
+   main text. A quantum in partner 1 (1E) has vibrational angular momentum l = -1, so kets are
+   printed in the main text's order |n+, n->, l = n+ - n-, with n- = quanta in 1E and
+   n+ = quanta in 2E (U(C_n)|n+,n-> = exp(-2 pi i l/n)|n+,n->, remark after Lemma 2).
+   The stored "FockLabels" keep the partner order (n_1E, n_2E).
+
+   Run: wolframscript -file salc_fock_basis.wl          (requires GTPack)
+   ============================================================================ *)
 
 ClearAll["Global`*"];
 Needs["GroupTheory`"];
@@ -20,9 +36,8 @@ Needs["GroupTheory`"];
 groupName  = "C3v";
 modeIrreps = {"A1", "A1", "A1", "A1", "E", "E", "E", "E"};   (* CaOCH3: nu1 ... nu8 *)
 vQuanta    = {1, 1, 1, 1, 1, 1, 1, 1};                       (* quanta in each mode *)
-circular   = True;    (* 2D modes/irreps in the circular basis |n+,n->: the lowest-order proper
-                         rotation is diagonal (partner 1 = positive phase), one reflection is a
-                         pure swap n+ <-> n-.  False keeps GTPack's own irrep basis. *)
+circular   = True;    (* 2D irreps in the main text's circular basis (see header); kets |n+,n->.
+                         False keeps GTPack's own irrep basis. *)
 numeric    = False;   (* True: floating point (use for large manifolds) *)
 (* ========================================================== *)
 
@@ -61,7 +76,7 @@ irrepD = Table[
    If[circular && Length[irrepRaw[[i, 1]]] == 2, adapt2D[irrepRaw[[i]]], simp[irrepRaw[[i]]]],
    {i, Length[irrepRaw]}];
 irrepDim = Length[First[#]] & /@ irrepD;
-chiEl = Table[Tr /@ irrepD[[i]], {i, Length[irrepD]}];     (* characters per group element *)
+chiEl = Table[simp[Tr /@ irrepD[[i]]], {i, Length[irrepD]}];     (* characters per group element *)
 
 unitaryQ = And @@ Flatten@Table[
     Max[Abs[N[ConjugateTranspose[m] . m - IdentityMatrix[Length[m]]]]] < 10^-8,
@@ -92,11 +107,12 @@ fockMatrix[M_, n_] := Module[{d = Length[M], x, vars, basis, img, rules},
     {m, basis}]];
 
 fm = Table[simp@fockMatrix[irrepD[[modeIdx[[s]], g]], vQuanta[[s]]], {s, nModes}, {g, nG}];
-Uv = Table[simp[KroneckerProduct @@ fm[[All, g]]], {g, nG}];                  (* U_v(R) *)
+(* U_v(R); Fold handles a single mode too (KroneckerProduct[M] alone stays unevaluated) *)
+Uv = Table[simp[Fold[KroneckerProduct, {{1}}, fm[[All, g]]]], {g, nG}];
 fockLabels = Tuples[Table[focks[modeDim[[s]], vQuanta[[s]]], {s, nModes}]];
 dimH = Length[fockLabels];
 
-(* ---------- reducible representation and multiplicities, Eq. (S4) ---------- *)
+(* ---------- reducible representation and multiplicities, Eq. (S5) ---------- *)
 chiV = Table[simp[Times @@ (Tr /@ fm[[All, g]])], {g, nG}];
 mult = Table[Round[N[Sum[Conjugate[chiEl[[i, g]]] chiV[[g]], {g, nG}]/nG]], {i, Length[irrepD]}];
 If[mult . irrepDim != dimH, Print["Warning: sum of m d = ", mult . irrepDim, " != dim H(v) = ", dimH]];
@@ -107,7 +123,7 @@ decomp = StringRiffle[
      If[mult[[i]] == 1, "", ToString[mult[[i]]]] <> irrepNames[[i]]], {i, Length[mult]}],
    " \[CirclePlus] "];
 
-(* ---------- SALCs from matrix-valued projectors, Eq. (S3) ---------- *)
+(* ---------- SALCs from matrix-valued projectors, Theorem 1, Eq. (25) ---------- *)
 proj[i_, mu_, nu_] := proj[i, mu, nu] =
    simp[irrepDim[[i]]/nG Sum[Conjugate[irrepD[[i, g, mu, nu]]] Uv[[g]], {g, nG}]];
 
@@ -135,8 +151,10 @@ salcs = Table[salc[i], {i, Length[irrepD]}];
 ra = "\[RightAngleBracket]";
 nondeg = Select[Range[nModes], modeDim[[#]] == 1 &];
 deg = Complement[Range[nModes], nondeg];
+(* circular 2D modes: print |n+, n-> = (quanta in 2E, quanta in 1E), the main text's order *)
+modeOcc[lab_, s_] := If[circular && modeDim[[s]] == 2, Reverse[lab[[s]]], lab[[s]]];
 ketStr[lab_] := If[deg === {}, "|0" <> ra,
-   StringJoin[("|" <> StringRiffle[ToString /@ lab[[#]], ","] <> ra) & /@ deg]];
+   StringJoin[("|" <> StringRiffle[ToString /@ modeOcc[lab, #], ","] <> ra) & /@ deg]];
 Format[ket[s_String]] := s;
 stateExpr[vec_] := Total@Table[
     If[Chop[N[vec[[j]]], 10^-10] == 0, 0, vec[[j]] ket[ketStr[fockLabels[[j]]]]], {j, dimH}];
@@ -145,7 +163,8 @@ Print["Group ", groupName, ",  |G| = ", nG, ",  irreps ", irrepNames];
 Print["Modes ", Thread[modeIrreps -> vQuanta], ",  dim H(v) = ", dimH];
 Print["Common factor from nondegenerate modes ", nondeg, ":  |",
   StringRiffle[ToString /@ vQuanta[[nondeg]], ","], ra];
-Print["Kets list the degenerate modes ", deg, If[circular, " as |n+,n->", " in GTPack's irrep basis"]];
+Print["Kets list the degenerate modes ", deg,
+  If[circular, " as |n+,n-> (l = n+ - n-; a 1E quantum has l = -1)", " in GTPack's irrep basis"]];
 
 Print[Grid[
    Prepend[
