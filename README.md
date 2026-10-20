@@ -16,8 +16,8 @@ and its entanglement across the three sectors is a property of the triple. This 
 
 | Path | What it is |
 |---|---|
-| [`pdf/species_tables.pdf`](pdf/species_tables.pdf) | The full tables (177 pages), with a worked analysis of the multiplicity-two cases |
-| [`data/species_data.json`](data/species_data.json) | Every admissible triple with its class, family and nonzero coupling-tensor entries |
+| [`species_tables/species_tables.pdf`](species_tables/species_tables.pdf) | The full tables (177 pages), with a worked analysis of the multiplicity-two cases |
+| [`species_tables/species_data.json`](species_tables/species_data.json) | Every admissible triple with its class, family and nonzero coupling-tensor entries |
 | `species_tables/pointgroups.py` | Builds the point groups, their irreps over ℂ in the standard basis, and Mulliken labels |
 | `species_tables/entanglement.py` | Entanglement classifier: flattening ranks, numerical CP tensor rank, local-unitary fidelity |
 | `species_tables/species.py` | Admissibility, coupling tensors, classification (writes `results.pkl`) |
