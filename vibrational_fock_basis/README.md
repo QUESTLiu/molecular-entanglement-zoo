@@ -24,10 +24,10 @@ Every script uses the main text's basis conventions, the same ones the rotationa
 | [`overtones_C3v_E.wl`](overtones_C3v_E.wl) | The n-quantum overtone of one E mode in C₃ᵥ (ν₄ of NH₃, ν₈ of CaOCH₃): A₁/A₂ states and partner-resolved ¹E/²E pairs, \|¹E⟩ = \|ℓ⟩, \|²E⟩ = \|−ℓ⟩ with ℓ ≡ 2 (mod 3). Self-contained (explicit C₃ᵥ matrices). | — |
 | [`overtones_Td_T2.wl`](overtones_Td_T2.wl) | The N-quantum overtone Sym^N(T₂) of one T₂ mode in T_d (ν₃, ν₄ of CH₄): Sym²T₂ = A₁ ⊕ E ⊕ T₂, Sym³T₂ = A₁ ⊕ T₁ ⊕ 2T₂, …, with repeated irreps split into individual partner-resolved copies. Self-contained (T_d built as signed permutation matrices). | — |
 | [`example_outputs/`](example_outputs) | Console output of each script: C₃ᵥ n = 6, T_d N = 2 and N = 3, CaOCH₃ one quantum per mode | — |
-| [`overtone_tables.pdf`](overtone_tables.pdf) | **Overtone tables for every point group** (50 pages): which irreps v quanta of one degenerate mode contain. Part I gives the rules and representative tables; Part II lists every group explicitly. See [below](#overtone-tables-for-all-point-groups). | — |
-| [`overtone_tables.py`](overtone_tables.py) | Generates `overtone_tables.tex` and `overtone_tables.json` and runs all checks. Part II uses the groups and labels of [`../species_tables/pointgroups.py`](../species_tables/pointgroups.py); every entry is checked against the script's own independent construction (each group from 3×3 matrices, character table from the class algebra). | NumPy, SymPy |
-| [`overtone_tables.json`](overtone_tables.json) | Multiplicities m_Γ(v), v ≤ 12, for every degenerate mode of all 59 finite groups of the species tables (same labels), plus closed forms for C∞ᵥ and D∞h | — |
-| [`overtone_tables_gtpack.wl`](overtone_tables_gtpack.wl) | Independent computation of the same decompositions from GTPack character tables (32 crystallographic groups); writes `overtone_tables_gtpack.json`, which `overtone_tables.py` compares against | GTPack |
+| [`salc_tables.pdf`](salc_tables.pdf) | **SALC tables for every point group.** The symmetry-adapted Fock states of one degenerate mode for all groups of [`../species_tables`](../species_tables), in the same bases and labels, organised so that finite tables give every v. Also worked examples at finite v. See [below](#salc-tables-for-all-point-groups). | — |
+| [`salc_tables.py`](salc_tables.py) | Generates `salc_tables.tex` and `salc_tables.json`. It uses the same projector construction as `salc_fock_basis.wl` and checks every rule against it. Uses [`../species_tables/pointgroups.py`](../species_tables/pointgroups.py) | NumPy, SymPy |
+| [`salc_tables.json`](salc_tables.json) | Machine-readable residue tables, harmonic SALCs and branching, and multiplicities (v ≤ 12) | — |
+| [`multiplicities_gtpack.wl`](multiplicities_gtpack.wl) | Independent GTPack computation of the multiplicities m_Γ(v) for the 32 crystallographic groups. It writes `multiplicities_gtpack.json`, which `salc_tables.py` compares against | GTPack |
 
 Each script checks its own result, and these checks print `True` in the example outputs:
 - **Both overtone scripts:** U(R) is a representation, and the irrep matrices respect the same group products.
@@ -69,50 +69,41 @@ For repeated irreps the copy index k is fixed only up to a U(m_Γ) rotation (The
 | Two E quanta | A₁ = \|1,1⟩ (ℓ = 0); ¹E = \|2,0⟩ (ℓ = +2) | [E²] = A₁ ⊕ E; C₃ = diag(ω, 1, ω²) on \|+2⟩, \|0⟩, \|−2⟩ |
 | Two T₂ quanta (T_d) | ¹E ∝ Σᵢ ω^{−i}\|2ᵢ⟩, ²E ∝ Σᵢ ω^{+i}\|2ᵢ⟩ (one common phase) | \|¹,²E⟩_{2ν₄} = 3^{−1/2} Σᵢ ω^{∓i}\|2ᵢ⟩ |
 
-## Overtone tables for all point groups
+## SALC tables for all point groups
 
-The species content of a vibrational manifold depends only on the point group and on the mode species, not on the molecule. [`overtone_tables.pdf`](overtone_tables.pdf) gives the decomposition
+[`salc_tables.pdf`](salc_tables.pdf) tabulates the symmetry-adapted occupation-number states |μΓ; k⟩ of one degenerate vibrational mode, for every group of the species tables (C₁, C_s, C_i; C_n, C_nv, C_nh, S₂ₙ, D_n, D_nh, D_nd for n = 2…8; T, T_h, T_d, O, O_h, I, I_h; C∞ᵥ, D∞h). The states are built exactly as in `salc_fock_basis.wl`: Lemma 2 action, matrix-valued projectors, copies by projecting occupation states in order. The irrep bases and labels are those of `species_tables/pointgroups.py`, and the kets are |n₊,n₋⟩ (a ¹E quantum is counted in n₋, so ℓ = −1) and |n_x n_y n_z⟩.
 
-Sym^v Γ_s = ⊕_Γ m_Γ(v) Γ
+Instead of one table per v, three classifications reduce the states for every v to finite data:
 
-of v quanta in one degenerate mode for every point group of a rigid molecule. That covers the 32 crystallographic groups, C₅ᵥ, D₅, D₅ₕ, D₅d, D₄d (cyclo-S₈), I, I_h, and the linear groups. A molecule enters only through its list of mode species. The document contains:
-- **Reduction rules (R1)–(R4):** nondegenerate modes; inversion (g/u) and σ_h (′/″) factors, applied as (parity)^v; combination bands as tensor products.
-- **One closed-form rule for every E_k mode of C_nv, D_n, D_nh, D_nd, for any n.** In terms of the vibrational angular momentum ℓ: with r = kℓ mod N, each ±ℓ pair gives A₁⊕A₂ (r = 0), B₁⊕B₂ (r = N/2) or E_min(r, N−r). Cyclic and linear-molecule variants are included.
-- **Decomposition tables** for C₃ᵥ, C₄ᵥ, C₅ᵥ, C₆ᵥ and D₄d up to v = 8, and **multiplicity tables** for the cubic (T_d, O, T) and icosahedral (I) modes up to v = 12.
-- **Explicit v = 2, 3 states** of a triply degenerate mode (cubic harmonics), with their species in T_d, O and T.
-- **An index** saying where each group's degenerate modes are covered.
-- **Part II, complete tables:** every group in the scope of [`../species_tables`](../species_tables), with the same Mulliken labels:
-  - C₁, C_s, C_i;
-  - C_n, C_nv, C_nh, S₂ₙ, D_n, D_nh and D_nd for n = 2…8;
-  - T, T_h, T_d, O, O_h, I and I_h;
-  - C∞ᵥ and D∞h.
+- **Parity.** ℓ (or L) has the parity of v. Inversion and σ_h act as (parity)^v, so g/u and ′/″ alternate with v for u- and ″-type modes.
+- **Residues (two-dimensional modes).** Each SALC lies in span{|n₊,n₋⟩, |n₋,n₊⟩}. Its species and coefficients depend only on ℓ = n₊ − n₋ modulo a period N′. One table of N′ rows therefore gives the SALCs for all v. Separably degenerate pairs (C_n, S₂ₙ, C_nh, T, T_h) have each |n₊,n₋⟩ as a SALC, so the table reduces to a list of species against ℓ mod N′.
+- **Harmonics (vector-like three-dimensional modes, D(R) = ε(R)R).** These are the T modes of T, T_h, T_d, O and O_h, and T₁ of I and I_h. The manifold decomposes as
 
-  Every degenerate mode is listed explicitly for v = 1…10, with separably degenerate modes as their ¹E ⊕ ²E pair.
+  Sym^v = ⊕_{L=v,v−2,…} (a†·a†)^{(v−L)/2} 𝓗_L.
 
-The phase conventions match the rest of this folder: U(C_n) = e^{−2πiℓ/n}, a ¹E quantum carries ℓ = −1, and T₁ = det R · R.
+  Every SALC is 𝒩 (a†·a†)^k ψ_L, with ψ_L a G-adapted harmonic SALC and 𝒩⁻² = 4^k k! (L+3/2)_k. The species of 𝓗_L are the rotational branching D^L|_G, with parity (−1)^L, times ε^L. So the vibrational overtones follow the same branching rules as the rotational sector, and the copy label of a repeated irrep becomes the layer L.
 
-**Checks.** `python overtone_tables.py` stops if any of these fails:
-- **Dimensions:** every row satisfies Σ_Γ m_Γ(v) d_Γ = C(v+d_s−1, d_s−1).
-- **The ℓ rule:** agrees with direct computation for C_nv, D_n and D_nd, 3 ≤ n ≤ 10, v ≤ 12 (832 decompositions).
-- **Inversion and σ_h rules:** agree for D₃d, D₃ₕ, D₄ₕ, D₅d, D₅ₕ, D₆ₕ, T_h, O_h and I_h (468 decompositions).
-- **T_d and O:** give identical tables with identical labels.
-- **The explicit cubic states:** carry the stated species (character projection).
-- **GTPack:** agreement for all 32 crystallographic groups, every degenerate mode, v ≤ 12, label-free.
-- **Complete tables:** the `pointgroups.py`-based entries agree, label-free, with the script's independent construction for all 59 finite groups. The closed-form linear-group entries agree with the finite approximants of `pointgroups.py` for v ≤ 3.
+The T₂, G and H modes of I and I_h fit neither rule, so they are listed explicitly for low v, with multiplicities up to v = 12. Their G and H irrep bases are fixed by polynomials, which the tables list.
 
-In addition, `overtones_C3v_E.wl` (v ≤ 8) and `overtones_Td_T2.wl` (v ≤ 6) reproduce the C₃ᵥ and T_d entries.
+**Worked examples** give explicit SALCs at finite v for C₃ᵥ E, C₄ᵥ E, D₃ₕ E′, D₆ₕ E₁ᵤ, T_d E and T₂, O_h T₁ᵤ, and I_h H_g. They reproduce the conventions of `overtones_C3v_E.wl`: for example, ¹E = |0,1⟩ for one E quantum and ¹E = |2,0⟩ for two.
+
+**Checks.** `python salc_tables.py` stops if any of these fails:
+- **Residue tables:** each one is compared with the projector construction for every v ≤ 2N′ + 2 and every ℓ.
+- **Harmonic tables:** checked for L ≤ 4. The factorised SALCs and the norm formula are checked for v ≤ 4.
+- **Every listed set of states** is orthonormal, complete, and transforms with the irrep matrices of `pointgroups.py`.
+- **Multiplicities** agree with GTPack for the 32 crystallographic groups.
 
 ```bash
-python overtone_tables.py                  # writes overtone_tables.tex and .json (about 20 s)
-pdflatex overtone_tables.tex               # run twice for the table of contents
-wolframscript -file overtone_tables_gtpack.wl   # optional: regenerates overtone_tables_gtpack.json
+python salc_tables.py                        # writes salc_tables.tex and .json (about 30 s)
+pdflatex salc_tables.tex                     # run twice for the table of contents
+wolframscript -file multiplicities_gtpack.wl # optional: regenerates multiplicities_gtpack.json
 ```
 
 ## Requirements
 
 - Mathematica or the Wolfram Engine with `wolframscript` (tested with 14.3).
-- [GTPack](https://gtpack.org) (tested with 1.4) for `salc_fock_basis.wl` and `overtone_tables_gtpack.wl` only, loaded with ``Needs["GroupTheory`"]``.
-- Python ≥ 3.10 with NumPy and SymPy for `overtone_tables.py`.
+- [GTPack](https://gtpack.org) (tested with 1.4) for `salc_fock_basis.wl` and `multiplicities_gtpack.wl` only, loaded with ``Needs["GroupTheory`"]``.
+- Python ≥ 3.10 with NumPy and SymPy for `salc_tables.py`.
 
 ## Changes from earlier versions
 

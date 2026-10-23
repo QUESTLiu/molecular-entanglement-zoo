@@ -27,7 +27,7 @@ and its entanglement across the three sectors is a property of the triple. This 
 | `species_tables/ghz_points.py` | Searches the N = 2 spaces for GHZ-type members |
 | `species_tables/check_paper_examples.py` | Regression check against the H₂O, NH₃/CaOCH₃ and CH₄ tables of the accompanying paper |
 | [`vibrational_fock_basis/`](vibrational_fock_basis) | Wolfram Language code for the vibrational sector: symmetry-adapted Fock states for any point group and excitation pattern (GTPack), and self-contained overtone bases for a C₃ᵥ E mode and a T_d T₂ mode, all in the main text's conventions. See its [README](vibrational_fock_basis/README.md) |
-| [`vibrational_fock_basis/overtone_tables.pdf`](vibrational_fock_basis/overtone_tables.pdf) | Overtone tables (50 pages): the species of v quanta in any degenerate mode, for every group of the species tables with the same labels (v ≤ 10), plus reduction rules, a closed-form rule for all axial groups, and explicit cubic states. Generated and checked by `overtone_tables.py` |
+| [`vibrational_fock_basis/salc_tables.pdf`](vibrational_fock_basis/salc_tables.pdf) | Symmetry-adapted Fock states (SALCs) of one degenerate vibrational mode, for every group of the species tables, in the same bases and labels. Organised by parity, residues of the vibrational angular momentum ℓ (2D modes), and harmonic layers L (vector-like 3D modes), with worked examples at finite v. Generated and checked by `salc_tables.py` |
 
 ## Scope
 
@@ -108,6 +108,6 @@ The first full run takes a few hours, mostly on the numerical tensor-rank search
 
 ## Requirements
 
-Python ≥ 3.10 with NumPy, SciPy, mpmath and Matplotlib (and SymPy for `vibrational_fock_basis/overtone_tables.py`); a LaTeX installation (pdflatex, booktabs, longtable) to build the PDFs.
+Python ≥ 3.10 with NumPy, SciPy, mpmath and Matplotlib (and SymPy for `vibrational_fock_basis/salc_tables.py`); a LaTeX installation (pdflatex, booktabs, longtable) to build the PDFs.
 
 The `vibrational_fock_basis/` scripts need Mathematica or the Wolfram Engine (tested 14.3). `salc_fock_basis.wl` also needs GTPack (tested 1.4).

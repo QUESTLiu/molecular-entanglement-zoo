@@ -1,6 +1,6 @@
-(* Independent check of overtone_tables.py for the 32 crystallographic point groups, using
+(* Independent check of salc_tables.py (multiplicities) for the 32 crystallographic point groups, using
    GTPack character tables. chi_{Sym^v}(g) from power sums p_k(g) = chi(g^k) via Newton's identity; g^k is
-   located with the faithful 3x3 O(3) matrices of GTPack. Writes overtone_tables_gtpack.json. *)
+   located with the faithful 3x3 O(3) matrices of GTPack. Writes multiplicities_gtpack.json. *)
 Needs["GroupTheory`"];
 vmax = 12;
 groups = {"C1", "Ci", "C2", "Cs", "C2h", "D2", "C2v", "D2h", "C4", "S4", "C4h", "D4", "C4v", "D2d", "D4h",
@@ -40,5 +40,5 @@ Do[
   out[gname] = <|"order" -> nG, "irreps" -> names, "dims" -> dims, "modes" -> modeOut|>;
   Print[gname, " ", nG, " ", names, " modes: ", #["mode"] & /@ modeOut],
   {gname, groups}];
-Export["overtone_tables_gtpack.json", out, "JSON"];
+Export["multiplicities_gtpack.json", out, "JSON"];
 Print["done"];
