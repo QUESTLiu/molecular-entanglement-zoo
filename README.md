@@ -27,7 +27,7 @@ and its entanglement across the three sectors is a property of the triple. This 
 | `species_tables/ghz_points.py` | Searches the N = 2 spaces for GHZ-type members |
 | `species_tables/check_paper_examples.py` | Regression check against the H₂O, NH₃/CaOCH₃ and CH₄ tables of the accompanying paper |
 | [`vibrational_fock_basis/`](vibrational_fock_basis) | Wolfram Language code for the vibrational sector: symmetry-adapted Fock states for any point group and excitation pattern (GTPack), and self-contained overtone bases for a C₃ᵥ E mode and a T_d T₂ mode, all in the main text's conventions. See its [README](vibrational_fock_basis/README.md) |
-| [`vibrational_fock_basis/salc_tables.pdf`](vibrational_fock_basis/salc_tables.pdf) | Symmetry-adapted Fock states (SALCs) of one degenerate vibrational mode, for every group of the species tables, in the same bases and labels. Organised by parity, residues of the vibrational angular momentum ℓ (2D modes), and harmonic layers L (vector-like 3D modes), with worked examples at finite v. Generated and checked by `salc_tables.py` |
+| [`vibrational_fock_basis/salc_tables.pdf`](vibrational_fock_basis/salc_tables.pdf) | Symmetry-adapted Fock states (SALCs) of one degenerate vibrational mode, for every group of the species tables, in the same bases and labels. Organised by parity, residues of the vibrational angular momentum ℓ (2D modes), and harmonic layers L (vector-like 3D modes), with worked examples at finite v, and the laws for combination bands (total ℓ, coupling of harmonic layers) with per-group tables. Generated and checked by `salc_tables.py` |
 
 ## Scope
 

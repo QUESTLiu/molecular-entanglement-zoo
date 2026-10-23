@@ -87,14 +87,31 @@ The T₂, G and H modes of I and I_h fit neither rule, so they are listed explic
 
 **Worked examples** give explicit SALCs for v ≤ 6 for C₃ᵥ E, C₄ᵥ E, D₃ₕ E′, D₆ₕ E₁ᵤ, T_d E and T₂, and O_h T₁ᵤ. They reproduce the conventions of `overtones_C3v_E.wl`: for example, ¹E = |0,1⟩ for one E quantum and ¹E = |2,0⟩ for two.
 
+### Combination bands
+
+Quanta in several distinct modes, such as ν₃ + 2ν₄ or E⁶ ⊗ E³, follow from the overtone tables through four laws. Section 4 of the PDF states and proves them, and every group section has a combination table.
+
+- **Law 0: product.** H(v₁, v₂, …) = ⊗_s Sym^{v_s} Γ_s. Only quanta in the same mode are symmetrised, and two different modes of one species are distinct factors. The multiplicities have the generating function (1/|G|) Σ_R χ_Γ(R)* / Π_s det[1 − t_s D^{Γ_s}(R)].
+- **Law 1: total vibrational angular momentum (2D modes).** With a principal element P of order N, D_s(P) = diag(e^{2πik_s/N}, e^{−2πik_s/N}), and a parity element Q with D_s(Q) = (−1)^{q_s}, the product state |**ℓ**⟩ = ⊗_s |n₊⁽ˢ⁾, n₋⁽ˢ⁾⟩ has species fixed by ℓ_tot = Σ_s k_s ℓ_s mod N and p = Σ_s q_s ℓ_s mod 2. Each SALC lies in span{|**ℓ**⟩, |−**ℓ**⟩}. One table per group therefore covers every combination band of its 2D modes, for any number of modes and quanta. Example, C₃ᵥ: E⁶ ⊗ E³ = 5A₁ ⊕ 5A₂ ⊕ 9E. The ℓ₁ + ℓ₂ ≡ 0 (mod 3) pairs give (|**ℓ**⟩ ± |−**ℓ**⟩)/√2, and the rest are E pairs with ¹E the ℓ_tot ≡ 2 (mod 3) member.
+- **Law 2: coupling of harmonic layers (vector-like 3D modes).** Sym^a ⊗ Sym^b = ⊕_{L₁, L₂} ⊕_{L=|L₁−L₂|}^{L₁+L₂} D^L|_G ⊗ [det^{L₁+L₂} ε₁^{L₁} ε₂^{L₂}]. The layers couple like ordinary angular momenta, with parity set by L₁ + L₂.
+- **Law 3: general.** For other pairs, such as E ⊗ T₂ in T_d or the icosahedral G and H modes, use the product table of G and point-group Clebsch–Gordan coefficients. The PDF gives multiplicity grids for every pair of modes of the cubic and icosahedral groups.
+
+Worked combination bands with explicit states:
+- C₃ᵥ E⁶ ⊗ E³ and E² ⊗ E²;
+- D₆ₕ E₁ᵤ² ⊗ E₂g²;
+- T_d E ⊗ T₂ and T₂² ⊗ T₂;
+- O_h T₁ᵤ ⊗ T₂g.
+
 **Checks.** `python salc_tables.py` stops if any of these fails:
 - **Residue tables:** each one is compared with the projector construction for every v ≤ 2N′ + 2 and every ℓ.
 - **Harmonic tables:** checked for L ≤ 6 (explicit harmonic SALCs are listed up to L = 6). The factorised SALCs and the norm formula are checked for v ≤ 6.
 - **Every listed set of states** is orthonormal, complete, and transforms with the irrep matrices of `pointgroups.py`.
 - **Multiplicities** agree with GTPack for the 32 crystallographic groups.
+- **Law 1** is verified in every group with 2D modes, for every pair of modes and 1 ≤ v₁, v₂ ≤ 4, and for every triple at three patterns. The states it prescribes are checked to be orthonormal, complete and covariant.
+- **Law 2** is verified for every pair of vector-like modes, 1 ≤ a, b ≤ 4.
 
 ```bash
-python salc_tables.py                        # writes salc_tables.tex and .json (about 30 s)
+python salc_tables.py                        # writes salc_tables.tex and .json (a few minutes)
 pdflatex salc_tables.tex                     # run twice for the table of contents
 wolframscript -file multiplicities_gtpack.wl # optional: regenerates multiplicities_gtpack.json
 ```
