@@ -24,6 +24,10 @@ Every script uses the main text's basis conventions, the same ones the rotationa
 | [`overtones_C3v_E.wl`](overtones_C3v_E.wl) | The n-quantum overtone of one E mode in C₃ᵥ (ν₄ of NH₃, ν₈ of CaOCH₃): A₁/A₂ states and partner-resolved ¹E/²E pairs, \|¹E⟩ = \|ℓ⟩, \|²E⟩ = \|−ℓ⟩ with ℓ ≡ 2 (mod 3). Self-contained (explicit C₃ᵥ matrices). | — |
 | [`overtones_Td_T2.wl`](overtones_Td_T2.wl) | The N-quantum overtone Sym^N(T₂) of one T₂ mode in T_d (ν₃, ν₄ of CH₄): Sym²T₂ = A₁ ⊕ E ⊕ T₂, Sym³T₂ = A₁ ⊕ T₁ ⊕ 2T₂, …, with repeated irreps split into individual partner-resolved copies. Self-contained (T_d built as signed permutation matrices). | — |
 | [`example_outputs/`](example_outputs) | Console output of each script: C₃ᵥ n = 6, T_d N = 2 and N = 3, CaOCH₃ one quantum per mode | — |
+| [`overtone_tables.pdf`](overtone_tables.pdf) | **Overtone tables for every point group** (5 pages): which irreps v quanta of one degenerate mode contain, for all point groups of rigid molecules. See [below](#overtone-tables-for-all-point-groups). | — |
+| [`overtone_tables.py`](overtone_tables.py) | Generates `overtone_tables.tex` and `overtone_tables.json` and runs all checks. Self-contained Python: builds each group from 3×3 matrices and computes its character table itself. | NumPy, SymPy |
+| [`overtone_tables.json`](overtone_tables.json) | Multiplicities m_Γ(v), v ≤ 12, for every degenerate mode of 23 representative groups | — |
+| [`overtone_tables_gtpack.wl`](overtone_tables_gtpack.wl) | Independent computation of the same decompositions from GTPack character tables (32 crystallographic groups); writes `overtone_tables_gtpack.json`, which `overtone_tables.py` compares against | GTPack |
 
 Each script checks its own result, and these checks print `True` in the example outputs:
 - **Both overtone scripts:** U(R) is a representation, and the irrep matrices respect the same group products.
@@ -65,10 +69,42 @@ For repeated irreps the copy index k is fixed only up to a U(m_Γ) rotation (The
 | Two E quanta | A₁ = \|1,1⟩ (ℓ = 0); ¹E = \|2,0⟩ (ℓ = +2) | [E²] = A₁ ⊕ E; C₃ = diag(ω, 1, ω²) on \|+2⟩, \|0⟩, \|−2⟩ |
 | Two T₂ quanta (T_d) | ¹E ∝ Σᵢ ω^{−i}\|2ᵢ⟩, ²E ∝ Σᵢ ω^{+i}\|2ᵢ⟩ (one common phase) | \|¹,²E⟩_{2ν₄} = 3^{−1/2} Σᵢ ω^{∓i}\|2ᵢ⟩ |
 
+## Overtone tables for all point groups
+
+The species content of a vibrational manifold depends only on the point group and on the mode species, not on the molecule. [`overtone_tables.pdf`](overtone_tables.pdf) gives the decomposition
+
+Sym^v Γ_s = ⊕_Γ m_Γ(v) Γ
+
+of v quanta in one degenerate mode for every point group of a rigid molecule. That covers the 32 crystallographic groups, C₅ᵥ, D₅, D₅ₕ, D₅d, D₄d (cyclo-S₈), I, I_h, and the linear groups. A molecule enters only through its list of mode species. The document contains:
+- **Reduction rules (R1)–(R4):** nondegenerate modes; inversion (g/u) and σ_h (′/″) factors, applied as (parity)^v; combination bands as tensor products.
+- **One closed-form rule for every E_k mode of C_nv, D_n, D_nh, D_nd, for any n.** In terms of the vibrational angular momentum ℓ: with r = kℓ mod N, each ±ℓ pair gives A₁⊕A₂ (r = 0), B₁⊕B₂ (r = N/2) or E_min(r, N−r). Cyclic and linear-molecule variants are included.
+- **Decomposition tables** for C₃ᵥ, C₄ᵥ, C₅ᵥ, C₆ᵥ and D₄d up to v = 8, and **multiplicity tables** for the cubic (T_d, O, T) and icosahedral (I) modes up to v = 12.
+- **Explicit v = 2, 3 states** of a triply degenerate mode (cubic harmonics), with their species in T_d, O and T.
+- **An index** saying where each group's degenerate modes are covered.
+
+The phase conventions match the rest of this folder: U(C_n) = e^{−2πiℓ/n}, a ¹E quantum carries ℓ = −1, and T₁ = det R · R.
+
+**Checks.** `python overtone_tables.py` stops if any of these fails:
+- **Dimensions:** every row satisfies Σ_Γ m_Γ(v) d_Γ = C(v+d_s−1, d_s−1).
+- **The ℓ rule:** agrees with direct computation for C_nv, D_n and D_nd, 3 ≤ n ≤ 10, v ≤ 12 (832 decompositions).
+- **Inversion and σ_h rules:** agree for D₃d, D₃ₕ, D₄ₕ, D₅d, D₅ₕ, D₆ₕ, T_h, O_h and I_h (468 decompositions).
+- **T_d and O:** give identical tables with identical labels.
+- **The explicit cubic states:** carry the stated species (character projection).
+- **GTPack:** agreement for all 32 crystallographic groups, every degenerate mode, v ≤ 12, label-free.
+
+In addition, `overtones_C3v_E.wl` (v ≤ 8) and `overtones_Td_T2.wl` (v ≤ 6) reproduce the C₃ᵥ and T_d entries.
+
+```bash
+python overtone_tables.py                  # writes overtone_tables.tex and .json (a few seconds)
+pdflatex overtone_tables.tex
+wolframscript -file overtone_tables_gtpack.wl   # optional: regenerates overtone_tables_gtpack.json
+```
+
 ## Requirements
 
 - Mathematica or the Wolfram Engine with `wolframscript` (tested with 14.3).
-- [GTPack](https://gtpack.org) (tested with 1.4) for `salc_fock_basis.wl` only, loaded with ``Needs["GroupTheory`"]``.
+- [GTPack](https://gtpack.org) (tested with 1.4) for `salc_fock_basis.wl` and `overtone_tables_gtpack.wl` only, loaded with ``Needs["GroupTheory`"]``.
+- Python ≥ 3.10 with NumPy and SymPy for `overtone_tables.py`.
 
 ## Changes from earlier versions
 
