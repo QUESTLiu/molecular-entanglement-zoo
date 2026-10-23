@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[margin=2.2cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm,braket,float}
+\usepackage{amsmath,amssymb,amsthm,braket,float,longtable}
 \usepackage[hidelinks]{hyperref}
 \emergencystretch=3em
 \newtheorem{proposition}{Proposition}
@@ -9,6 +9,10 @@
 \date{}
 \begin{document}
 \maketitle
+\tableofcontents
+\bigskip
+
+\part{Rules and representative tables}
 
 \section{Scope}
 
@@ -21,7 +25,7 @@ the decomposition of $v$ quanta in a single mode $s$; they are the multiplicitie
 \sum_{v\ge0}m_\Gamma(v)\,t^v=\frac{1}{|\mathsf G|}\sum_{R\in\mathsf G}\frac{\chi^*_\Gamma(R)}{\det\bigl[1-t\,D^{\Gamma_s}(R)\bigr]} .
 \label{eq:molien}
 \end{equation}
-Table~\ref{tab:index} lists, for each group, where its degenerate modes are treated. The same data, for $v\le12$, are in \texttt{overtone\_tables.json}.
+Part~I below states the general rules and gives representative tables; Table~\ref{tab:index} lists, for each group, where its degenerate modes are treated. Part~II (Sec.~\ref{sec:complete}) lists every group explicitly: all 61 groups in the scope of the species tables (\texttt{../species\_tables}), with the same Mulliken labels, every degenerate mode, and $v\le10$. The same data, for $v\le12$, are in \texttt{overtone\_tables.json}.
 
 \paragraph{Verification.} The tables are produced by \texttt{overtone\_tables.py}, which generates each group from $3\times3$ orthogonal matrices, computes its character table from the class algebra, and obtains the characters of $\mathrm{Sym}^v\Gamma_s$ from the power sums $p_k(R)=\chi_{\Gamma_s}(R^k)$ through Newton's identity $h_v=v^{-1}\sum_{k=1}^v p_k\,h_{v-k}$. Independently, \texttt{overtone\_tables\_gtpack.wl} computes the same decompositions from the GTPack character tables of the 32 crystallographic groups; the two agree for every group, every degenerate mode, and every $v\le12$. The explicit projector scripts of this folder, \texttt{overtones\_C3v\_E.wl} ($v\le8$) and \texttt{overtones\_Td\_T2.wl} ($v\le6$) reproduce the $C_{3v}$ and $T_d$ entries. The script also verifies rules (R2) and (R3) below against direct computation for $D_{3d}$, $D_{3h}$, $D_{4h}$, $D_{5d}$, $D_{5h}$, $D_{6h}$, $T_h$, $O_h$, and $I_h$. Every row satisfies $\sum_\Gamma m_\Gamma(v)\,d_\Gamma=\binom{v+d_s-1}{d_s-1}$.
 
@@ -247,5 +251,2267 @@ $I_h$ & $T_{1g},\ldots,H_u$ & as $I$, with (R2)\\
 \caption{Where to find the overtone decomposition of every degenerate mode, for all point groups of rigid molecules.}
 \label{tab:index}
 \end{table}
+
+\clearpage
+\part{Complete tables}
+\section{All point groups}
+\label{sec:complete}
+
+Every closed subgroup of $\mathsf O(3)$ in the scope of the species tables: $C_1$, $C_s$, $C_i$; the axial families $C_n$, $C_{nv}$, $C_{nh}$, $S_{2n}$, $D_n$, $D_{nh}$, $D_{nd}$ for $n=2,\ldots,8$; $T$, $T_h$, $T_d$, $O$, $O_h$, $I$, $I_h$; and the linear groups $C_{\infty v}$, $D_{\infty h}$. Groups, irreps, and labels are those of \texttt{species\_tables/pointgroups.py}. For each degenerate mode $\Gamma_s$, the table lists $\mathrm{Sym}^v\Gamma_s$ for $v=1,\ldots,10$. A separably degenerate mode appears as its pair ${}^1E\oplus{}^2E$. For each group, the script checks these entries against its own independent construction of the group, without using labels.
+
+\subsection*{$C_1$ \quad (order 1)}
+\addcontentsline{toc}{subsection}{$C_1$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{\mathrm s}$ \quad (order 2)}
+\addcontentsline{toc}{subsection}{$C_{\mathrm s}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{\mathrm i}$ \quad (order 2)}
+\addcontentsline{toc}{subsection}{$C_{\mathrm i}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{2}$ \quad (order 2)}
+\addcontentsline{toc}{subsection}{$C_{2}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{3}$ \quad (order 3)}
+\addcontentsline{toc}{subsection}{$C_{3}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E\oplus {}^{2}E$ & 1 & ${}^{1}E\oplus {}^{2}E$\\
+ & 2 & $A\oplus {}^{1}E\oplus {}^{2}E$\\
+ & 3 & $2\,A\oplus {}^{1}E\oplus {}^{2}E$\\
+ & 4 & $A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 5 & $2\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 7 & $2\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 9 & $4\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E\oplus 4\,{}^{2}E$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{4}$ \quad (order 4)}
+\addcontentsline{toc}{subsection}{$C_{4}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E\oplus {}^{2}E$ & 1 & ${}^{1}E\oplus {}^{2}E$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E\oplus 4\,{}^{2}E$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E\oplus 5\,{}^{2}E$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{5}$ \quad (order 5)}
+\addcontentsline{toc}{subsection}{$C_{5}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 4 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 6 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 7 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 8 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $2\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 10 & $3\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 4 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 6 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 8 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $2\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 10 & $3\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{6}$ \quad (order 6)}
+\addcontentsline{toc}{subsection}{$C_{6}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & $2\,B\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 4 & $A\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 5 & $2\,B\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,B\oplus 3\,{}^{1}E_{1}\oplus 3\,{}^{2}E_{1}$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 9 & $4\,B\oplus 3\,{}^{1}E_{1}\oplus 3\,{}^{2}E_{1}$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E_{2}\oplus 4\,{}^{2}E_{2}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & $2\,A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 4 & $A\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 5 & $2\,A\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,A\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 9 & $4\,A\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E_{2}\oplus 4\,{}^{2}E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{7}$ \quad (order 7)}
+\addcontentsline{toc}{subsection}{$C_{7}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 6 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 7 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 8 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 9 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 10 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 4 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 6 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 7 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 8 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 9 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 10 & $A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+\hline
+${}^{1}E_{3}\oplus {}^{2}E_{3}$ & 1 & ${}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 2 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 3 & ${}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 6 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 7 & $2\,A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 8 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 9 & $2\,A\oplus 2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 10 & $A\oplus {}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{8}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$C_{8}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $3\,{}^{1}E_{1}\oplus 3\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E_{2}\oplus 4\,{}^{2}E_{2}$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E_{2}\oplus 5\,{}^{2}E_{2}$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+${}^{1}E_{3}\oplus {}^{2}E_{3}$ & 1 & ${}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 3\,{}^{1}E_{3}\oplus 3\,{}^{2}E_{3}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{2\mathrm{v}}$ \quad (order 4)}
+\addcontentsline{toc}{subsection}{$C_{2\mathrm{v}}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{3\mathrm{v}}$ \quad (order 6)}
+\addcontentsline{toc}{subsection}{$C_{3\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus E$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E$\\
+ & 4 & $A_{1}\oplus 2\,E$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{4\mathrm{v}}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$C_{4\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{5\mathrm{v}}$ \quad (order 10)}
+\addcontentsline{toc}{subsection}{$C_{5\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}$\\
+ & 6 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus 2\,E_{2}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{1}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus E_{2}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{6\mathrm{v}}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$C_{6\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $B_{1}\oplus B_{2}\oplus E_{1}$\\
+ & 4 & $A_{1}\oplus 2\,E_{2}$\\
+ & 5 & $B_{1}\oplus B_{2}\oplus 2\,E_{1}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 7 & $B_{1}\oplus B_{2}\oplus 3\,E_{1}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 9 & $2\,B_{1}\oplus 2\,B_{2}\oplus 3\,E_{1}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus 2\,E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{7\mathrm{v}}$ \quad (order 14)}
+\addcontentsline{toc}{subsection}{$C_{7\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+ & 10 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{3}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{3}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+ & 10 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{1}$\\
+ & 3 & $E_{2}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 10 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}\oplus 2\,E_{3}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{8\mathrm{v}}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$C_{8\mathrm{v}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $E_{1}\oplus 2\,E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $3\,E_{1}\oplus 2\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E_{2}$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E_{2}$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E_{2}$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $2\,E_{1}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $2\,E_{1}\oplus 3\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{2\mathrm{h}}$ \quad (order 4)}
+\addcontentsline{toc}{subsection}{$C_{2\mathrm{h}}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$C_{3\mathrm{h}}$ \quad (order 6)}
+\addcontentsline{toc}{subsection}{$C_{3\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E'\oplus {}^{2}E'$ & 1 & ${}^{1}E'\oplus {}^{2}E'$\\
+ & 2 & $A'\oplus {}^{1}E'\oplus {}^{2}E'$\\
+ & 3 & $2\,A'\oplus {}^{1}E'\oplus {}^{2}E'$\\
+ & 4 & $A'\oplus 2\,{}^{1}E'\oplus 2\,{}^{2}E'$\\
+ & 5 & $2\,A'\oplus 2\,{}^{1}E'\oplus 2\,{}^{2}E'$\\
+ & 6 & $3\,A'\oplus 2\,{}^{1}E'\oplus 2\,{}^{2}E'$\\
+ & 7 & $2\,A'\oplus 3\,{}^{1}E'\oplus 3\,{}^{2}E'$\\
+ & 8 & $3\,A'\oplus 3\,{}^{1}E'\oplus 3\,{}^{2}E'$\\
+ & 9 & $4\,A'\oplus 3\,{}^{1}E'\oplus 3\,{}^{2}E'$\\
+ & 10 & $3\,A'\oplus 4\,{}^{1}E'\oplus 4\,{}^{2}E'$\\
+\hline
+${}^{1}E''\oplus {}^{2}E''$ & 1 & ${}^{1}E''\oplus {}^{2}E''$\\
+ & 2 & $A'\oplus {}^{1}E'\oplus {}^{2}E'$\\
+ & 3 & $2\,A''\oplus {}^{1}E''\oplus {}^{2}E''$\\
+ & 4 & $A'\oplus 2\,{}^{1}E'\oplus 2\,{}^{2}E'$\\
+ & 5 & $2\,A''\oplus 2\,{}^{1}E''\oplus 2\,{}^{2}E''$\\
+ & 6 & $3\,A'\oplus 2\,{}^{1}E'\oplus 2\,{}^{2}E'$\\
+ & 7 & $2\,A''\oplus 3\,{}^{1}E''\oplus 3\,{}^{2}E''$\\
+ & 8 & $3\,A'\oplus 3\,{}^{1}E'\oplus 3\,{}^{2}E'$\\
+ & 9 & $4\,A''\oplus 3\,{}^{1}E''\oplus 3\,{}^{2}E''$\\
+ & 10 & $3\,A'\oplus 4\,{}^{1}E'\oplus 4\,{}^{2}E'$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{4\mathrm{h}}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$C_{4\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{g}\oplus {}^{2}E_{g}$ & 1 & ${}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 2 & $A_{g}\oplus 2\,B_{g}$\\
+ & 3 & $2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 4 & $3\,A_{g}\oplus 2\,B_{g}$\\
+ & 5 & $3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 6 & $3\,A_{g}\oplus 4\,B_{g}$\\
+ & 7 & $4\,{}^{1}E_{g}\oplus 4\,{}^{2}E_{g}$\\
+ & 8 & $5\,A_{g}\oplus 4\,B_{g}$\\
+ & 9 & $5\,{}^{1}E_{g}\oplus 5\,{}^{2}E_{g}$\\
+ & 10 & $5\,A_{g}\oplus 6\,B_{g}$\\
+\hline
+${}^{1}E_{u}\oplus {}^{2}E_{u}$ & 1 & ${}^{1}E_{u}\oplus {}^{2}E_{u}$\\
+ & 2 & $A_{g}\oplus 2\,B_{g}$\\
+ & 3 & $2\,{}^{1}E_{u}\oplus 2\,{}^{2}E_{u}$\\
+ & 4 & $3\,A_{g}\oplus 2\,B_{g}$\\
+ & 5 & $3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}$\\
+ & 6 & $3\,A_{g}\oplus 4\,B_{g}$\\
+ & 7 & $4\,{}^{1}E_{u}\oplus 4\,{}^{2}E_{u}$\\
+ & 8 & $5\,A_{g}\oplus 4\,B_{g}$\\
+ & 9 & $5\,{}^{1}E_{u}\oplus 5\,{}^{2}E_{u}$\\
+ & 10 & $5\,A_{g}\oplus 6\,B_{g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{5\mathrm{h}}$ \quad (order 10)}
+\addcontentsline{toc}{subsection}{$C_{5\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}'\oplus {}^{2}E_{1}'$ & 1 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 2 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 3 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 6 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 7 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 9 & $2\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 10 & $3\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+\hline
+${}^{1}E_{2}'\oplus {}^{2}E_{2}'$ & 1 & ${}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 2 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 3 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 7 & $2\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 9 & $2\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 10 & $3\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+\hline
+${}^{1}E_{1}''\oplus {}^{2}E_{1}''$ & 1 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''$\\
+ & 2 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 3 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 6 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 7 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus 2\,{}^{1}E_{2}''\oplus 2\,{}^{2}E_{2}''$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 9 & $2\,A''\oplus 2\,{}^{1}E_{1}''\oplus 2\,{}^{2}E_{1}''\oplus 2\,{}^{1}E_{2}''\oplus 2\,{}^{2}E_{2}''$\\
+ & 10 & $3\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+\hline
+${}^{1}E_{2}''\oplus {}^{2}E_{2}''$ & 1 & ${}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 2 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 3 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 7 & $2\,A''\oplus 2\,{}^{1}E_{1}''\oplus 2\,{}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+ & 9 & $2\,A''\oplus 2\,{}^{1}E_{1}''\oplus 2\,{}^{2}E_{1}''\oplus 2\,{}^{1}E_{2}''\oplus 2\,{}^{2}E_{2}''$\\
+ & 10 & $3\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{6\mathrm{h}}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$C_{6\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1g}\oplus {}^{2}E_{1g}$ & 1 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & $2\,B_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 5 & $2\,B_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,B_{g}\oplus 3\,{}^{1}E_{1g}\oplus 3\,{}^{2}E_{1g}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 9 & $4\,B_{g}\oplus 3\,{}^{1}E_{1g}\oplus 3\,{}^{2}E_{1g}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{2g}\oplus 4\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2g}\oplus {}^{2}E_{2g}$ & 1 & ${}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & $2\,A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 5 & $2\,A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 9 & $4\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{2g}\oplus 4\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{1u}\oplus {}^{2}E_{1u}$ & 1 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & $2\,B_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 5 & $2\,B_{u}\oplus 2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,B_{u}\oplus 3\,{}^{1}E_{1u}\oplus 3\,{}^{2}E_{1u}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 9 & $4\,B_{u}\oplus 3\,{}^{1}E_{1u}\oplus 3\,{}^{2}E_{1u}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{2g}\oplus 4\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2u}\oplus {}^{2}E_{2u}$ & 1 & ${}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & $2\,A_{u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 5 & $2\,A_{u}\oplus 2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,A_{u}\oplus 3\,{}^{1}E_{2u}\oplus 3\,{}^{2}E_{2u}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 9 & $4\,A_{u}\oplus 3\,{}^{1}E_{2u}\oplus 3\,{}^{2}E_{2u}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{2g}\oplus 4\,{}^{2}E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{7\mathrm{h}}$ \quad (order 14)}
+\addcontentsline{toc}{subsection}{$C_{7\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}'\oplus {}^{2}E_{1}'$ & 1 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 2 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 3 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 4 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 5 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 9 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 10 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+\hline
+${}^{1}E_{2}'\oplus {}^{2}E_{2}'$ & 1 & ${}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 2 & $A'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 3 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 5 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 8 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 9 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+ & 10 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+\hline
+${}^{1}E_{3}'\oplus {}^{2}E_{3}'$ & 1 & ${}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 2 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 3 & ${}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & ${}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 8 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+ & 9 & $2\,A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 10 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+\hline
+${}^{1}E_{1}''\oplus {}^{2}E_{1}''$ & 1 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''$\\
+ & 2 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 3 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 4 & $A'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 5 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 8 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 9 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus 2\,{}^{1}E_{2}''\oplus 2\,{}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 10 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+\hline
+${}^{1}E_{2}''\oplus {}^{2}E_{2}''$ & 1 & ${}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 2 & $A'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 3 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 5 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 8 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 9 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus 2\,{}^{1}E_{3}''\oplus 2\,{}^{2}E_{3}''$\\
+ & 10 & $A'\oplus 2\,{}^{1}E_{1}'\oplus 2\,{}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+\hline
+${}^{1}E_{3}''\oplus {}^{2}E_{3}''$ & 1 & ${}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 2 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'$\\
+ & 3 & ${}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 4 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'$\\
+ & 5 & ${}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 6 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus {}^{1}E_{3}'\oplus {}^{2}E_{3}'$\\
+ & 7 & $2\,A''\oplus {}^{1}E_{1}''\oplus {}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 8 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus {}^{1}E_{2}'\oplus {}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+ & 9 & $2\,A''\oplus 2\,{}^{1}E_{1}''\oplus 2\,{}^{2}E_{1}''\oplus {}^{1}E_{2}''\oplus {}^{2}E_{2}''\oplus {}^{1}E_{3}''\oplus {}^{2}E_{3}''$\\
+ & 10 & $A'\oplus {}^{1}E_{1}'\oplus {}^{2}E_{1}'\oplus 2\,{}^{1}E_{2}'\oplus 2\,{}^{2}E_{2}'\oplus 2\,{}^{1}E_{3}'\oplus 2\,{}^{2}E_{3}'$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{8\mathrm{h}}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$C_{8\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1g}\oplus {}^{2}E_{1g}$ & 1 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 4 & $A_{g}\oplus 2\,B_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 6 & $A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 8 & $3\,A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $3\,{}^{1}E_{1g}\oplus 3\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,B_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2g}\oplus {}^{2}E_{2g}$ & 1 & ${}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 2 & $A_{g}\oplus 2\,B_{g}$\\
+ & 3 & $2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 4 & $3\,A_{g}\oplus 2\,B_{g}$\\
+ & 5 & $3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+ & 6 & $3\,A_{g}\oplus 4\,B_{g}$\\
+ & 7 & $4\,{}^{1}E_{2g}\oplus 4\,{}^{2}E_{2g}$\\
+ & 8 & $5\,A_{g}\oplus 4\,B_{g}$\\
+ & 9 & $5\,{}^{1}E_{2g}\oplus 5\,{}^{2}E_{2g}$\\
+ & 10 & $5\,A_{g}\oplus 6\,B_{g}$\\
+\hline
+${}^{1}E_{3g}\oplus {}^{2}E_{3g}$ & 1 & ${}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 4 & $A_{g}\oplus 2\,B_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 6 & $A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 8 & $3\,A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 3\,{}^{1}E_{3g}\oplus 3\,{}^{2}E_{3g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,B_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{1u}\oplus {}^{2}E_{1u}$ & 1 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 4 & $A_{g}\oplus 2\,B_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus 2\,{}^{1}E_{3u}\oplus 2\,{}^{2}E_{3u}$\\
+ & 6 & $A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus 2\,{}^{1}E_{3u}\oplus 2\,{}^{2}E_{3u}$\\
+ & 8 & $3\,A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $3\,{}^{1}E_{1u}\oplus 3\,{}^{2}E_{1u}\oplus 2\,{}^{1}E_{3u}\oplus 2\,{}^{2}E_{3u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,B_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2u}\oplus {}^{2}E_{2u}$ & 1 & ${}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 2 & $A_{g}\oplus 2\,B_{g}$\\
+ & 3 & $2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}$\\
+ & 4 & $3\,A_{g}\oplus 2\,B_{g}$\\
+ & 5 & $3\,{}^{1}E_{2u}\oplus 3\,{}^{2}E_{2u}$\\
+ & 6 & $3\,A_{g}\oplus 4\,B_{g}$\\
+ & 7 & $4\,{}^{1}E_{2u}\oplus 4\,{}^{2}E_{2u}$\\
+ & 8 & $5\,A_{g}\oplus 4\,B_{g}$\\
+ & 9 & $5\,{}^{1}E_{2u}\oplus 5\,{}^{2}E_{2u}$\\
+ & 10 & $5\,A_{g}\oplus 6\,B_{g}$\\
+\hline
+${}^{1}E_{3u}\oplus {}^{2}E_{3u}$ & 1 & ${}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 4 & $A_{g}\oplus 2\,B_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 6 & $A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus 2\,{}^{1}E_{3u}\oplus 2\,{}^{2}E_{3u}$\\
+ & 8 & $3\,A_{g}\oplus 2\,B_{g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus 3\,{}^{1}E_{3u}\oplus 3\,{}^{2}E_{3u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,B_{g}\oplus 3\,{}^{1}E_{2g}\oplus 3\,{}^{2}E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{4}$ \quad (order 4)}
+\addcontentsline{toc}{subsection}{$S_{4}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E\oplus {}^{2}E$ & 1 & ${}^{1}E\oplus {}^{2}E$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E\oplus 4\,{}^{2}E$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E\oplus 5\,{}^{2}E$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{6}$ \quad (order 6)}
+\addcontentsline{toc}{subsection}{$S_{6}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{g}\oplus {}^{2}E_{g}$ & 1 & ${}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 3 & $2\,A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 5 & $2\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 7 & $2\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 9 & $4\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{g}\oplus 4\,{}^{2}E_{g}$\\
+\hline
+${}^{1}E_{u}\oplus {}^{2}E_{u}$ & 1 & ${}^{1}E_{u}\oplus {}^{2}E_{u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 3 & $2\,A_{u}\oplus {}^{1}E_{u}\oplus {}^{2}E_{u}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 5 & $2\,A_{u}\oplus 2\,{}^{1}E_{u}\oplus 2\,{}^{2}E_{u}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 7 & $2\,A_{u}\oplus 3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 9 & $4\,A_{u}\oplus 3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{g}\oplus 4\,{}^{2}E_{g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{8}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$S_{8}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $3\,{}^{1}E_{1}\oplus 3\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E_{2}\oplus 4\,{}^{2}E_{2}$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E_{2}\oplus 5\,{}^{2}E_{2}$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+${}^{1}E_{3}\oplus {}^{2}E_{3}$ & 1 & ${}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 5 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 7 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 9 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 3\,{}^{1}E_{3}\oplus 3\,{}^{2}E_{3}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{10}$ \quad (order 10)}
+\addcontentsline{toc}{subsection}{$S_{10}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1g}\oplus {}^{2}E_{1g}$ & 1 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 6 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 7 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2g}\oplus {}^{2}E_{2g}$ & 1 & ${}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{1u}\oplus {}^{2}E_{1u}$ & 1 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 6 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 7 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus 2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,A_{u}\oplus 2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus 2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+\hline
+${}^{1}E_{2u}\oplus {}^{2}E_{2u}$ & 1 & ${}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 7 & $2\,A_{u}\oplus 2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+ & 9 & $2\,A_{u}\oplus 2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus 2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{12}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$S_{12}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 6 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 7 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus 2\,{}^{1}E_{5}\oplus 2\,{}^{2}E_{5}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 9 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}\oplus 2\,{}^{1}E_{5}\oplus 2\,{}^{2}E_{5}$\\
+ & 10 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 3 & $2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 4 & $A\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 5 & $2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 7 & $2\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+ & 9 & $4\,B\oplus 3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E_{4}\oplus 4\,{}^{2}E_{4}$\\
+\hline
+${}^{1}E_{3}\oplus {}^{2}E_{3}$ & 1 & ${}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E_{3}\oplus 3\,{}^{2}E_{3}$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E_{3}\oplus 4\,{}^{2}E_{3}$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E_{3}\oplus 5\,{}^{2}E_{3}$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+${}^{1}E_{4}\oplus {}^{2}E_{4}$ & 1 & ${}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 2 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 3 & $2\,A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 4 & $A\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 5 & $2\,A\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 7 & $2\,A\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+ & 9 & $4\,A\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E_{4}\oplus 4\,{}^{2}E_{4}$\\
+\hline
+${}^{1}E_{5}\oplus {}^{2}E_{5}$ & 1 & ${}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 4 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 6 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 7 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 9 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 10 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{14}$ \quad (order 14)}
+\addcontentsline{toc}{subsection}{$S_{14}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1g}\oplus {}^{2}E_{1g}$ & 1 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 5 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 9 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 10 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+\hline
+${}^{1}E_{2g}\oplus {}^{2}E_{2g}$ & 1 & ${}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 3 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 5 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 8 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 9 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 10 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+\hline
+${}^{1}E_{3g}\oplus {}^{2}E_{3g}$ & 1 & ${}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 3 & ${}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & ${}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 8 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 9 & $2\,A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 10 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+\hline
+${}^{1}E_{1u}\oplus {}^{2}E_{1u}$ & 1 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 5 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 8 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 9 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus 2\,{}^{1}E_{2u}\oplus 2\,{}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 10 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+\hline
+${}^{1}E_{2u}\oplus {}^{2}E_{2u}$ & 1 & ${}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 3 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 5 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 8 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 9 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus 2\,{}^{1}E_{3u}\oplus 2\,{}^{2}E_{3u}$\\
+ & 10 & $A_{g}\oplus 2\,{}^{1}E_{1g}\oplus 2\,{}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+\hline
+${}^{1}E_{3u}\oplus {}^{2}E_{3u}$ & 1 & ${}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}$\\
+ & 3 & ${}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 4 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}$\\
+ & 5 & ${}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 6 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus {}^{1}E_{3g}\oplus {}^{2}E_{3g}$\\
+ & 7 & $2\,A_{u}\oplus {}^{1}E_{1u}\oplus {}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 8 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus {}^{1}E_{2g}\oplus {}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+ & 9 & $2\,A_{u}\oplus 2\,{}^{1}E_{1u}\oplus 2\,{}^{2}E_{1u}\oplus {}^{1}E_{2u}\oplus {}^{2}E_{2u}\oplus {}^{1}E_{3u}\oplus {}^{2}E_{3u}$\\
+ & 10 & $A_{g}\oplus {}^{1}E_{1g}\oplus {}^{2}E_{1g}\oplus 2\,{}^{1}E_{2g}\oplus 2\,{}^{2}E_{2g}\oplus 2\,{}^{1}E_{3g}\oplus 2\,{}^{2}E_{3g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$S_{16}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$S_{16}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{1}\oplus {}^{2}E_{1}$ & 1 & ${}^{1}E_{1}\oplus {}^{2}E_{1}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 4 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 6 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 7 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 9 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus 2\,{}^{1}E_{7}\oplus 2\,{}^{2}E_{7}$\\
+ & 10 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+\hline
+${}^{1}E_{2}\oplus {}^{2}E_{2}$ & 1 & ${}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 2 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 3 & ${}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & ${}^{1}E_{2}\oplus {}^{2}E_{2}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 7 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 9 & $3\,{}^{1}E_{2}\oplus 3\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+\hline
+${}^{1}E_{3}\oplus {}^{2}E_{3}$ & 1 & ${}^{1}E_{3}\oplus {}^{2}E_{3}$\\
+ & 2 & $A\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 3 & ${}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 4 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 6 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 7 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 9 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus 2\,{}^{1}E_{5}\oplus 2\,{}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 10 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+\hline
+${}^{1}E_{4}\oplus {}^{2}E_{4}$ & 1 & ${}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 2 & $A\oplus 2\,B$\\
+ & 3 & $2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 4 & $3\,A\oplus 2\,B$\\
+ & 5 & $3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+ & 6 & $3\,A\oplus 4\,B$\\
+ & 7 & $4\,{}^{1}E_{4}\oplus 4\,{}^{2}E_{4}$\\
+ & 8 & $5\,A\oplus 4\,B$\\
+ & 9 & $5\,{}^{1}E_{4}\oplus 5\,{}^{2}E_{4}$\\
+ & 10 & $5\,A\oplus 6\,B$\\
+\hline
+${}^{1}E_{5}\oplus {}^{2}E_{5}$ & 1 & ${}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 2 & $A\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 3 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}$\\
+ & 4 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 5 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 6 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 7 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 9 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus 2\,{}^{1}E_{3}\oplus 2\,{}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 10 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+\hline
+${}^{1}E_{6}\oplus {}^{2}E_{6}$ & 1 & ${}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 2 & $A\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 3 & ${}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 4 & $A\oplus 2\,B\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 6 & $A\oplus 2\,B\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 7 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+ & 8 & $3\,A\oplus 2\,B\oplus 2\,{}^{1}E_{4}\oplus 2\,{}^{2}E_{4}$\\
+ & 9 & $2\,{}^{1}E_{2}\oplus 2\,{}^{2}E_{2}\oplus 3\,{}^{1}E_{6}\oplus 3\,{}^{2}E_{6}$\\
+ & 10 & $3\,A\oplus 2\,B\oplus 3\,{}^{1}E_{4}\oplus 3\,{}^{2}E_{4}$\\
+\hline
+${}^{1}E_{7}\oplus {}^{2}E_{7}$ & 1 & ${}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 2 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}$\\
+ & 3 & ${}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 4 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}$\\
+ & 5 & ${}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 6 & $A\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 7 & ${}^{1}E_{1}\oplus {}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 8 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus {}^{1}E_{6}\oplus {}^{2}E_{6}$\\
+ & 9 & $2\,{}^{1}E_{1}\oplus 2\,{}^{2}E_{1}\oplus {}^{1}E_{3}\oplus {}^{2}E_{3}\oplus {}^{1}E_{5}\oplus {}^{2}E_{5}\oplus {}^{1}E_{7}\oplus {}^{2}E_{7}$\\
+ & 10 & $A\oplus 2\,B\oplus {}^{1}E_{2}\oplus {}^{2}E_{2}\oplus {}^{1}E_{4}\oplus {}^{2}E_{4}\oplus 2\,{}^{1}E_{6}\oplus 2\,{}^{2}E_{6}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{2}$ \quad (order 4)}
+\addcontentsline{toc}{subsection}{$D_{2}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$D_{3}$ \quad (order 6)}
+\addcontentsline{toc}{subsection}{$D_{3}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus E$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E$\\
+ & 4 & $A_{1}\oplus 2\,E$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{4}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$D_{4}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{5}$ \quad (order 10)}
+\addcontentsline{toc}{subsection}{$D_{5}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}$\\
+ & 6 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus 2\,E_{2}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{1}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus E_{2}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus 2\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{6}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$D_{6}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $B_{1}\oplus B_{2}\oplus E_{1}$\\
+ & 4 & $A_{1}\oplus 2\,E_{2}$\\
+ & 5 & $B_{1}\oplus B_{2}\oplus 2\,E_{1}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 7 & $B_{1}\oplus B_{2}\oplus 3\,E_{1}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 9 & $2\,B_{1}\oplus 2\,B_{2}\oplus 3\,E_{1}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus 2\,E_{2}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{2}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{2}$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{7}$ \quad (order 14)}
+\addcontentsline{toc}{subsection}{$D_{7}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+ & 10 & $A_{1}\oplus 2\,E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{3}$\\
+ & 3 & $E_{1}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{3}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+ & 10 & $A_{1}\oplus 2\,E_{1}\oplus 2\,E_{2}\oplus E_{3}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{1}$\\
+ & 3 & $E_{2}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{1}\oplus E_{2}$\\
+ & 5 & $E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 8 & $A_{1}\oplus E_{1}\oplus E_{2}\oplus 2\,E_{3}$\\
+ & 9 & $A_{1}\oplus A_{2}\oplus 2\,E_{1}\oplus E_{2}\oplus E_{3}$\\
+ & 10 & $A_{1}\oplus E_{1}\oplus 2\,E_{2}\oplus 2\,E_{3}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{8}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$D_{8}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $E_{1}\oplus 2\,E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $3\,E_{1}\oplus 2\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E_{2}$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E_{2}$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E_{2}$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $2\,E_{1}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $2\,E_{1}\oplus 3\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{2\mathrm{h}}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$D_{2\mathrm{h}}$}
+All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).
+
+\subsection*{$D_{3\mathrm{h}}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$D_{3\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E'$ & 1 & $E'$\\
+ & 2 & $A_{1}'\oplus E'$\\
+ & 3 & $A_{1}'\oplus A_{2}'\oplus E'$\\
+ & 4 & $A_{1}'\oplus 2\,E'$\\
+ & 5 & $A_{1}'\oplus A_{2}'\oplus 2\,E'$\\
+ & 6 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus 3\,E'$\\
+ & 8 & $2\,A_{1}'\oplus A_{2}'\oplus 3\,E'$\\
+ & 9 & $2\,A_{1}'\oplus 2\,A_{2}'\oplus 3\,E'$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 4\,E'$\\
+\hline
+$E''$ & 1 & $E''$\\
+ & 2 & $A_{1}'\oplus E'$\\
+ & 3 & $A_{1}''\oplus A_{2}''\oplus E''$\\
+ & 4 & $A_{1}'\oplus 2\,E'$\\
+ & 5 & $A_{1}''\oplus A_{2}''\oplus 2\,E''$\\
+ & 6 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus 3\,E''$\\
+ & 8 & $2\,A_{1}'\oplus A_{2}'\oplus 3\,E'$\\
+ & 9 & $2\,A_{1}''\oplus 2\,A_{2}''\oplus 3\,E''$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 4\,E'$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{4\mathrm{h}}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$D_{4\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{g}$ & 1 & $E_{g}$\\
+ & 2 & $A_{1g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 3 & $2\,E_{g}$\\
+ & 4 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 5 & $3\,E_{g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 7 & $4\,E_{g}$\\
+ & 8 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 9 & $5\,E_{g}$\\
+ & 10 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,B_{1g}\oplus 3\,B_{2g}$\\
+\hline
+$E_{u}$ & 1 & $E_{u}$\\
+ & 2 & $A_{1g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 3 & $2\,E_{u}$\\
+ & 4 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 5 & $3\,E_{u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 7 & $4\,E_{u}$\\
+ & 8 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 9 & $5\,E_{u}$\\
+ & 10 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,B_{1g}\oplus 3\,B_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{5\mathrm{h}}$ \quad (order 20)}
+\addcontentsline{toc}{subsection}{$D_{5\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}'$ & 1 & $E_{1}'$\\
+ & 2 & $A_{1}'\oplus E_{2}'$\\
+ & 3 & $E_{1}'\oplus E_{2}'$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 6 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus 2\,E_{2}'$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 9 & $A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+\hline
+$E_{2}'$ & 1 & $E_{2}'$\\
+ & 2 & $A_{1}'\oplus E_{1}'$\\
+ & 3 & $E_{1}'\oplus E_{2}'$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus E_{2}'$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 9 & $A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+\hline
+$E_{1}''$ & 1 & $E_{1}''$\\
+ & 2 & $A_{1}'\oplus E_{2}'$\\
+ & 3 & $E_{1}''\oplus E_{2}''$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''$\\
+ & 6 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus 2\,E_{2}''$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 9 & $A_{1}''\oplus A_{2}''\oplus 2\,E_{1}''\oplus 2\,E_{2}''$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+\hline
+$E_{2}''$ & 1 & $E_{2}''$\\
+ & 2 & $A_{1}'\oplus E_{1}'$\\
+ & 3 & $E_{1}''\oplus E_{2}''$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus 2\,E_{1}''\oplus E_{2}''$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+ & 9 & $A_{1}''\oplus A_{2}''\oplus 2\,E_{1}''\oplus 2\,E_{2}''$\\
+ & 10 & $2\,A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{6\mathrm{h}}$ \quad (order 24)}
+\addcontentsline{toc}{subsection}{$D_{6\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1g}$ & 1 & $E_{1g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $B_{1g}\oplus B_{2g}\oplus E_{1g}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{2g}$\\
+ & 5 & $B_{1g}\oplus B_{2g}\oplus 2\,E_{1g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $B_{1g}\oplus B_{2g}\oplus 3\,E_{1g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{2g}$\\
+ & 9 & $2\,B_{1g}\oplus 2\,B_{2g}\oplus 3\,E_{1g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{2g}$\\
+\hline
+$E_{2g}$ & 1 & $E_{2g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $A_{1g}\oplus A_{2g}\oplus E_{2g}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{2g}$\\
+ & 5 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{2g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus 3\,E_{2g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{2g}$\\
+ & 9 & $2\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,E_{2g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{2g}$\\
+\hline
+$E_{1u}$ & 1 & $E_{1u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $B_{1u}\oplus B_{2u}\oplus E_{1u}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{2g}$\\
+ & 5 & $B_{1u}\oplus B_{2u}\oplus 2\,E_{1u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $B_{1u}\oplus B_{2u}\oplus 3\,E_{1u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{2g}$\\
+ & 9 & $2\,B_{1u}\oplus 2\,B_{2u}\oplus 3\,E_{1u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{2g}$\\
+\hline
+$E_{2u}$ & 1 & $E_{2u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $A_{1u}\oplus A_{2u}\oplus E_{2u}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{2g}$\\
+ & 5 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{2u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus 3\,E_{2u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{2g}$\\
+ & 9 & $2\,A_{1u}\oplus 2\,A_{2u}\oplus 3\,E_{2u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{7\mathrm{h}}$ \quad (order 28)}
+\addcontentsline{toc}{subsection}{$D_{7\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}'$ & 1 & $E_{1}'$\\
+ & 2 & $A_{1}'\oplus E_{2}'$\\
+ & 3 & $E_{1}'\oplus E_{3}'$\\
+ & 4 & $A_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 5 & $E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 9 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus 2\,E_{2}'\oplus E_{3}'$\\
+ & 10 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'\oplus 2\,E_{3}'$\\
+\hline
+$E_{2}'$ & 1 & $E_{2}'$\\
+ & 2 & $A_{1}'\oplus E_{3}'$\\
+ & 3 & $E_{1}'\oplus E_{2}'$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{3}'$\\
+ & 5 & $E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 8 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'\oplus E_{3}'$\\
+ & 9 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'\oplus 2\,E_{3}'$\\
+ & 10 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'\oplus E_{3}'$\\
+\hline
+$E_{3}'$ & 1 & $E_{3}'$\\
+ & 2 & $A_{1}'\oplus E_{1}'$\\
+ & 3 & $E_{2}'\oplus E_{3}'$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}'\oplus A_{2}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 8 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus 2\,E_{3}'$\\
+ & 9 & $A_{1}'\oplus A_{2}'\oplus 2\,E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 10 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'\oplus 2\,E_{3}'$\\
+\hline
+$E_{1}''$ & 1 & $E_{1}''$\\
+ & 2 & $A_{1}'\oplus E_{2}'$\\
+ & 3 & $E_{1}''\oplus E_{3}''$\\
+ & 4 & $A_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 5 & $E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 8 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 9 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus 2\,E_{2}''\oplus E_{3}''$\\
+ & 10 & $A_{1}'\oplus 2\,E_{1}'\oplus E_{2}'\oplus 2\,E_{3}'$\\
+\hline
+$E_{2}''$ & 1 & $E_{2}''$\\
+ & 2 & $A_{1}'\oplus E_{3}'$\\
+ & 3 & $E_{1}''\oplus E_{2}''$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{3}'$\\
+ & 5 & $E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 8 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'\oplus E_{3}'$\\
+ & 9 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''\oplus 2\,E_{3}''$\\
+ & 10 & $A_{1}'\oplus 2\,E_{1}'\oplus 2\,E_{2}'\oplus E_{3}'$\\
+\hline
+$E_{3}''$ & 1 & $E_{3}''$\\
+ & 2 & $A_{1}'\oplus E_{1}'$\\
+ & 3 & $E_{2}''\oplus E_{3}''$\\
+ & 4 & $A_{1}'\oplus E_{1}'\oplus E_{2}'$\\
+ & 5 & $E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 6 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus E_{3}'$\\
+ & 7 & $A_{1}''\oplus A_{2}''\oplus E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 8 & $A_{1}'\oplus E_{1}'\oplus E_{2}'\oplus 2\,E_{3}'$\\
+ & 9 & $A_{1}''\oplus A_{2}''\oplus 2\,E_{1}''\oplus E_{2}''\oplus E_{3}''$\\
+ & 10 & $A_{1}'\oplus E_{1}'\oplus 2\,E_{2}'\oplus 2\,E_{3}'$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{8\mathrm{h}}$ \quad (order 32)}
+\addcontentsline{toc}{subsection}{$D_{8\mathrm{h}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1g}$ & 1 & $E_{1g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1g}\oplus E_{3g}$\\
+ & 4 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus E_{2g}$\\
+ & 5 & $E_{1g}\oplus 2\,E_{3g}$\\
+ & 6 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $2\,E_{1g}\oplus 2\,E_{3g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 9 & $3\,E_{1g}\oplus 2\,E_{3g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 3\,E_{2g}$\\
+\hline
+$E_{2g}$ & 1 & $E_{2g}$\\
+ & 2 & $A_{1g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 3 & $2\,E_{2g}$\\
+ & 4 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 5 & $3\,E_{2g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 7 & $4\,E_{2g}$\\
+ & 8 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 9 & $5\,E_{2g}$\\
+ & 10 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,B_{1g}\oplus 3\,B_{2g}$\\
+\hline
+$E_{3g}$ & 1 & $E_{3g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1g}\oplus E_{3g}$\\
+ & 4 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus E_{2g}$\\
+ & 5 & $2\,E_{1g}\oplus E_{3g}$\\
+ & 6 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $2\,E_{1g}\oplus 2\,E_{3g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 9 & $2\,E_{1g}\oplus 3\,E_{3g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 3\,E_{2g}$\\
+\hline
+$E_{1u}$ & 1 & $E_{1u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1u}\oplus E_{3u}$\\
+ & 4 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus E_{2g}$\\
+ & 5 & $E_{1u}\oplus 2\,E_{3u}$\\
+ & 6 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $2\,E_{1u}\oplus 2\,E_{3u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 9 & $3\,E_{1u}\oplus 2\,E_{3u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 3\,E_{2g}$\\
+\hline
+$E_{2u}$ & 1 & $E_{2u}$\\
+ & 2 & $A_{1g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 3 & $2\,E_{2u}$\\
+ & 4 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}$\\
+ & 5 & $3\,E_{2u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 7 & $4\,E_{2u}$\\
+ & 8 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 2\,B_{1g}\oplus 2\,B_{2g}$\\
+ & 9 & $5\,E_{2u}$\\
+ & 10 & $3\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,B_{1g}\oplus 3\,B_{2g}$\\
+\hline
+$E_{3u}$ & 1 & $E_{3u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1u}\oplus E_{3u}$\\
+ & 4 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus E_{2g}$\\
+ & 5 & $2\,E_{1u}\oplus E_{3u}$\\
+ & 6 & $A_{1g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 7 & $2\,E_{1u}\oplus 2\,E_{3u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 2\,E_{2g}$\\
+ & 9 & $2\,E_{1u}\oplus 3\,E_{3u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus B_{1g}\oplus B_{2g}\oplus 3\,E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{2\mathrm{d}}$ \quad (order 8)}
+\addcontentsline{toc}{subsection}{$D_{2\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{3\mathrm{d}}$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$D_{3\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{g}$ & 1 & $E_{g}$\\
+ & 2 & $A_{1g}\oplus E_{g}$\\
+ & 3 & $A_{1g}\oplus A_{2g}\oplus E_{g}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{g}$\\
+ & 5 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 9 & $2\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,E_{g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{g}$\\
+\hline
+$E_{u}$ & 1 & $E_{u}$\\
+ & 2 & $A_{1g}\oplus E_{g}$\\
+ & 3 & $A_{1u}\oplus A_{2u}\oplus E_{u}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{g}$\\
+ & 5 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus 3\,E_{u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 9 & $2\,A_{1u}\oplus 2\,A_{2u}\oplus 3\,E_{u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{4\mathrm{d}}$ \quad (order 16)}
+\addcontentsline{toc}{subsection}{$D_{4\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $E_{1}\oplus 2\,E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $3\,E_{1}\oplus 2\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E_{2}$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E_{2}$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E_{2}$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 5 & $2\,E_{1}\oplus E_{3}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 7 & $2\,E_{1}\oplus 2\,E_{3}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 9 & $2\,E_{1}\oplus 3\,E_{3}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{5\mathrm{d}}$ \quad (order 20)}
+\addcontentsline{toc}{subsection}{$D_{5\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1g}$ & 1 & $E_{1g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1g}\oplus E_{2g}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 6 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus 2\,E_{2g}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 9 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+\hline
+$E_{2g}$ & 1 & $E_{2g}$\\
+ & 2 & $A_{1g}\oplus E_{1g}$\\
+ & 3 & $E_{1g}\oplus E_{2g}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus E_{2g}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 9 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+\hline
+$E_{1u}$ & 1 & $E_{1u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1u}\oplus E_{2u}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}$\\
+ & 6 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus 2\,E_{2u}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 9 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{1u}\oplus 2\,E_{2u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+\hline
+$E_{2u}$ & 1 & $E_{2u}$\\
+ & 2 & $A_{1g}\oplus E_{1g}$\\
+ & 3 & $E_{1u}\oplus E_{2u}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{1u}\oplus E_{2u}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+ & 9 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{1u}\oplus 2\,E_{2u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{6\mathrm{d}}$ \quad (order 24)}
+\addcontentsline{toc}{subsection}{$D_{6\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{4}$\\
+ & 5 & $E_{1}\oplus E_{3}\oplus E_{5}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}$\\
+ & 7 & $E_{1}\oplus E_{3}\oplus 2\,E_{5}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus 2\,E_{4}$\\
+ & 9 & $E_{1}\oplus 2\,E_{3}\oplus 2\,E_{5}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}\oplus 2\,E_{4}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{4}$\\
+ & 3 & $B_{1}\oplus B_{2}\oplus E_{2}$\\
+ & 4 & $A_{1}\oplus 2\,E_{4}$\\
+ & 5 & $B_{1}\oplus B_{2}\oplus 2\,E_{2}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{4}$\\
+ & 7 & $B_{1}\oplus B_{2}\oplus 3\,E_{2}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{4}$\\
+ & 9 & $2\,B_{1}\oplus 2\,B_{2}\oplus 3\,E_{2}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{4}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E_{3}$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E_{3}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E_{3}$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E_{3}$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+$E_{4}$ & 1 & $E_{4}$\\
+ & 2 & $A_{1}\oplus E_{4}$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E_{4}$\\
+ & 4 & $A_{1}\oplus 2\,E_{4}$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E_{4}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E_{4}$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E_{4}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E_{4}$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E_{4}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E_{4}$\\
+\hline
+$E_{5}$ & 1 & $E_{5}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{3}\oplus E_{5}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{4}$\\
+ & 5 & $E_{1}\oplus E_{3}\oplus E_{5}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}$\\
+ & 7 & $2\,E_{1}\oplus E_{3}\oplus E_{5}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus 2\,E_{4}$\\
+ & 9 & $2\,E_{1}\oplus 2\,E_{3}\oplus E_{5}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}\oplus 2\,E_{4}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{7\mathrm{d}}$ \quad (order 28)}
+\addcontentsline{toc}{subsection}{$D_{7\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1g}$ & 1 & $E_{1g}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1g}\oplus E_{3g}$\\
+ & 4 & $A_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 5 & $E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 9 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus 2\,E_{2g}\oplus E_{3g}$\\
+ & 10 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}\oplus 2\,E_{3g}$\\
+\hline
+$E_{2g}$ & 1 & $E_{2g}$\\
+ & 2 & $A_{1g}\oplus E_{3g}$\\
+ & 3 & $E_{1g}\oplus E_{2g}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{3g}$\\
+ & 5 & $E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 8 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}\oplus E_{3g}$\\
+ & 9 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}\oplus 2\,E_{3g}$\\
+ & 10 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}\oplus E_{3g}$\\
+\hline
+$E_{3g}$ & 1 & $E_{3g}$\\
+ & 2 & $A_{1g}\oplus E_{1g}$\\
+ & 3 & $E_{2g}\oplus E_{3g}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 8 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus 2\,E_{3g}$\\
+ & 9 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 10 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}\oplus 2\,E_{3g}$\\
+\hline
+$E_{1u}$ & 1 & $E_{1u}$\\
+ & 2 & $A_{1g}\oplus E_{2g}$\\
+ & 3 & $E_{1u}\oplus E_{3u}$\\
+ & 4 & $A_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 5 & $E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 8 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 9 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus 2\,E_{2u}\oplus E_{3u}$\\
+ & 10 & $A_{1g}\oplus 2\,E_{1g}\oplus E_{2g}\oplus 2\,E_{3g}$\\
+\hline
+$E_{2u}$ & 1 & $E_{2u}$\\
+ & 2 & $A_{1g}\oplus E_{3g}$\\
+ & 3 & $E_{1u}\oplus E_{2u}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{3g}$\\
+ & 5 & $E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 8 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}\oplus E_{3g}$\\
+ & 9 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}\oplus 2\,E_{3u}$\\
+ & 10 & $A_{1g}\oplus 2\,E_{1g}\oplus 2\,E_{2g}\oplus E_{3g}$\\
+\hline
+$E_{3u}$ & 1 & $E_{3u}$\\
+ & 2 & $A_{1g}\oplus E_{1g}$\\
+ & 3 & $E_{2u}\oplus E_{3u}$\\
+ & 4 & $A_{1g}\oplus E_{1g}\oplus E_{2g}$\\
+ & 5 & $E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 6 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus E_{3g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 8 & $A_{1g}\oplus E_{1g}\oplus E_{2g}\oplus 2\,E_{3g}$\\
+ & 9 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{1u}\oplus E_{2u}\oplus E_{3u}$\\
+ & 10 & $A_{1g}\oplus E_{1g}\oplus 2\,E_{2g}\oplus 2\,E_{3g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{8\mathrm{d}}$ \quad (order 32)}
+\addcontentsline{toc}{subsection}{$D_{8\mathrm{d}}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{1}$ & 1 & $E_{1}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{1}\oplus E_{3}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{4}$\\
+ & 5 & $E_{1}\oplus E_{3}\oplus E_{5}$\\
+ & 6 & $A_{1}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 7 & $E_{1}\oplus E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 9 & $E_{1}\oplus E_{3}\oplus E_{5}\oplus 2\,E_{7}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus 2\,E_{6}$\\
+\hline
+$E_{2}$ & 1 & $E_{2}$\\
+ & 2 & $A_{1}\oplus E_{4}$\\
+ & 3 & $E_{2}\oplus E_{6}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{4}$\\
+ & 5 & $E_{2}\oplus 2\,E_{6}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{4}$\\
+ & 7 & $2\,E_{2}\oplus 2\,E_{6}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{4}$\\
+ & 9 & $3\,E_{2}\oplus 2\,E_{6}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{4}$\\
+\hline
+$E_{3}$ & 1 & $E_{3}$\\
+ & 2 & $A_{1}\oplus E_{6}$\\
+ & 3 & $E_{3}\oplus E_{7}$\\
+ & 4 & $A_{1}\oplus E_{4}\oplus E_{6}$\\
+ & 5 & $E_{1}\oplus E_{3}\oplus E_{7}$\\
+ & 6 & $A_{1}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 7 & $E_{1}\oplus E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 9 & $E_{1}\oplus E_{3}\oplus 2\,E_{5}\oplus E_{7}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}\oplus E_{4}\oplus E_{6}$\\
+\hline
+$E_{4}$ & 1 & $E_{4}$\\
+ & 2 & $A_{1}\oplus B_{1}\oplus B_{2}$\\
+ & 3 & $2\,E_{4}$\\
+ & 4 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}$\\
+ & 5 & $3\,E_{4}$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 7 & $4\,E_{4}$\\
+ & 8 & $3\,A_{1}\oplus 2\,A_{2}\oplus 2\,B_{1}\oplus 2\,B_{2}$\\
+ & 9 & $5\,E_{4}$\\
+ & 10 & $3\,A_{1}\oplus 2\,A_{2}\oplus 3\,B_{1}\oplus 3\,B_{2}$\\
+\hline
+$E_{5}$ & 1 & $E_{5}$\\
+ & 2 & $A_{1}\oplus E_{6}$\\
+ & 3 & $E_{1}\oplus E_{5}$\\
+ & 4 & $A_{1}\oplus E_{4}\oplus E_{6}$\\
+ & 5 & $E_{1}\oplus E_{5}\oplus E_{7}$\\
+ & 6 & $A_{1}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 7 & $E_{1}\oplus E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 9 & $E_{1}\oplus 2\,E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{2}\oplus E_{4}\oplus E_{6}$\\
+\hline
+$E_{6}$ & 1 & $E_{6}$\\
+ & 2 & $A_{1}\oplus E_{4}$\\
+ & 3 & $E_{2}\oplus E_{6}$\\
+ & 4 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{4}$\\
+ & 5 & $2\,E_{2}\oplus E_{6}$\\
+ & 6 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{4}$\\
+ & 7 & $2\,E_{2}\oplus 2\,E_{6}$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 2\,E_{4}$\\
+ & 9 & $2\,E_{2}\oplus 3\,E_{6}$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus B_{1}\oplus B_{2}\oplus 3\,E_{4}$\\
+\hline
+$E_{7}$ & 1 & $E_{7}$\\
+ & 2 & $A_{1}\oplus E_{2}$\\
+ & 3 & $E_{5}\oplus E_{7}$\\
+ & 4 & $A_{1}\oplus E_{2}\oplus E_{4}$\\
+ & 5 & $E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 6 & $A_{1}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 7 & $E_{1}\oplus E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 8 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus E_{6}$\\
+ & 9 & $2\,E_{1}\oplus E_{3}\oplus E_{5}\oplus E_{7}$\\
+ & 10 & $A_{1}\oplus B_{1}\oplus B_{2}\oplus E_{2}\oplus E_{4}\oplus 2\,E_{6}$\\
+\hline
+\end{longtable}
+
+\subsection*{$T$ \quad (order 12)}
+\addcontentsline{toc}{subsection}{$T$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E\oplus {}^{2}E$ & 1 & ${}^{1}E\oplus {}^{2}E$\\
+ & 2 & $A\oplus {}^{1}E\oplus {}^{2}E$\\
+ & 3 & $2\,A\oplus {}^{1}E\oplus {}^{2}E$\\
+ & 4 & $A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 5 & $2\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 6 & $3\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E$\\
+ & 7 & $2\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 8 & $3\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 9 & $4\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E$\\
+ & 10 & $3\,A\oplus 4\,{}^{1}E\oplus 4\,{}^{2}E$\\
+\hline
+$T$ & 1 & $T$\\
+ & 2 & $A\oplus {}^{1}E\oplus {}^{2}E\oplus T$\\
+ & 3 & $A\oplus 3\,T$\\
+ & 4 & $2\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E\oplus 3\,T$\\
+ & 5 & $A\oplus {}^{1}E\oplus {}^{2}E\oplus 6\,T$\\
+ & 6 & $4\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E\oplus 6\,T$\\
+ & 7 & $2\,A\oplus 2\,{}^{1}E\oplus 2\,{}^{2}E\oplus 10\,T$\\
+ & 8 & $5\,A\oplus 5\,{}^{1}E\oplus 5\,{}^{2}E\oplus 10\,T$\\
+ & 9 & $4\,A\oplus 3\,{}^{1}E\oplus 3\,{}^{2}E\oplus 15\,T$\\
+ & 10 & $7\,A\oplus 7\,{}^{1}E\oplus 7\,{}^{2}E\oplus 15\,T$\\
+\hline
+\end{longtable}
+
+\subsection*{$T_{\mathrm h}$ \quad (order 24)}
+\addcontentsline{toc}{subsection}{$T_{\mathrm h}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+${}^{1}E_{g}\oplus {}^{2}E_{g}$ & 1 & ${}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 3 & $2\,A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 5 & $2\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 7 & $2\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 9 & $4\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{g}\oplus 4\,{}^{2}E_{g}$\\
+\hline
+$T_{g}$ & 1 & $T_{g}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}\oplus T_{g}$\\
+ & 3 & $A_{g}\oplus 3\,T_{g}$\\
+ & 4 & $2\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}\oplus 3\,T_{g}$\\
+ & 5 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}\oplus 6\,T_{g}$\\
+ & 6 & $4\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}\oplus 6\,T_{g}$\\
+ & 7 & $2\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}\oplus 10\,T_{g}$\\
+ & 8 & $5\,A_{g}\oplus 5\,{}^{1}E_{g}\oplus 5\,{}^{2}E_{g}\oplus 10\,T_{g}$\\
+ & 9 & $4\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}\oplus 15\,T_{g}$\\
+ & 10 & $7\,A_{g}\oplus 7\,{}^{1}E_{g}\oplus 7\,{}^{2}E_{g}\oplus 15\,T_{g}$\\
+\hline
+${}^{1}E_{u}\oplus {}^{2}E_{u}$ & 1 & ${}^{1}E_{u}\oplus {}^{2}E_{u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}$\\
+ & 3 & $2\,A_{u}\oplus {}^{1}E_{u}\oplus {}^{2}E_{u}$\\
+ & 4 & $A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 5 & $2\,A_{u}\oplus 2\,{}^{1}E_{u}\oplus 2\,{}^{2}E_{u}$\\
+ & 6 & $3\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}$\\
+ & 7 & $2\,A_{u}\oplus 3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}$\\
+ & 8 & $3\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}$\\
+ & 9 & $4\,A_{u}\oplus 3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}$\\
+ & 10 & $3\,A_{g}\oplus 4\,{}^{1}E_{g}\oplus 4\,{}^{2}E_{g}$\\
+\hline
+$T_{u}$ & 1 & $T_{u}$\\
+ & 2 & $A_{g}\oplus {}^{1}E_{g}\oplus {}^{2}E_{g}\oplus T_{g}$\\
+ & 3 & $A_{u}\oplus 3\,T_{u}$\\
+ & 4 & $2\,A_{g}\oplus 2\,{}^{1}E_{g}\oplus 2\,{}^{2}E_{g}\oplus 3\,T_{g}$\\
+ & 5 & $A_{u}\oplus {}^{1}E_{u}\oplus {}^{2}E_{u}\oplus 6\,T_{u}$\\
+ & 6 & $4\,A_{g}\oplus 3\,{}^{1}E_{g}\oplus 3\,{}^{2}E_{g}\oplus 6\,T_{g}$\\
+ & 7 & $2\,A_{u}\oplus 2\,{}^{1}E_{u}\oplus 2\,{}^{2}E_{u}\oplus 10\,T_{u}$\\
+ & 8 & $5\,A_{g}\oplus 5\,{}^{1}E_{g}\oplus 5\,{}^{2}E_{g}\oplus 10\,T_{g}$\\
+ & 9 & $4\,A_{u}\oplus 3\,{}^{1}E_{u}\oplus 3\,{}^{2}E_{u}\oplus 15\,T_{u}$\\
+ & 10 & $7\,A_{g}\oplus 7\,{}^{1}E_{g}\oplus 7\,{}^{2}E_{g}\oplus 15\,T_{g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$T_{\mathrm d}$ \quad (order 24)}
+\addcontentsline{toc}{subsection}{$T_{\mathrm d}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus E$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E$\\
+ & 4 & $A_{1}\oplus 2\,E$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E$\\
+\hline
+$T_{1}$ & 1 & $T_{1}$\\
+ & 2 & $A_{1}\oplus E\oplus T_{2}$\\
+ & 3 & $A_{2}\oplus 2\,T_{1}\oplus T_{2}$\\
+ & 4 & $2\,A_{1}\oplus 2\,E\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 5 & $A_{2}\oplus E\oplus 4\,T_{1}\oplus 2\,T_{2}$\\
+ & 6 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 7 & $2\,A_{2}\oplus 2\,E\oplus 6\,T_{1}\oplus 4\,T_{2}$\\
+ & 8 & $4\,A_{1}\oplus A_{2}\oplus 5\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 9 & $A_{1}\oplus 3\,A_{2}\oplus 3\,E\oplus 9\,T_{1}\oplus 6\,T_{2}$\\
+ & 10 & $5\,A_{1}\oplus 2\,A_{2}\oplus 7\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+\hline
+$T_{2}$ & 1 & $T_{2}$\\
+ & 2 & $A_{1}\oplus E\oplus T_{2}$\\
+ & 3 & $A_{1}\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 4 & $2\,A_{1}\oplus 2\,E\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 5 & $A_{1}\oplus E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 6 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 7 & $2\,A_{1}\oplus 2\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 8 & $4\,A_{1}\oplus A_{2}\oplus 5\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 9 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+ & 10 & $5\,A_{1}\oplus 2\,A_{2}\oplus 7\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$O$ \quad (order 24)}
+\addcontentsline{toc}{subsection}{$O$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E$ & 1 & $E$\\
+ & 2 & $A_{1}\oplus E$\\
+ & 3 & $A_{1}\oplus A_{2}\oplus E$\\
+ & 4 & $A_{1}\oplus 2\,E$\\
+ & 5 & $A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 6 & $2\,A_{1}\oplus A_{2}\oplus 2\,E$\\
+ & 7 & $A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 8 & $2\,A_{1}\oplus A_{2}\oplus 3\,E$\\
+ & 9 & $2\,A_{1}\oplus 2\,A_{2}\oplus 3\,E$\\
+ & 10 & $2\,A_{1}\oplus A_{2}\oplus 4\,E$\\
+\hline
+$T_{1}$ & 1 & $T_{1}$\\
+ & 2 & $A_{1}\oplus E\oplus T_{2}$\\
+ & 3 & $A_{2}\oplus 2\,T_{1}\oplus T_{2}$\\
+ & 4 & $2\,A_{1}\oplus 2\,E\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 5 & $A_{2}\oplus E\oplus 4\,T_{1}\oplus 2\,T_{2}$\\
+ & 6 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 7 & $2\,A_{2}\oplus 2\,E\oplus 6\,T_{1}\oplus 4\,T_{2}$\\
+ & 8 & $4\,A_{1}\oplus A_{2}\oplus 5\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 9 & $A_{1}\oplus 3\,A_{2}\oplus 3\,E\oplus 9\,T_{1}\oplus 6\,T_{2}$\\
+ & 10 & $5\,A_{1}\oplus 2\,A_{2}\oplus 7\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+\hline
+$T_{2}$ & 1 & $T_{2}$\\
+ & 2 & $A_{1}\oplus E\oplus T_{2}$\\
+ & 3 & $A_{1}\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 4 & $2\,A_{1}\oplus 2\,E\oplus T_{1}\oplus 2\,T_{2}$\\
+ & 5 & $A_{1}\oplus E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 6 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 2\,T_{1}\oplus 4\,T_{2}$\\
+ & 7 & $2\,A_{1}\oplus 2\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 8 & $4\,A_{1}\oplus A_{2}\oplus 5\,E\oplus 4\,T_{1}\oplus 6\,T_{2}$\\
+ & 9 & $3\,A_{1}\oplus A_{2}\oplus 3\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+ & 10 & $5\,A_{1}\oplus 2\,A_{2}\oplus 7\,E\oplus 6\,T_{1}\oplus 9\,T_{2}$\\
+\hline
+\end{longtable}
+
+\subsection*{$O_{\mathrm h}$ \quad (order 48)}
+\addcontentsline{toc}{subsection}{$O_{\mathrm h}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$E_{g}$ & 1 & $E_{g}$\\
+ & 2 & $A_{1g}\oplus E_{g}$\\
+ & 3 & $A_{1g}\oplus A_{2g}\oplus E_{g}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{g}$\\
+ & 5 & $A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 7 & $A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 9 & $2\,A_{1g}\oplus 2\,A_{2g}\oplus 3\,E_{g}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{g}$\\
+\hline
+$T_{1g}$ & 1 & $T_{1g}$\\
+ & 2 & $A_{1g}\oplus E_{g}\oplus T_{2g}$\\
+ & 3 & $A_{2g}\oplus 2\,T_{1g}\oplus T_{2g}$\\
+ & 4 & $2\,A_{1g}\oplus 2\,E_{g}\oplus T_{1g}\oplus 2\,T_{2g}$\\
+ & 5 & $A_{2g}\oplus E_{g}\oplus 4\,T_{1g}\oplus 2\,T_{2g}$\\
+ & 6 & $3\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}\oplus 2\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 7 & $2\,A_{2g}\oplus 2\,E_{g}\oplus 6\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 8 & $4\,A_{1g}\oplus A_{2g}\oplus 5\,E_{g}\oplus 4\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 9 & $A_{1g}\oplus 3\,A_{2g}\oplus 3\,E_{g}\oplus 9\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 10 & $5\,A_{1g}\oplus 2\,A_{2g}\oplus 7\,E_{g}\oplus 6\,T_{1g}\oplus 9\,T_{2g}$\\
+\hline
+$T_{2g}$ & 1 & $T_{2g}$\\
+ & 2 & $A_{1g}\oplus E_{g}\oplus T_{2g}$\\
+ & 3 & $A_{1g}\oplus T_{1g}\oplus 2\,T_{2g}$\\
+ & 4 & $2\,A_{1g}\oplus 2\,E_{g}\oplus T_{1g}\oplus 2\,T_{2g}$\\
+ & 5 & $A_{1g}\oplus E_{g}\oplus 2\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 6 & $3\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}\oplus 2\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 7 & $2\,A_{1g}\oplus 2\,E_{g}\oplus 4\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 8 & $4\,A_{1g}\oplus A_{2g}\oplus 5\,E_{g}\oplus 4\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 9 & $3\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}\oplus 6\,T_{1g}\oplus 9\,T_{2g}$\\
+ & 10 & $5\,A_{1g}\oplus 2\,A_{2g}\oplus 7\,E_{g}\oplus 6\,T_{1g}\oplus 9\,T_{2g}$\\
+\hline
+$E_{u}$ & 1 & $E_{u}$\\
+ & 2 & $A_{1g}\oplus E_{g}$\\
+ & 3 & $A_{1u}\oplus A_{2u}\oplus E_{u}$\\
+ & 4 & $A_{1g}\oplus 2\,E_{g}$\\
+ & 5 & $A_{1u}\oplus A_{2u}\oplus 2\,E_{u}$\\
+ & 6 & $2\,A_{1g}\oplus A_{2g}\oplus 2\,E_{g}$\\
+ & 7 & $A_{1u}\oplus A_{2u}\oplus 3\,E_{u}$\\
+ & 8 & $2\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}$\\
+ & 9 & $2\,A_{1u}\oplus 2\,A_{2u}\oplus 3\,E_{u}$\\
+ & 10 & $2\,A_{1g}\oplus A_{2g}\oplus 4\,E_{g}$\\
+\hline
+$T_{1u}$ & 1 & $T_{1u}$\\
+ & 2 & $A_{1g}\oplus E_{g}\oplus T_{2g}$\\
+ & 3 & $A_{2u}\oplus 2\,T_{1u}\oplus T_{2u}$\\
+ & 4 & $2\,A_{1g}\oplus 2\,E_{g}\oplus T_{1g}\oplus 2\,T_{2g}$\\
+ & 5 & $A_{2u}\oplus E_{u}\oplus 4\,T_{1u}\oplus 2\,T_{2u}$\\
+ & 6 & $3\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}\oplus 2\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 7 & $2\,A_{2u}\oplus 2\,E_{u}\oplus 6\,T_{1u}\oplus 4\,T_{2u}$\\
+ & 8 & $4\,A_{1g}\oplus A_{2g}\oplus 5\,E_{g}\oplus 4\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 9 & $A_{1u}\oplus 3\,A_{2u}\oplus 3\,E_{u}\oplus 9\,T_{1u}\oplus 6\,T_{2u}$\\
+ & 10 & $5\,A_{1g}\oplus 2\,A_{2g}\oplus 7\,E_{g}\oplus 6\,T_{1g}\oplus 9\,T_{2g}$\\
+\hline
+$T_{2u}$ & 1 & $T_{2u}$\\
+ & 2 & $A_{1g}\oplus E_{g}\oplus T_{2g}$\\
+ & 3 & $A_{1u}\oplus T_{1u}\oplus 2\,T_{2u}$\\
+ & 4 & $2\,A_{1g}\oplus 2\,E_{g}\oplus T_{1g}\oplus 2\,T_{2g}$\\
+ & 5 & $A_{1u}\oplus E_{u}\oplus 2\,T_{1u}\oplus 4\,T_{2u}$\\
+ & 6 & $3\,A_{1g}\oplus A_{2g}\oplus 3\,E_{g}\oplus 2\,T_{1g}\oplus 4\,T_{2g}$\\
+ & 7 & $2\,A_{1u}\oplus 2\,E_{u}\oplus 4\,T_{1u}\oplus 6\,T_{2u}$\\
+ & 8 & $4\,A_{1g}\oplus A_{2g}\oplus 5\,E_{g}\oplus 4\,T_{1g}\oplus 6\,T_{2g}$\\
+ & 9 & $3\,A_{1u}\oplus A_{2u}\oplus 3\,E_{u}\oplus 6\,T_{1u}\oplus 9\,T_{2u}$\\
+ & 10 & $5\,A_{1g}\oplus 2\,A_{2g}\oplus 7\,E_{g}\oplus 6\,T_{1g}\oplus 9\,T_{2g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$I$ \quad (order 60)}
+\addcontentsline{toc}{subsection}{$I$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$T_{1}$ & 1 & $T_{1}$\\
+ & 2 & $A\oplus H$\\
+ & 3 & $T_{1}\oplus T_{2}\oplus G$\\
+ & 4 & $A\oplus G\oplus 2\,H$\\
+ & 5 & $2\,T_{1}\oplus 2\,T_{2}\oplus G\oplus H$\\
+ & 6 & $2\,A\oplus T_{1}\oplus 2\,G\oplus 3\,H$\\
+ & 7 & $3\,T_{1}\oplus 3\,T_{2}\oplus 2\,G\oplus 2\,H$\\
+ & 8 & $2\,A\oplus T_{1}\oplus T_{2}\oplus 3\,G\oplus 5\,H$\\
+ & 9 & $4\,T_{1}\oplus 4\,T_{2}\oplus 4\,G\oplus 3\,H$\\
+ & 10 & $3\,A\oplus 2\,T_{1}\oplus 2\,T_{2}\oplus 4\,G\oplus 7\,H$\\
+\hline
+$T_{2}$ & 1 & $T_{2}$\\
+ & 2 & $A\oplus H$\\
+ & 3 & $T_{1}\oplus T_{2}\oplus G$\\
+ & 4 & $A\oplus G\oplus 2\,H$\\
+ & 5 & $2\,T_{1}\oplus 2\,T_{2}\oplus G\oplus H$\\
+ & 6 & $2\,A\oplus T_{2}\oplus 2\,G\oplus 3\,H$\\
+ & 7 & $3\,T_{1}\oplus 3\,T_{2}\oplus 2\,G\oplus 2\,H$\\
+ & 8 & $2\,A\oplus T_{1}\oplus T_{2}\oplus 3\,G\oplus 5\,H$\\
+ & 9 & $4\,T_{1}\oplus 4\,T_{2}\oplus 4\,G\oplus 3\,H$\\
+ & 10 & $3\,A\oplus 2\,T_{1}\oplus 2\,T_{2}\oplus 4\,G\oplus 7\,H$\\
+\hline
+$G$ & 1 & $G$\\
+ & 2 & $A\oplus G\oplus H$\\
+ & 3 & $A\oplus T_{1}\oplus T_{2}\oplus 2\,G\oplus H$\\
+ & 4 & $2\,A\oplus T_{1}\oplus T_{2}\oplus 3\,G\oplus 3\,H$\\
+ & 5 & $2\,A\oplus 3\,T_{1}\oplus 3\,T_{2}\oplus 4\,G\oplus 4\,H$\\
+ & 6 & $3\,A\oplus 3\,T_{1}\oplus 3\,T_{2}\oplus 7\,G\oplus 7\,H$\\
+ & 7 & $3\,A\oplus 6\,T_{1}\oplus 6\,T_{2}\oplus 9\,G\oplus 9\,H$\\
+ & 8 & $5\,A\oplus 7\,T_{1}\oplus 7\,T_{2}\oplus 12\,G\oplus 14\,H$\\
+ & 9 & $5\,A\oplus 11\,T_{1}\oplus 11\,T_{2}\oplus 16\,G\oplus 17\,H$\\
+ & 10 & $8\,A\oplus 13\,T_{1}\oplus 13\,T_{2}\oplus 20\,G\oplus 24\,H$\\
+\hline
+$H$ & 1 & $H$\\
+ & 2 & $A\oplus G\oplus 2\,H$\\
+ & 3 & $2\,A\oplus T_{1}\oplus T_{2}\oplus 3\,G\oplus 3\,H$\\
+ & 4 & $2\,A\oplus 2\,T_{1}\oplus 2\,T_{2}\oplus 4\,G\oplus 8\,H$\\
+ & 5 & $4\,A\oplus 5\,T_{1}\oplus 5\,T_{2}\oplus 8\,G\oplus 12\,H$\\
+ & 6 & $7\,A\oplus 8\,T_{1}\oplus 8\,T_{2}\oplus 15\,G\oplus 19\,H$\\
+ & 7 & $7\,A\oplus 14\,T_{1}\oplus 14\,T_{2}\oplus 21\,G\oplus 31\,H$\\
+ & 8 & $12\,A\oplus 21\,T_{1}\oplus 21\,T_{2}\oplus 33\,G\oplus 45\,H$\\
+ & 9 & $17\,A\oplus 32\,T_{1}\oplus 32\,T_{2}\oplus 49\,G\oplus 62\,H$\\
+ & 10 & $21\,A\oplus 45\,T_{1}\oplus 45\,T_{2}\oplus 65\,G\oplus 90\,H$\\
+\hline
+\end{longtable}
+
+\subsection*{$I_{\mathrm h}$ \quad (order 120)}
+\addcontentsline{toc}{subsection}{$I_{\mathrm h}$}
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$T_{1g}$ & 1 & $T_{1g}$\\
+ & 2 & $A_{g}\oplus H_{g}$\\
+ & 3 & $T_{1g}\oplus T_{2g}\oplus G_{g}$\\
+ & 4 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 5 & $2\,T_{1g}\oplus 2\,T_{2g}\oplus G_{g}\oplus H_{g}$\\
+ & 6 & $2\,A_{g}\oplus T_{1g}\oplus 2\,G_{g}\oplus 3\,H_{g}$\\
+ & 7 & $3\,T_{1g}\oplus 3\,T_{2g}\oplus 2\,G_{g}\oplus 2\,H_{g}$\\
+ & 8 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 5\,H_{g}$\\
+ & 9 & $4\,T_{1g}\oplus 4\,T_{2g}\oplus 4\,G_{g}\oplus 3\,H_{g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 7\,H_{g}$\\
+\hline
+$T_{2g}$ & 1 & $T_{2g}$\\
+ & 2 & $A_{g}\oplus H_{g}$\\
+ & 3 & $T_{1g}\oplus T_{2g}\oplus G_{g}$\\
+ & 4 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 5 & $2\,T_{1g}\oplus 2\,T_{2g}\oplus G_{g}\oplus H_{g}$\\
+ & 6 & $2\,A_{g}\oplus T_{2g}\oplus 2\,G_{g}\oplus 3\,H_{g}$\\
+ & 7 & $3\,T_{1g}\oplus 3\,T_{2g}\oplus 2\,G_{g}\oplus 2\,H_{g}$\\
+ & 8 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 5\,H_{g}$\\
+ & 9 & $4\,T_{1g}\oplus 4\,T_{2g}\oplus 4\,G_{g}\oplus 3\,H_{g}$\\
+ & 10 & $3\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 7\,H_{g}$\\
+\hline
+$G_{g}$ & 1 & $G_{g}$\\
+ & 2 & $A_{g}\oplus G_{g}\oplus H_{g}$\\
+ & 3 & $A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 2\,G_{g}\oplus H_{g}$\\
+ & 4 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 3\,H_{g}$\\
+ & 5 & $2\,A_{g}\oplus 3\,T_{1g}\oplus 3\,T_{2g}\oplus 4\,G_{g}\oplus 4\,H_{g}$\\
+ & 6 & $3\,A_{g}\oplus 3\,T_{1g}\oplus 3\,T_{2g}\oplus 7\,G_{g}\oplus 7\,H_{g}$\\
+ & 7 & $3\,A_{g}\oplus 6\,T_{1g}\oplus 6\,T_{2g}\oplus 9\,G_{g}\oplus 9\,H_{g}$\\
+ & 8 & $5\,A_{g}\oplus 7\,T_{1g}\oplus 7\,T_{2g}\oplus 12\,G_{g}\oplus 14\,H_{g}$\\
+ & 9 & $5\,A_{g}\oplus 11\,T_{1g}\oplus 11\,T_{2g}\oplus 16\,G_{g}\oplus 17\,H_{g}$\\
+ & 10 & $8\,A_{g}\oplus 13\,T_{1g}\oplus 13\,T_{2g}\oplus 20\,G_{g}\oplus 24\,H_{g}$\\
+\hline
+$H_{g}$ & 1 & $H_{g}$\\
+ & 2 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 3 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 3\,H_{g}$\\
+ & 4 & $2\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 8\,H_{g}$\\
+ & 5 & $4\,A_{g}\oplus 5\,T_{1g}\oplus 5\,T_{2g}\oplus 8\,G_{g}\oplus 12\,H_{g}$\\
+ & 6 & $7\,A_{g}\oplus 8\,T_{1g}\oplus 8\,T_{2g}\oplus 15\,G_{g}\oplus 19\,H_{g}$\\
+ & 7 & $7\,A_{g}\oplus 14\,T_{1g}\oplus 14\,T_{2g}\oplus 21\,G_{g}\oplus 31\,H_{g}$\\
+ & 8 & $12\,A_{g}\oplus 21\,T_{1g}\oplus 21\,T_{2g}\oplus 33\,G_{g}\oplus 45\,H_{g}$\\
+ & 9 & $17\,A_{g}\oplus 32\,T_{1g}\oplus 32\,T_{2g}\oplus 49\,G_{g}\oplus 62\,H_{g}$\\
+ & 10 & $21\,A_{g}\oplus 45\,T_{1g}\oplus 45\,T_{2g}\oplus 65\,G_{g}\oplus 90\,H_{g}$\\
+\hline
+$T_{1u}$ & 1 & $T_{1u}$\\
+ & 2 & $A_{g}\oplus H_{g}$\\
+ & 3 & $T_{1u}\oplus T_{2u}\oplus G_{u}$\\
+ & 4 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 5 & $2\,T_{1u}\oplus 2\,T_{2u}\oplus G_{u}\oplus H_{u}$\\
+ & 6 & $2\,A_{g}\oplus T_{1g}\oplus 2\,G_{g}\oplus 3\,H_{g}$\\
+ & 7 & $3\,T_{1u}\oplus 3\,T_{2u}\oplus 2\,G_{u}\oplus 2\,H_{u}$\\
+ & 8 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 5\,H_{g}$\\
+ & 9 & $4\,T_{1u}\oplus 4\,T_{2u}\oplus 4\,G_{u}\oplus 3\,H_{u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 7\,H_{g}$\\
+\hline
+$T_{2u}$ & 1 & $T_{2u}$\\
+ & 2 & $A_{g}\oplus H_{g}$\\
+ & 3 & $T_{1u}\oplus T_{2u}\oplus G_{u}$\\
+ & 4 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 5 & $2\,T_{1u}\oplus 2\,T_{2u}\oplus G_{u}\oplus H_{u}$\\
+ & 6 & $2\,A_{g}\oplus T_{2g}\oplus 2\,G_{g}\oplus 3\,H_{g}$\\
+ & 7 & $3\,T_{1u}\oplus 3\,T_{2u}\oplus 2\,G_{u}\oplus 2\,H_{u}$\\
+ & 8 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 5\,H_{g}$\\
+ & 9 & $4\,T_{1u}\oplus 4\,T_{2u}\oplus 4\,G_{u}\oplus 3\,H_{u}$\\
+ & 10 & $3\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 7\,H_{g}$\\
+\hline
+$G_{u}$ & 1 & $G_{u}$\\
+ & 2 & $A_{g}\oplus G_{g}\oplus H_{g}$\\
+ & 3 & $A_{u}\oplus T_{1u}\oplus T_{2u}\oplus 2\,G_{u}\oplus H_{u}$\\
+ & 4 & $2\,A_{g}\oplus T_{1g}\oplus T_{2g}\oplus 3\,G_{g}\oplus 3\,H_{g}$\\
+ & 5 & $2\,A_{u}\oplus 3\,T_{1u}\oplus 3\,T_{2u}\oplus 4\,G_{u}\oplus 4\,H_{u}$\\
+ & 6 & $3\,A_{g}\oplus 3\,T_{1g}\oplus 3\,T_{2g}\oplus 7\,G_{g}\oplus 7\,H_{g}$\\
+ & 7 & $3\,A_{u}\oplus 6\,T_{1u}\oplus 6\,T_{2u}\oplus 9\,G_{u}\oplus 9\,H_{u}$\\
+ & 8 & $5\,A_{g}\oplus 7\,T_{1g}\oplus 7\,T_{2g}\oplus 12\,G_{g}\oplus 14\,H_{g}$\\
+ & 9 & $5\,A_{u}\oplus 11\,T_{1u}\oplus 11\,T_{2u}\oplus 16\,G_{u}\oplus 17\,H_{u}$\\
+ & 10 & $8\,A_{g}\oplus 13\,T_{1g}\oplus 13\,T_{2g}\oplus 20\,G_{g}\oplus 24\,H_{g}$\\
+\hline
+$H_{u}$ & 1 & $H_{u}$\\
+ & 2 & $A_{g}\oplus G_{g}\oplus 2\,H_{g}$\\
+ & 3 & $2\,A_{u}\oplus T_{1u}\oplus T_{2u}\oplus 3\,G_{u}\oplus 3\,H_{u}$\\
+ & 4 & $2\,A_{g}\oplus 2\,T_{1g}\oplus 2\,T_{2g}\oplus 4\,G_{g}\oplus 8\,H_{g}$\\
+ & 5 & $4\,A_{u}\oplus 5\,T_{1u}\oplus 5\,T_{2u}\oplus 8\,G_{u}\oplus 12\,H_{u}$\\
+ & 6 & $7\,A_{g}\oplus 8\,T_{1g}\oplus 8\,T_{2g}\oplus 15\,G_{g}\oplus 19\,H_{g}$\\
+ & 7 & $7\,A_{u}\oplus 14\,T_{1u}\oplus 14\,T_{2u}\oplus 21\,G_{u}\oplus 31\,H_{u}$\\
+ & 8 & $12\,A_{g}\oplus 21\,T_{1g}\oplus 21\,T_{2g}\oplus 33\,G_{g}\oplus 45\,H_{g}$\\
+ & 9 & $17\,A_{u}\oplus 32\,T_{1u}\oplus 32\,T_{2u}\oplus 49\,G_{u}\oplus 62\,H_{u}$\\
+ & 10 & $21\,A_{g}\oplus 45\,T_{1g}\oplus 45\,T_{2g}\oplus 65\,G_{g}\oplus 90\,H_{g}$\\
+\hline
+\end{longtable}
+
+\subsection*{$C_{\infty\mathrm v}$}
+\addcontentsline{toc}{subsection}{$C_{\infty\mathrm v}$}
+Bending modes, from the linear form of Proposition~\ref{prop:lrule}: $\ell\in\{v,v-2,\ldots\}$ gives $\Sigma^+$ for $\ell=0$ and $\Lambda=|\ell|$ otherwise; the script checks it against finite approximants for $v\le3$.
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$\Pi$ & 1 & $\Pi$\\
+ & 2 & $\Sigma^{+}\oplus \Delta$\\
+ & 3 & $\Pi\oplus \Phi$\\
+ & 4 & $\Sigma^{+}\oplus \Delta\oplus \Gamma$\\
+ & 5 & $\Pi\oplus \Phi\oplus H$\\
+ & 6 & $\Sigma^{+}\oplus \Delta\oplus \Gamma\oplus I$\\
+ & 7 & $\Pi\oplus \Phi\oplus H\oplus K$\\
+ & 8 & $\Sigma^{+}\oplus \Delta\oplus \Gamma\oplus I\oplus L$\\
+ & 9 & $\Pi\oplus \Phi\oplus H\oplus K\oplus M$\\
+ & 10 & $\Sigma^{+}\oplus \Delta\oplus \Gamma\oplus I\oplus L\oplus N$\\
+\hline
+\end{longtable}
+
+\subsection*{$D_{\infty\mathrm h}$}
+\addcontentsline{toc}{subsection}{$D_{\infty\mathrm h}$}
+Bending modes, from the linear form of Proposition~\ref{prop:lrule}: $\ell\in\{v,v-2,\ldots\}$ gives $\Sigma^+$ for $\ell=0$ and $\Lambda=|\ell|$ otherwise; the script checks it against finite approximants for $v\le3$.
+\begin{longtable}{l c p{0.72\textwidth}}
+\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead
+$\Pi_{g}$ & 1 & $\Pi_{g}$\\
+ & 2 & $\Sigma^{+}_{g}\oplus \Delta_{g}$\\
+ & 3 & $\Pi_{g}\oplus \Phi_{g}$\\
+ & 4 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}$\\
+ & 5 & $\Pi_{g}\oplus \Phi_{g}\oplus H_{g}$\\
+ & 6 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}$\\
+ & 7 & $\Pi_{g}\oplus \Phi_{g}\oplus H_{g}\oplus K_{g}$\\
+ & 8 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}\oplus L_{g}$\\
+ & 9 & $\Pi_{g}\oplus \Phi_{g}\oplus H_{g}\oplus K_{g}\oplus M_{g}$\\
+ & 10 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}\oplus L_{g}\oplus N_{g}$\\
+\hline
+$\Pi_{u}$ & 1 & $\Pi_{u}$\\
+ & 2 & $\Sigma^{+}_{g}\oplus \Delta_{g}$\\
+ & 3 & $\Pi_{u}\oplus \Phi_{u}$\\
+ & 4 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}$\\
+ & 5 & $\Pi_{u}\oplus \Phi_{u}\oplus H_{u}$\\
+ & 6 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}$\\
+ & 7 & $\Pi_{u}\oplus \Phi_{u}\oplus H_{u}\oplus K_{u}$\\
+ & 8 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}\oplus L_{g}$\\
+ & 9 & $\Pi_{u}\oplus \Phi_{u}\oplus H_{u}\oplus K_{u}\oplus M_{u}$\\
+ & 10 & $\Sigma^{+}_{g}\oplus \Delta_{g}\oplus \Gamma_{g}\oplus I_{g}\oplus L_{g}\oplus N_{g}$\\
+\hline
+\end{longtable}
 
 \end{document}

@@ -440,6 +440,143 @@ def block(res, mode, pref, head=None):
     labs = res['irreps']
     return (head, labs, order_idx(labs, pref), res['modes'][mode])
 
+# ----------------------------------------------------------------------------------------
+# 7. Exhaustive tables, with the groups and Mulliken labels of ../species_tables/pointgroups.py
+# ----------------------------------------------------------------------------------------
+
+VMAX_EX = 10       # quanta listed in the exhaustive tables
+
+LINEAR_NAMES = ['\\Sigma', '\\Pi', '\\Delta', '\\Phi', '\\Gamma', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'Q']
+
+def _pointgroups():
+    here = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, os.path.join(here, '..', 'species_tables'))
+    import pointgroups
+    return pointgroups
+
+def pg_modes(G):
+    """Degenerate modes of a pointgroups.FiniteGroup: irreps of dim >= 2 and complex-conjugate
+    pairs of 1-d irreps. Returns [(mode label, character on elements)]."""
+    modes, used = [], set()
+    for a, (lab, d) in enumerate(zip(G.labels, G.dims)):
+        if d >= 2:
+            modes.append((lab, G.chars[a]))
+        elif np.max(np.abs(G.chars[a].imag)) > 1e-6 and a not in used:
+            b = next(j for j in range(len(G.labels)) if np.allclose(G.chars[j], G.chars[a].conj()))
+            used |= {a, b}
+            l1, l2 = sorted([G.labels[a], G.labels[b]])
+            modes.append((l1 + r'\oplus ' + l2, G.chars[a] + G.chars[b]))
+    return modes
+
+def pg_overtones(G, vmax, check_dims=True):
+    """{mode label: [[m_Gamma(v) for Gamma in G.labels] for v = 0..vmax]}"""
+    n = G.order
+    powers = np.zeros((n, vmax), int)
+    for g in range(n):
+        x = g
+        for k in range(vmax):
+            powers[g, k] = x
+            x = G.mul[x, g]
+    out = {}
+    for lab, chi in pg_modes(G):
+        H = np.zeros((vmax + 1, n), complex)
+        for g in range(n):
+            p = chi[powers[g]]
+            h = [1.0 + 0j]
+            for v in range(1, vmax + 1):
+                h.append(sum(p[k - 1] * h[v - k] for k in range(1, v + 1)) / v)
+            H[:, g] = h
+        rows = []
+        d_s = int(round(chi[0].real))
+        for v in range(vmax + 1):
+            m = [np.sum(np.conj(c) * H[v]).real / n for c in G.chars]
+            assert np.allclose(m, np.round(m), atol=1e-6), (G.name, lab, v)
+            m = [int(round(x)) for x in m]
+            if check_dims:
+                assert sum(mi * di for mi, di in zip(m, G.dims)) == comb(v + d_s - 1, d_s - 1), (G.name, lab, v)
+            rows.append(m)
+        out[lab] = rows
+    return out
+
+def linear_overtones(name, vmax):
+    """Closed form for the bending (Pi) modes of C_inf_v and D_inf_h."""
+    def lab(L, parity):
+        base = LINEAR_NAMES[L] + ('^{+}' if L == 0 else '')
+        return base + ('_{%s}' % parity if parity else '')
+    modes = {}
+    pars = [''] if name == 'Cinfv' else ['g', 'u']
+    for par in pars:
+        rows = []
+        for v in range(vmax + 1):
+            p = '' if not par else ('g' if (par == 'g' or v % 2 == 0) else 'u')
+            terms = [lab(abs(l), p) for l in range(v % 2, v + 1, 2)]
+            rows.append(terms)
+        modes[lab(1, par)] = rows
+    return modes
+
+def check_linear(pg):
+    """Closed-form linear tables against the finite approximants of pointgroups (|Lambda| <= 3)."""
+    count = 0
+    for G in pg.linear_groups():
+        if G.name not in ('Cinfv', 'Dinfh'):
+            continue
+        ex = pg_overtones(G, 3, check_dims=False)   # truncated at |Lambda| <= 3
+        cf = linear_overtones(G.name, 3)
+        for mode, rows in cf.items():
+            for v in range(4):
+                want = sorted(rows[v])
+                got = sorted(l for l, c in zip(G.labels, ex[mode][v]) for _ in range(c))
+                assert want == got, (G.name, mode, v, want, got)
+                count += 1
+    return count
+
+def check_against_independent(groups):
+    """Label-free agreement of the pointgroups-based tables with compute() of this script."""
+    for G in groups:
+        mine = compute(G.name, vmax=VMAX_EX, with_labels=False)
+        a = sorted(tuple(sorted((d, tuple(r[i] for r in rows)) for i, d in enumerate(mine['dims'])))
+                   for rows in mine['modes'].values())
+        theirs = pg_overtones(G, VMAX_EX)
+        b = sorted(tuple(sorted((d, tuple(r[i] for r in rows)) for i, d in enumerate(G.dims)))
+                   for rows in theirs.values())
+        assert a == b and mine['order'] == G.order, G.name
+    return len(groups)
+
+def exhaustive_tex(groups, pg):
+    L = []
+    w = L.append
+    for G in groups:
+        modes = pg_overtones(G, VMAX_EX)
+        w(r'\subsection*{$%s$ \quad (order %d)}' % (G.latex, G.order))
+        w(r'\addcontentsline{toc}{subsection}{$%s$}' % G.latex)
+        if not modes:
+            w(r'All irreps are one-dimensional and real; every overtone of a mode $\Gamma_s$ is $\Gamma_s^{\otimes v}$ (R1).')
+            w('')
+            continue
+        w(r'\begin{longtable}{l c p{0.72\textwidth}}')
+        w(r'\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead')
+        for mode, rows in modes.items():
+            for v in range(1, VMAX_EX + 1):
+                parts = [('%d' % c + chr(92) + ',' if c > 1 else '') + l for l, c in zip(G.labels, rows[v]) if c]
+                w(('$%s$' % mode if v == 1 else '') + ' & %d & $' % v + r'\oplus '.join(parts) + r'$\\')
+            w(r'\hline')
+        w(r'\end{longtable}')
+        w('')
+    for name, latex in [('Cinfv', r'C_{\infty\mathrm v}'), ('Dinfh', r'D_{\infty\mathrm h}')]:
+        modes = linear_overtones(name, VMAX_EX)
+        w(r'\subsection*{$%s$}' % latex)
+        w(r'\addcontentsline{toc}{subsection}{$%s$}' % latex)
+        w(r'Bending modes, from the linear form of Proposition~\ref{prop:lrule}: $\ell\in\{v,v-2,\ldots\}$ gives $\Sigma^+$ for $\ell=0$ and $\Lambda=|\ell|$ otherwise; the script checks it against finite approximants for $v\le3$.')
+        w(r'\begin{longtable}{l c p{0.72\textwidth}}')
+        w(r'\hline mode & $v$ & $\mathrm{Sym}^v\Gamma_s$\\ \hline\endhead')
+        for mode, rows in modes.items():
+            for v in range(1, VMAX_EX + 1):
+                w(('$%s$' % mode if v == 1 else '') + ' & %d & $' % v + r'\oplus '.join(rows[v]) + r'$\\')
+            w(r'\hline')
+        w(r'\end{longtable}')
+        w('')
+    return '\n'.join(L)
+
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     os.chdir(here)
@@ -455,12 +592,23 @@ def main():
     print('rules (R2), (R3): %d decompositions agree' % check_product_rules())
     n_gt = check_gtpack()
     print('GTPack comparison: ' + ('%d groups agree' % n_gt if n_gt else 'skipped (overtone_tables_gtpack.json not found)'))
+    pg = _pointgroups()
+    groups = [G for G in pg.all_finite_groups(8) if not getattr(G, 'truncated', False)]
+    print('exhaustive tables: %d groups agree with the independent construction' % check_against_independent(groups))
+    print('linear groups: %d closed-form decompositions agree with finite approximants' % check_linear(pg))
 
     # ---- data
     names = ['C3v', 'D3', 'D3d', 'D3h', 'C4v', 'D4', 'D2d', 'D4h', 'C5v', 'D5', 'D5d', 'D5h',
              'C6v', 'D6', 'D6h', 'D4d', 'T', 'Td', 'O', 'Th', 'Oh', 'I', 'Ih']
     data = {n: compute(n) for n in names}
-    json.dump({'vmax': VMAX, 'groups': data}, open('overtone_tables.json', 'w'), indent=1)
+    full = {}
+    for G in groups:
+        full[G.name] = {'order': G.order, 'irreps': G.labels, 'dims': G.dims,
+                        'modes': pg_overtones(G, VMAX)}
+    for name in ('Cinfv', 'Dinfh'):
+        full[name] = {'modes_closed_form': linear_overtones(name, VMAX)}
+    json.dump({'vmax': VMAX, 'label_convention': 'LaTeX Mulliken labels of species_tables/pointgroups.py',
+               'groups': full}, open('overtone_tables.json', 'w'), indent=1)
 
     A = lambda g, pref: [(g, m, data[g]['irreps'], order_idx(data[g]['irreps'], pref), data[g]['modes'][m])
                          for m in pref if m in data[g]['modes']]
@@ -485,7 +633,8 @@ def main():
                        'tab:ico')
     checks = dict(NL=n_l, NGT=(n_gt or 0))
     tex = TEMPLATE
-    for k, v in dict(T_AXIAL1=t_axial1, T_AXIAL2=t_axial2, T_AXIAL3=t_axial3, T_CUBIC=t_cubic, T_ICO=t_ico,
+    for k, v in dict(EXHAUSTIVE=exhaustive_tex(groups, pg), VMAX_EX=str(VMAX_EX), NGROUPS=str(len(groups) + 2),
+                     T_AXIAL1=t_axial1, T_AXIAL2=t_axial2, T_AXIAL3=t_axial3, T_CUBIC=t_cubic, T_ICO=t_ico,
                      VMAX=str(VMAX), NL=str(n_l)).items():
         tex = tex.replace('@@%s@@' % k, v)
     open('overtone_tables.tex', 'w', encoding='utf8').write(tex)
@@ -493,7 +642,7 @@ def main():
 
 TEMPLATE = r"""\documentclass[11pt]{article}
 \usepackage[margin=2.2cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm,braket,float}
+\usepackage{amsmath,amssymb,amsthm,braket,float,longtable}
 \usepackage[hidelinks]{hyperref}
 \emergencystretch=3em
 \newtheorem{proposition}{Proposition}
@@ -502,6 +651,10 @@ TEMPLATE = r"""\documentclass[11pt]{article}
 \date{}
 \begin{document}
 \maketitle
+\tableofcontents
+\bigskip
+
+\part{Rules and representative tables}
 
 \section{Scope}
 
@@ -514,7 +667,7 @@ the decomposition of $v$ quanta in a single mode $s$; they are the multiplicitie
 \sum_{v\ge0}m_\Gamma(v)\,t^v=\frac{1}{|\mathsf G|}\sum_{R\in\mathsf G}\frac{\chi^*_\Gamma(R)}{\det\bigl[1-t\,D^{\Gamma_s}(R)\bigr]} .
 \label{eq:molien}
 \end{equation}
-Table~\ref{tab:index} lists, for each group, where its degenerate modes are treated. The same data, for $v\le@@VMAX@@$, are in \texttt{overtone\_tables.json}.
+Part~I below states the general rules and gives representative tables; Table~\ref{tab:index} lists, for each group, where its degenerate modes are treated. Part~II (Sec.~\ref{sec:complete}) lists every group explicitly: all @@NGROUPS@@ groups in the scope of the species tables (\texttt{../species\_tables}), with the same Mulliken labels, every degenerate mode, and $v\le@@VMAX_EX@@$. The same data, for $v\le@@VMAX@@$, are in \texttt{overtone\_tables.json}.
 
 \paragraph{Verification.} The tables are produced by \texttt{overtone\_tables.py}, which generates each group from $3\times3$ orthogonal matrices, computes its character table from the class algebra, and obtains the characters of $\mathrm{Sym}^v\Gamma_s$ from the power sums $p_k(R)=\chi_{\Gamma_s}(R^k)$ through Newton's identity $h_v=v^{-1}\sum_{k=1}^v p_k\,h_{v-k}$. Independently, \texttt{overtone\_tables\_gtpack.wl} computes the same decompositions from the GTPack character tables of the 32 crystallographic groups; the two agree for every group, every degenerate mode, and every $v\le@@VMAX@@$. The explicit projector scripts of this folder, \texttt{overtones\_C3v\_E.wl} ($v\le8$) and \texttt{overtones\_Td\_T2.wl} ($v\le6$) reproduce the $C_{3v}$ and $T_d$ entries. The script also verifies rules (R2) and (R3) below against direct computation for $D_{3d}$, $D_{3h}$, $D_{4h}$, $D_{5d}$, $D_{5h}$, $D_{6h}$, $T_h$, $O_h$, and $I_h$. Every row satisfies $\sum_\Gamma m_\Gamma(v)\,d_\Gamma=\binom{v+d_s-1}{d_s-1}$.
 
@@ -634,6 +787,14 @@ $I_h$ & $T_{1g},\ldots,H_u$ & as $I$, with (R2)\\
 \label{tab:index}
 \end{table}
 
+\clearpage
+\part{Complete tables}
+\section{All point groups}
+\label{sec:complete}
+
+Every closed subgroup of $\mathsf O(3)$ in the scope of the species tables: $C_1$, $C_s$, $C_i$; the axial families $C_n$, $C_{nv}$, $C_{nh}$, $S_{2n}$, $D_n$, $D_{nh}$, $D_{nd}$ for $n=2,\ldots,8$; $T$, $T_h$, $T_d$, $O$, $O_h$, $I$, $I_h$; and the linear groups $C_{\infty v}$, $D_{\infty h}$. Groups, irreps, and labels are those of \texttt{species\_tables/pointgroups.py}. For each degenerate mode $\Gamma_s$, the table lists $\mathrm{Sym}^v\Gamma_s$ for $v=1,\ldots,@@VMAX_EX@@$. A separably degenerate mode appears as its pair ${}^1E\oplus{}^2E$. For each group, the script checks these entries against its own independent construction of the group, without using labels.
+
+@@EXHAUSTIVE@@
 \end{document}
 """
 

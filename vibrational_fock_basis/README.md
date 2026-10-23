@@ -24,9 +24,9 @@ Every script uses the main text's basis conventions, the same ones the rotationa
 | [`overtones_C3v_E.wl`](overtones_C3v_E.wl) | The n-quantum overtone of one E mode in C₃ᵥ (ν₄ of NH₃, ν₈ of CaOCH₃): A₁/A₂ states and partner-resolved ¹E/²E pairs, \|¹E⟩ = \|ℓ⟩, \|²E⟩ = \|−ℓ⟩ with ℓ ≡ 2 (mod 3). Self-contained (explicit C₃ᵥ matrices). | — |
 | [`overtones_Td_T2.wl`](overtones_Td_T2.wl) | The N-quantum overtone Sym^N(T₂) of one T₂ mode in T_d (ν₃, ν₄ of CH₄): Sym²T₂ = A₁ ⊕ E ⊕ T₂, Sym³T₂ = A₁ ⊕ T₁ ⊕ 2T₂, …, with repeated irreps split into individual partner-resolved copies. Self-contained (T_d built as signed permutation matrices). | — |
 | [`example_outputs/`](example_outputs) | Console output of each script: C₃ᵥ n = 6, T_d N = 2 and N = 3, CaOCH₃ one quantum per mode | — |
-| [`overtone_tables.pdf`](overtone_tables.pdf) | **Overtone tables for every point group** (5 pages): which irreps v quanta of one degenerate mode contain, for all point groups of rigid molecules. See [below](#overtone-tables-for-all-point-groups). | — |
-| [`overtone_tables.py`](overtone_tables.py) | Generates `overtone_tables.tex` and `overtone_tables.json` and runs all checks. Self-contained Python: builds each group from 3×3 matrices and computes its character table itself. | NumPy, SymPy |
-| [`overtone_tables.json`](overtone_tables.json) | Multiplicities m_Γ(v), v ≤ 12, for every degenerate mode of 23 representative groups | — |
+| [`overtone_tables.pdf`](overtone_tables.pdf) | **Overtone tables for every point group** (50 pages): which irreps v quanta of one degenerate mode contain. Part I gives the rules and representative tables; Part II lists every group explicitly. See [below](#overtone-tables-for-all-point-groups). | — |
+| [`overtone_tables.py`](overtone_tables.py) | Generates `overtone_tables.tex` and `overtone_tables.json` and runs all checks. Part II uses the groups and labels of [`../species_tables/pointgroups.py`](../species_tables/pointgroups.py); every entry is checked against the script's own independent construction (each group from 3×3 matrices, character table from the class algebra). | NumPy, SymPy |
+| [`overtone_tables.json`](overtone_tables.json) | Multiplicities m_Γ(v), v ≤ 12, for every degenerate mode of all 59 finite groups of the species tables (same labels), plus closed forms for C∞ᵥ and D∞h | — |
 | [`overtone_tables_gtpack.wl`](overtone_tables_gtpack.wl) | Independent computation of the same decompositions from GTPack character tables (32 crystallographic groups); writes `overtone_tables_gtpack.json`, which `overtone_tables.py` compares against | GTPack |
 
 Each script checks its own result, and these checks print `True` in the example outputs:
@@ -81,6 +81,13 @@ of v quanta in one degenerate mode for every point group of a rigid molecule. Th
 - **Decomposition tables** for C₃ᵥ, C₄ᵥ, C₅ᵥ, C₆ᵥ and D₄d up to v = 8, and **multiplicity tables** for the cubic (T_d, O, T) and icosahedral (I) modes up to v = 12.
 - **Explicit v = 2, 3 states** of a triply degenerate mode (cubic harmonics), with their species in T_d, O and T.
 - **An index** saying where each group's degenerate modes are covered.
+- **Part II, complete tables:** every group in the scope of [`../species_tables`](../species_tables), with the same Mulliken labels:
+  - C₁, C_s, C_i;
+  - C_n, C_nv, C_nh, S₂ₙ, D_n, D_nh and D_nd for n = 2…8;
+  - T, T_h, T_d, O, O_h, I and I_h;
+  - C∞ᵥ and D∞h.
+
+  Every degenerate mode is listed explicitly for v = 1…10, with separably degenerate modes as their ¹E ⊕ ²E pair.
 
 The phase conventions match the rest of this folder: U(C_n) = e^{−2πiℓ/n}, a ¹E quantum carries ℓ = −1, and T₁ = det R · R.
 
@@ -91,12 +98,13 @@ The phase conventions match the rest of this folder: U(C_n) = e^{−2πiℓ/n}, 
 - **T_d and O:** give identical tables with identical labels.
 - **The explicit cubic states:** carry the stated species (character projection).
 - **GTPack:** agreement for all 32 crystallographic groups, every degenerate mode, v ≤ 12, label-free.
+- **Complete tables:** the `pointgroups.py`-based entries agree, label-free, with the script's independent construction for all 59 finite groups. The closed-form linear-group entries agree with the finite approximants of `pointgroups.py` for v ≤ 3.
 
 In addition, `overtones_C3v_E.wl` (v ≤ 8) and `overtones_Td_T2.wl` (v ≤ 6) reproduce the C₃ᵥ and T_d entries.
 
 ```bash
-python overtone_tables.py                  # writes overtone_tables.tex and .json (a few seconds)
-pdflatex overtone_tables.tex
+python overtone_tables.py                  # writes overtone_tables.tex and .json (about 20 s)
+pdflatex overtone_tables.tex               # run twice for the table of contents
 wolframscript -file overtone_tables_gtpack.wl   # optional: regenerates overtone_tables_gtpack.json
 ```
 
