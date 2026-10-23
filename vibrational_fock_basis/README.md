@@ -83,13 +83,13 @@ Instead of one table per v, three classifications reduce the states for every v 
 
   Every SALC is 𝒩 (a†·a†)^k ψ_L, with ψ_L a G-adapted harmonic SALC and 𝒩⁻² = 4^k k! (L+3/2)_k. The species of 𝓗_L are the rotational branching D^L|_G, with parity (−1)^L, times ε^L. So the vibrational overtones follow the same branching rules as the rotational sector, and the copy label of a repeated irrep becomes the layer L.
 
-The T₂, G and H modes of I and I_h fit neither rule, so they are listed explicitly for low v, with multiplicities up to v = 12. Their G and H irrep bases are fixed by polynomials, which the tables list.
+The T₂, G and H modes of I and I_h fit neither rule, so they are listed explicitly (T₂ for v ≤ 6; G and H for v ≤ 3, since their v = 6 manifolds have 84 and 210 states), with multiplicities up to v = 12. Their G and H irrep bases are fixed by polynomials, which the tables list.
 
-**Worked examples** give explicit SALCs at finite v for C₃ᵥ E, C₄ᵥ E, D₃ₕ E′, D₆ₕ E₁ᵤ, T_d E and T₂, O_h T₁ᵤ, and I_h H_g. They reproduce the conventions of `overtones_C3v_E.wl`: for example, ¹E = |0,1⟩ for one E quantum and ¹E = |2,0⟩ for two.
+**Worked examples** give explicit SALCs for v ≤ 6 for C₃ᵥ E, C₄ᵥ E, D₃ₕ E′, D₆ₕ E₁ᵤ, T_d E and T₂, and O_h T₁ᵤ. They reproduce the conventions of `overtones_C3v_E.wl`: for example, ¹E = |0,1⟩ for one E quantum and ¹E = |2,0⟩ for two.
 
 **Checks.** `python salc_tables.py` stops if any of these fails:
 - **Residue tables:** each one is compared with the projector construction for every v ≤ 2N′ + 2 and every ℓ.
-- **Harmonic tables:** checked for L ≤ 4. The factorised SALCs and the norm formula are checked for v ≤ 4.
+- **Harmonic tables:** checked for L ≤ 6 (explicit harmonic SALCs are listed up to L = 6). The factorised SALCs and the norm formula are checked for v ≤ 6.
 - **Every listed set of states** is orthonormal, complete, and transforms with the irrep matrices of `pointgroups.py`.
 - **Multiplicities** agree with GTPack for the 32 crystallographic groups.
 

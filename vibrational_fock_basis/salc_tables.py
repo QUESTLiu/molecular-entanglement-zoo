@@ -12,7 +12,7 @@ gives the SALCs for every v:
                 so every SALC is a normalised power of the invariant a+.a+ times a G-adapted
                 harmonic SALC of degree L (tables in L).
 
-Modes not covered by (2) or (3) (T2 of I/Ih, G and H of I/Ih) are tabulated explicitly for low v.
+Modes not covered by (2) or (3) (T2 of I/Ih, G and H of I/Ih) are tabulated explicitly for v <= 6 (T2) and v <= 3 (G, H).
 Worked examples give explicit SALCs at small v for molecule-relevant groups.
 
 Construction (as in salc_fock_basis.wl): the Fock action follows Lemma 2,
@@ -40,10 +40,10 @@ import pointgroups as pg   # noqa: E402
 
 TOL = 1e-8
 V_MULT = 12          # multiplicity tables
-L_HARM = 4           # explicit harmonic SALCs, L = 0..L_HARM
+L_HARM = 6           # explicit harmonic SALCs, L = 0..L_HARM (rule checked for v <= L_HARM)
 L_BRANCH = 12        # species of H_L, L = 0..L_BRANCH
-V_EXPLICIT = {3: 3, 4: 2, 5: 2}   # explicit tables for non-factorised modes, by mode dimension
-V_EXAMPLE = {2: 4, 3: 3, 4: 2, 5: 2}
+V_EXPLICIT = {3: 6, 4: 3, 5: 3}   # explicit tables for non-factorised modes, by mode dimension
+V_EXAMPLE = {2: 6, 3: 6, 4: 6, 5: 6}
 
 # ----------------------------------------------------------------------------------------
 # Fock space of one mode
@@ -53,26 +53,41 @@ def fock_basis(d, v):
     """Occupation tuples (n_1..n_d), sum v, ordered (v,0,..) first (as ReverseSort[FrobeniusSolve])."""
     return [c for c in itertools.product(range(v, -1, -1), repeat=d) if sum(c) == v]
 
+def _creation(d, k):
+    """a+_j : Sym^(k-1) -> Sym^k for j = 0..d-1 (dense matrices)."""
+    src, dst = fock_basis(d, k - 1), fock_basis(d, k)
+    idx = {b: i for i, b in enumerate(dst)}
+    A = np.zeros((d, len(dst), len(src)))
+    for c, n in enumerate(src):
+        for j in range(d):
+            m = list(n); m[j] += 1
+            A[j, idx[tuple(m)], c] = math.sqrt(n[j] + 1)
+    return A
+
+_CREATION = {}
+
 def fock_matrix(D, basis):
-    """U(R) on Sym^v for a+_i -> sum_j D_ji a+_j (Lemma 2)."""
+    """U(R) on Sym^v for a+_i -> sum_j D_ji a+_j (Lemma 2), built recursively:
+    U|m> = (sum_j D_ji a+_j) U|m - e_i> / sqrt(m_i)."""
     d = D.shape[0]
-    idx = {b: i for i, b in enumerate(basis)}
-    M = np.zeros((len(basis), len(basis)), complex)
-    for col, m in enumerate(basis):
-        poly = {tuple([0] * d): 1.0 + 0j}
-        for i in range(d):
-            for _ in range(m[i]):
-                new = {}
-                for k, c in poly.items():
-                    for j in range(d):
-                        if abs(D[j, i]) > 1e-14:
-                            kk = list(k); kk[j] += 1; kk = tuple(kk)
-                            new[kk] = new.get(kk, 0) + c * D[j, i]
-                poly = new
-        norm = math.sqrt(math.prod(factorial(x) for x in m))
-        for k, c in poly.items():
-            M[idx[k], col] += c * math.sqrt(math.prod(factorial(x) for x in k)) / norm
-    return M
+    v = sum(basis[0]) if basis else 0
+    U = np.ones((1, 1), complex)
+    for k in range(1, v + 1):
+        if (d, k) not in _CREATION:
+            _CREATION[(d, k)] = _creation(d, k)
+        A = _CREATION[(d, k)]
+        prev = {b: i for i, b in enumerate(fock_basis(d, k - 1))}
+        cur = fock_basis(d, k)
+        L = np.tensordot(D, A, axes=(0, 0))            # L[i] = sum_j D_ji a+_j
+        Un = np.zeros((len(cur), len(cur)), complex)
+        for c, m in enumerate(cur):
+            i = next(t for t in range(d) if m[t] > 0)
+            pm = list(m); pm[i] -= 1
+            Un[:, c] = L[i] @ U[:, prev[tuple(pm)]] / math.sqrt(m[i])
+        U = Un
+    order = {b: i for i, b in enumerate(fock_basis(d, v))}
+    perm = [order[b] for b in basis]
+    return U[np.ix_(perm, perm)]
 
 def pair_op(d, v, create=True):
     """a+.a+ : Sym^v -> Sym^(v+2)  (create)  or  a.a : Sym^v -> Sym^(v-2)."""
@@ -484,7 +499,7 @@ def mult_rows(G, D):
     return [mults(G, H[v]) for v in range(V_MULT + 1)]
 
 EXAMPLES = [('C3v', 'E'), ('C4v', 'E'), ('D3h', "E'"), ('D6h', 'E_{1u}'), ('Td', 'E'), ('Td', 'T_{2}'),
-            ('Oh', 'T_{1u}'), ('Ih', 'H_{g}')]
+            ('Oh', 'T_{1u}')]
 
 def run():
     os.chdir(HERE)
@@ -636,7 +651,7 @@ def write_tex(tex_groups, examples, stats, n_gt):
     out = [PREAMBLE]
     # worked examples
     out.append(r'\section{Worked examples at finite $v$}\label{sec:examples}')
-    out.append(r'Explicit SALCs of one mode for small $v$, from the projector construction; each set is orthonormal, complete, and transforms with the irrep matrices. They are special cases of the tables of Sec.~\ref{sec:groups}.')
+    out.append(r'Explicit SALCs of one mode for $v\le6$, from the projector construction; each set is orthonormal, complete, and transforms with the irrep matrices. They are special cases of the tables of Sec.~\ref{sec:groups}.')
     for (gname, lab), (G, sets, kind) in examples.items():
         out.append(r'\subsection*{$%s$, mode $%s$}' % (G.latex, lab))
         out.append(r'\addcontentsline{toc}{subsection}{$%s$, $%s$}' % (G.latex, lab))
@@ -714,9 +729,9 @@ If $D(R)=\varepsilon(R)\,R$ for a one-dimensional character $\varepsilon$, the i
 Every SALC of $v$ quanta is $\mathcal N_{v,L}(a^\dagger\!\cdot a^\dagger)^{k}\psi_L$, $k=(v-L)/2$, with $\psi_L$ a $\mathsf G$-adapted harmonic SALC and $\mathcal N_{v,L}^{-2}=4^kk!\,(L+\tfrac32)_k$. The species of $\mathcal H_L$ are the rotational branching $D^{L}|_{\mathsf G}$ with $\mathsf O(3)$ parity $(-1)^L$, times $\varepsilon^L$: the same multiplicities as the rotational sector of the paper, and the copy label of a repeated irrep becomes the layer $L$.
 \end{proposition}
 
-The first two are elementary; the third is the isotropic-oscillator decomposition restricted to $\mathsf G$. Modes covered by neither (the $T_2$, $G$, $H$ modes of $I$ and $I_h$) are listed explicitly for small $v$, together with their multiplicities to $v=12$.
+The first two are elementary; the third is the isotropic-oscillator decomposition restricted to $\mathsf G$. Modes covered by neither (the $T_2$, $G$, $H$ modes of $I$ and $I_h$) are listed explicitly, the $T_2$ modes for $v\le6$ and the $G$ and $H$ modes for $v\le3$ (their $v=6$ manifolds have 84 and 210 states with irrational coefficients), together with their multiplicities to $v=12$.
 
-\emph{Checks.} \texttt{salc\_tables.py} stops unless all of the following hold. Each residue table is compared with the projector construction for every $v\le2N'+2$ and every $\ell$, and the resulting states are verified to be orthonormal, complete, and covariant. Each harmonic table is verified the same way for $L\le4$, the norm formula and the factorised SALCs are verified for $v\le4$, and the harmonic species are computed from $\mathrm{Sym}^L-\mathrm{Sym}^{L-2}$. Every explicit table is verified for orthonormality, completeness, and covariance. The multiplicities agree with GTPack for @@GT@@. In all, the tables cover @@STATS@@.
+\emph{Checks.} \texttt{salc\_tables.py} stops unless all of the following hold. Each residue table is compared with the projector construction for every $v\le2N'+2$ and every $\ell$, and the resulting states are verified to be orthonormal, complete, and covariant. Each harmonic table is verified the same way for $L\le6$, the norm formula and the factorised SALCs are verified for $v\le6$, and the harmonic species are computed from $\mathrm{Sym}^L-\mathrm{Sym}^{L-2}$. Every explicit table is verified for orthonormality, completeness, and covariance. The multiplicities agree with GTPack for @@GT@@. In all, the tables cover @@STATS@@.
 """
 
 PART2_INTRO = r"""For every group of the species tables: residue tables for two-dimensional modes (for $\ell>0$ each row gives the SALC on the pair $\ket{n_+,n_-}$, $\ket{n_-,n_+}$, partners separated by commas), single-row residue lists for separably degenerate pairs, harmonic tables for vector-like three-dimensional modes, and explicit tables otherwise. Linear molecules: for $C_{\infty v}$ and $D_{\infty h}$ the residue rule holds with $N'\to\infty$, the pair $\ell=\pm\Lambda$ forming the $\Lambda$ ($\Pi,\Delta,\Phi,\ldots$) species with partners $\ket{n_+,n_-}$, $\ket{n_-,n_+}$, and $\ell=0$ giving $\Sigma^+$; for $D_{\infty h}$ the parity is $(-1)^v$ for a $\Pi_u$ mode."""
