@@ -498,7 +498,7 @@ TEMPLATE = r"""\documentclass[11pt]{article}
 \emergencystretch=3em
 \newtheorem{proposition}{Proposition}
 \title{Universal Overtone Tables for Molecular Point Groups}
-\author{Companion to \emph{Quantum theory of molecular phase space}}
+\author{}
 \date{}
 \begin{document}
 \maketitle
