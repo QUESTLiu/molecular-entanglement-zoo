@@ -13,6 +13,7 @@ import numpy as np
 
 from entanglement import CLASS_ORDER
 from species import tkey
+import o3h_tex
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -58,17 +59,17 @@ def phase_tex(z):
     ph = np.angle(z) / (2 * np.pi) % 1.0
     f = Fraction(ph).limit_denominator(48)
     if abs(float(f) - ph) > 1e-6 and abs(float(f) - ph - 1) > 1e-6:
-        return "+e^{i%.4f}" % (2 * np.pi * ph), False
+        return r"+\expe^{\iunit %.4f}" % (2 * np.pi * ph), False
     f = f % 1
-    table = {Fraction(0): "+", Fraction(1, 2): "-", Fraction(1, 4): "+i", Fraction(3, 4): "-i",
-             Fraction(1, 3): r"+\omega", Fraction(2, 3): r"+\omega^{2}",
-             Fraction(1, 6): r"-\omega^{2}", Fraction(5, 6): r"-\omega"}
+    table = {Fraction(0): "+", Fraction(1, 2): "-", Fraction(1, 4): r"+\iunit", Fraction(3, 4): r"-\iunit",
+             Fraction(1, 3): r"+\rootunity{3}", Fraction(2, 3): r"+\rootunity{3}^{2}",
+             Fraction(1, 6): r"-\rootunity{3}^{2}", Fraction(5, 6): r"-\rootunity{3}"}
     if f in table:
         return table[f], True
     p, q = f.numerator, f.denominator
     if p * 2 > q:
-        return r"+e^{-2\pi i\cdot %d/%d}" % (q - p, q), True
-    return r"+e^{2\pi i\cdot %d/%d}" % (p, q), True
+        return r"+\rootunity{%d}^{-%d}" % (q, q - p), True
+    return r"+\rootunity{%d}^{%d}" % (q, p), True
 
 
 def mag_tex(x):
@@ -279,36 +280,39 @@ def class_counts(g, m):
 
 
 def group_section(g, out, data):
-    labs = g["labels"]
+    labs = g["labels"]                 # o3harmonics' printed forms
+    keys = g["repo_labels"]            # the REPO labels (S flip applied), kept as JSON keys (D9)
     out.append(r"\subsection{$%s$}" % g["latex"])
     out.append(r"\label{sec:%s}" % g["name"])
-    order = ("$|\\mathsf G|=%d$" % g["order"]) if g["order"] else "continuous"
+    order = ("$|\\grp{G}|=%d$" % g["order"]) if g["order"] else "continuous"
     irr = ", ".join("$%s$\\,(%d)" % (l, d) for l, d in zip(labs, g["dims"]))
     out.append(r"\noindent %s; irreps (dimension): %s." % (order, irr))
     if g["truncated"]:
         if g["family"] in ("K", "Kh"):
-            out.append(r" Truncated at $J\le 3$; coupling tensors are Wigner $3j$ symbols in the $|J m\rangle$ basis.")
+            out.append(r" Truncated at $J\le 3$; each coupling tensor equals the Wigner $3j$ symbol up to an overall "
+                       r"sign, in the basis $\jm{J}{m}$, $m=J,\dots,-J$.")
         else:
             out.append(r" Truncated at $|\Lambda|\le 3$ (exact for these irreps: computed with the finite subgroup "
-                       r"$C_{13}$, $C_{14\mathrm h}$, $C_{13\mathrm v}$ or $D_{14\mathrm h}$, whose invariants coincide "
+                       r"$\grp{C_{13}}$, $\grp{C_{14h}}$, $\grp{C_{13v}}$ or $\grp{D_{14h}}$, whose invariants coincide "
                        r"with those of the continuous group when $|\Lambda_1|+|\Lambda_2|+|\Lambda_3|<13$).")
     mols = ", ".join("$%s$" % labs[m] for m in g["mols"])
     out.append(r" Possible $\Gamma_{\rm mol}$ (real one-dimensional irreps): %s." % mols)
-    gd = dict(group=g["name"], order=g["order"], irreps=[dict(label=l, dim=d) for l, d in zip(labs, g["dims"])],
-              tables={})
+    ids = g.get("ids") or [None] * len(keys)
+    gd = dict(group=g["name"], o3h_record=g.get("o3h_record"), order=g["order"],
+              irreps=[dict(label=k, id=i, dim=d) for k, i, d in zip(keys, ids, g["dims"])], tables={})
     data.append(gd)
     if g["abelian"]:
         out.append(r" All irreps are one-dimensional, so every admissible triple is \textbf{separable}, "
                    r"the coupling tensor is the single number $1$, and for given $(\Gamma_{\rm r},\Gamma_{\rm n})$ "
-                   r"the vibrational species is unique, $\Gamma_{\rm v}=\Gamma_{\rm mol}\otimes\bar\Gamma_{\rm r}"
-                   r"\otimes\bar\Gamma_{\rm n}$. Each grid below lists that $\Gamma_{\rm v}$ "
+                   r"the vibrational species is unique, $\Gamma_{\rm v}=\Gamma_{\rm mol}\otimes\Gamma_{\rm r}^*"
+                   r"\otimes\Gamma_{\rm n}^*$. Each grid below lists that $\Gamma_{\rm v}$ "
                    r"(rows $\Gamma_{\rm r}$, columns $\Gamma_{\rm n}$)%s.\par"
                    % ("" if g["truncated"] else "; all %d entries per grid are admissible" % (len(labs) ** 2)))
         for m in g["mols"]:
             out.append(r"\paragraph{$\Gamma_{\rm mol}=%s$} (%d admissible triples, all separable)" %
                        (labs[m], len(g["tables"][m])))
             abelian_grid(g, m, out)
-            gd["tables"][labs[m]] = [dict(r=labs[x["r"]], n=labs[x["n"]], v=labs[x["v"]], dims=[1, 1, 1], N=1,
+            gd["tables"][keys[m]] = [dict(r=keys[x["r"]], n=keys[x["n"]], v=keys[x["v"]], dims=[1, 1, 1], N=1,
                                           cls="sep") for x in g["tables"][m]]
         return
     fam, legend = assign_families(g)
@@ -318,10 +322,10 @@ def group_section(g, out, data):
     # legend
     out.append(r"\par\smallskip\noindent\textit{Coupling-tensor families.} ")
     if printable:
-        out.append(r"Kets list the indices of the degenerate carriers in the order $(\mathrm r,\mathrm n,\mathrm v)$ of "
-                   r"the representative triple (one-dimensional carriers omitted); "
-                   + (r"$x,y,z$ are Cartesian $T$ components, $1,2$ stand for ${}^1E,{}^2E$; $\omega=e^{2\pi i/3}$."
-                      if cubic else r"$1,2$ stand for the components ${}^1E_k,{}^2E_k$ (or ${}^{1,2}\Pi$, \dots).")
+        out.append(r"Kets list the partners of the degenerate carriers in the order $(\mathrm r,\mathrm n,\mathrm v)$ of "
+                   r"the representative triple (one-dimensional carriers omitted). They are o3harmonics' partners $\mu$: "
+                   + (r"$x,y,z$ of each $\irr{t}$, and $1,2$ of $\irr{e}$; $\rootunity{3}=\expe^{2\pi\iunit/3}$."
+                      if cubic else r"$1,2,\dots$ in order.")
                    )
     else:
         out.append(r"Tensors of dimension $>3$ are not written out; they are given in \texttt{species\_data.json}.")
@@ -379,16 +383,16 @@ def group_section(g, out, data):
                 T = c["T"]
                 ent = [[int(i), int(j), int(k), float(T[i, j, k].real), float(T[i, j, k].imag)]
                        for i, j, k in zip(*np.nonzero(abs(T) > 1e-10))]
-                rows_json.append(dict(r=labs[row["r"]], n=labs[row["n"]], v=labs[row["v"]], dims=list(row["dims"]),
+                rows_json.append(dict(r=keys[row["r"]], n=keys[row["n"]], v=keys[row["v"]], dims=list(row["dims"]),
                                       N=row["N"], tau=t + 1, sym=c["tag"], cls=c["cls"], nature=COARSE[c["cls"]],
                                       rank=c["rank"], family=fam[c["vk"]], tensor=ent))
-        gd["tables"][labs[m]] = rows_json
+        gd["tables"][keys[m]] = rows_json
 
 
 def summary_table(results, out):
     out.append(r"{\footnotesize\setlength\tabcolsep{3.5pt}")
     out.append(r"\begin{longtable}{l r r r l r r r r r r r}")
-    hdr = (r"\hline $\mathsf G$ & $|\mathsf G|$ & \#irr & $d_{\max}$ & $\Gamma_{\rm mol}$ choices & \#adm. & sep & bip & "
+    hdr = (r"\hline $\grp{G}$ & $|\grp{G}|$ & \#irr & $d_{\max}$ & $\Gamma_{\rm mol}$ choices & \#adm. & sep & bip & "
            r"GHZ & GHZ-t. & LC & beyond\\\hline")
     out.append(hdr + r"\endfirsthead")
     out.append(hdr + r"\endhead")
@@ -412,10 +416,11 @@ PREAMBLE = r"""\documentclass[10pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+@@O3H_MACROS@@
 \setcounter{tocdepth}{2}
 \newcommand{\ket}[1]{|#1\rangle}
 \title{Admissible rotation--nuclear-spin--vibration species and their\\ symmetry-enforced entanglement
-for the point groups of $\mathsf O(3)$}
+for the point groups of $\grp{O}(3)$}
 \author{Generated with \texttt{species\_tables/} (Python)}
 \date{\today}
 \begin{document}
@@ -424,14 +429,14 @@ for the point groups of $\mathsf O(3)$}
 
 INTRO = r"""
 \section{What is tabulated}
-For a point group $\mathsf G\subset\mathsf O(3)$ and a required molecular species $\Gamma_{\rm mol}$, a triple
+For a point group $\grp{G}\subset\grp{O}(3)$ and a required molecular species $\Gamma_{\rm mol}$, a triple
 $(\Gamma_{\rm r},\Gamma_{\rm n},\Gamma_{\rm v})$ of rotational, nuclear-spin and vibrational species is admissible when
 \begin{equation}
-N^{\Gamma_{\rm mol}}_{\Gamma_{\rm r}\Gamma_{\rm n}\Gamma_{\rm v}}=\frac1{|\mathsf G|}\sum_{R\in\mathsf G}
-\chi_{\Gamma_{\rm r}}(R)\chi_{\Gamma_{\rm n}}(R)\chi_{\Gamma_{\rm v}}(R)\chi^*_{\Gamma_{\rm mol}}(R)\neq0 .
+N^{\Gamma_{\rm mol}}_{\Gamma_{\rm r}\Gamma_{\rm n}\Gamma_{\rm v}}=\frac1{|\grp{G}|}\sum_{\gel\in\grp{G}}
+\chi_{\Gamma_{\rm r}}(\gel)\chi_{\Gamma_{\rm n}}(\gel)\chi_{\Gamma_{\rm v}}(\gel)\chi^*_{\Gamma_{\rm mol}}(\gel)\neq0 .
 \end{equation}
 The coupling (fusion) space is the range of the projector
-$P=\frac1{|\mathsf G|}\sum_R\chi^*_{\Gamma_{\rm mol}}(R)\,D^{\Gamma_{\rm r}}(R)\otimes D^{\Gamma_{\rm n}}(R)\otimes D^{\Gamma_{\rm v}}(R)$;
+$P=\frac1{|\grp{G}|}\sum_{\gel}\chi^*_{\Gamma_{\rm mol}}(\gel)\,D^{\Gamma_{\rm r}}(\gel)\otimes D^{\Gamma_{\rm n}}(\gel)\otimes D^{\Gamma_{\rm v}}(\gel)$;
 for $N=1$ it is spanned by one normalised tensor $C_{abc}$ (the Clebsch--Gordan coupling to $\Gamma_{\rm mol}$), and the carrier state is
 $\ket{C}=\sum_{abc}C_{abc}\ket{a}_{\rm r}\ket{b}_{\rm n}\ket{c}_{\rm v}$.
 
@@ -442,26 +447,30 @@ $C_n,S_{2n},C_{n\rm h},C_{n\rm v},D_n,D_{n\rm h},D_{n\rm d}$ for $n=2,\dots,8$; 
 the linear groups $C_\infty,C_{\infty\rm h},C_{\infty\rm v},D_{\infty\rm h}$ (irreps with $|\Lambda|\le3$);
 and $\mathsf{SO}(3)$, $\mathsf O(3)$ (irreps $J\le3$). ($D_\infty\cong C_{\infty\rm v}$ has the same table as
 $C_{\infty\rm v}$ with $\Sigma^\pm\to A_{1,2}$.)
-\item \emph{$\Gamma_{\rm mol}$.} Eq.~(gamma\_mol) of the main text, $\chi_{\Gamma_{\rm mol}}(R)=\prod_a{\rm sgn}[p_a(R)]^{2I_a}$,
+\item \emph{$\Gamma_{\rm mol}$.} Eq.~(gamma\_mol) of the main text, $\chi_{\Gamma_{\rm mol}}(\gel)=\prod_a\operatorname{sign}[p_a(\gel)]^{2I_a}$,
 only produces characters $\pm1$, so $\Gamma_{\rm mol}$ runs over \emph{every real one-dimensional irrep} of $\mathsf G$; each gets its own table.
-Complex one-dimensional irreps (${}^{1,2}E$ of $C_n$, $T$, \dots) cannot be $\Gamma_{\rm mol}$.
+Complex one-dimensional irreps ($\conjpair{1}\irr{e}$, $\conjpair{2}\irr{e}$ of $\grp{C_{\mathnormal{n}}}$, $\grp{T}$, \dots) cannot be $\Gamma_{\rm mol}$.
 Tables for different $\Gamma_{\rm mol}$ are related by $\Gamma_{\rm v}\mapsto\Gamma_{\rm v}\otimes\Gamma_{\rm mol}\otimes\Gamma'_{\rm mol}$
 and contain the same entanglement classes.
 \item \emph{Species.} Every irrep is allowed in every sector (pure group theory). Molecule-specific restrictions, e.g.\ the
 nuclear-spin species that a given set of identical nuclei can actually carry, are \emph{not} imposed: e.g.\ the 43 $T_{\rm d}$,
 $\Gamma_{\rm mol}=A_2$ triples reduce to the 26 rows of the $\mathrm{CH_4}$ table when $\Gamma_{\rm n}\in\{A_1,E,T_2\}$.
-\item Irreps are irreducible over $\mathbb C$; complex-conjugate pairs are listed separately as ${}^1E,{}^2E$
-(${}^1E_k$ has character $e^{+2\pi ik/n}$ on the generating rotation/rotoreflection).
+\item Irreps are irreducible over $\mathbb C$, with o3harmonics' names; complex-conjugate pairs are listed separately as
+$\conjpair{1}\irr{e}_k$, $\conjpair{2}\irr{e}_k$, named as o3harmonics names the same state. Here elements act actively, so
+$\conjpair{2}\irr{e}_k$ has character $\expe^{+2\pi\iunit k/n}$ on the generating rotation or rotoreflection, the complex conjugate
+of the value o3harmonics tabulates.
 \end{itemize}
 
-\paragraph{Basis conventions} (those of the main text). Principal axis $z$, $C_2'$ along $x$, $\sigma_{\rm v}=xz$.
-Two-dimensional irreps use the complex basis $\ket{1}\equiv\ket{{}^1E}$, $\ket{2}\equiv\ket{{}^2E}$ with
-$D(C_n)={\rm diag}(e^{i\theta},e^{-i\theta})$ (for $D_{n\rm d}$, $n$ even: $S_{2n}$) and the swapping element
-($C_2'(x)$, else $\sigma_{\rm v}(xz)$; in the cubic groups $\sigma_{\rm d}(x\leftrightarrow y)$ for $T_{\rm d}$ and $C_2[1\bar10]$ for $O,O_{\rm h}$)
-represented by $\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$; for cubic $E$ the diagonal element is $C_3[111]$ with $\ket{{}^1E}\mapsto\omega\ket{{}^1E}$.
-Three-dimensional cubic irreps are Cartesian: $\ket{x},\ket{y},\ket{z}$ diagonalise $C_2^{x,y,z}$ and $C_3[111]$ permutes them
-cyclically. These reproduce exactly the tensors (a)--(g) of the $T_{\rm d}$ example (up to the family letters, which are
-assigned automatically here). Entanglement classes do not depend on these choices.
+\paragraph{Conventions and o3harmonics.} Group elements act on states actively, by $U(\gel)$; matrices act on column
+vectors and products compose from right to left. The irrep matrices of every finite group are those of o3harmonics
+(commit 10dab5c), read in this convention: o3harmonics uses row vectors, $\mathbf r\mapsto\mathbf r P(\gel)$, and lets
+$\gel$ act on a function by $U(\gel)^{-1}$, so $D^\Gamma(\gel)=D^\Gamma_{\rm o3h}(\gel^{-1})=D^\Gamma_{\rm o3h}(\gel)^\dagger$,
+with $\gel$ the same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\mu$
+and the coupling tensors are o3harmonics' for the same state; for the irreps whose partner map was the identity
+(all but 24 two-dimensional irreps and the icosahedral $\irr{g}$, $\irr{h}$) the matrices are the ones these tables used
+before, and the tensors (a)--(g) of the $\grp{T_{d}}$ example are unchanged. Principal axis $z$, $\elt{C_{2}'}$ along $x$,
+$\elt{\sigma_{v}}$ the $xz$ plane. The finite stand-ins of the linear groups keep their own complex bases, with the swap as
+the plain permutation. Entanglement classes do not depend on these choices.
 
 \section{Entanglement classes}
 By Schur's lemma every reduced state of $\ket{C}$ on one carrier is $\mathbb{I}/d_\Gamma$ (each flattening of $C$ has full rank
@@ -527,8 +536,13 @@ def main():
     src = sys.argv[1] if len(sys.argv) > 1 else "results.pkl"
     with open(os.path.join(HERE, src), "rb") as f:
         results = pickle.load(f)
+    for g in results:          # print o3harmonics' forms; keep the REPO labels as JSON keys
+        g["repo_labels"] = list(g["labels"])
+        g["labels"] = [o3h_tex.label_tex(g["name"], lab) for lab in g["labels"]]
+        g["latex"] = o3h_tex.group_tex(g["name"])
+    macros = open(os.path.join(HERE, "o3h_macros.tex"), encoding="utf-8").read().rstrip("\n")
     from fusion_tex import fusion_tex
-    out = [PREAMBLE, INTRO, fusion_tex()]
+    out = [PREAMBLE.replace("@@O3H_MACROS@@", macros), INTRO, fusion_tex()]
     out.append(r"\section{Summary}")
     out.append(r"Counts are for one $\Gamma_{\rm mol}$ (identical for every choice); for $N>1$ each basis tensor is counted. "
                r"$^*$: truncated continuous group.")

@@ -91,8 +91,26 @@ def vector_operators(G, lab, t1):
         P += np.kron(np.kron(D[g], D[g].conj()), R[g].conj())
     P /= G.order
     w, U = np.linalg.eigh((P + P.conj().T) / 2)
+    ks = np.where(w > 0.5)[0]
+    if len(ks) > 1:
+        # eigh returns an arbitrary basis of a degenerate space, which a phase alone need not make
+        # Hermitian (it changes with rounding noise). The space is closed under X -> X^dagger, since
+        # the vector irrep is real, so take a Hermitian basis of it from the parts (X +- X^dagger).
+        V = [U[:, k].reshape(d, d, 3).transpose(2, 0, 1) for k in ks]
+        basis = []
+        for X in V:
+            Xd = np.conj(np.transpose(X, (0, 2, 1)))
+            for C in ((X + Xd) / 2, (X - Xd) / 2j):
+                for B in basis:
+                    C = C - B * np.vdot(B, C).real      # real for Hermitian tensors
+                if np.linalg.norm(C) > 1e-6 and len(basis) < len(V):
+                    basis.append(C / np.linalg.norm(C))
+        assert len(basis) == len(V)
+        for X in basis:
+            assert all(np.allclose(X[a], X[a].conj().T, atol=1e-8) for a in range(3))
+        return basis
     out = []
-    for k in np.where(w > 0.5)[0]:
+    for k in ks:
         X = U[:, k].reshape(d, d, 3).transpose(2, 0, 1)
         # make Hermitian
         ph = 1.0

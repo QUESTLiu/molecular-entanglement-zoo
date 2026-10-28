@@ -160,6 +160,11 @@ def ghz_tensor(d):
 
 
 CLASS_ORDER = ["sep", "bip", "GHZ", "GHZ-type", "LC-eps", "LC-|eps|", "higher"]
+# Random starts of the LU tests in classify. One start reaches the Levi-Civita optimum about 43% of
+# the time (the rest stop at 1/2), so 12 starts fail about once in 900 tests; the failure is cached
+# and spreads to every row with that tensor (a cold run put the 8 eps rows of Td in "higher").
+# The search stops at its first success, so more starts cost nothing when it works.
+LU_STARTS = 64
 
 
 def classify(T, rmax_extra=8):
@@ -185,17 +190,17 @@ def classify(T, rmax_extra=8):
     out = dict(rank=rank if rank is not None else -(R0 + rmax_extra), dims=dims)
     if rank == R0:
         if len(set(dims)) == 1:
-            f = lu_fidelity(T, ghz_tensor(R0))
+            f = lu_fidelity(T, ghz_tensor(R0), starts=LU_STARTS)
             assert f > 1 - 1e-6, f
             out["cls"] = "GHZ"
         else:
             out["cls"] = "GHZ-type"
         return out
     if dims == (3, 3, 3):
-        if lu_fidelity(T, eps_tensor(False)) > 1 - 1e-7:
+        if lu_fidelity(T, eps_tensor(False), starts=LU_STARTS) > 1 - 1e-7:
             out["cls"] = "LC-eps"
             return out
-        if lu_fidelity(T, eps_tensor(True)) > 1 - 1e-7:
+        if lu_fidelity(T, eps_tensor(True), starts=LU_STARTS) > 1 - 1e-7:
             out["cls"] = "LC-|eps|"
             return out
     out["cls"] = "higher"

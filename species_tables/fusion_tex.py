@@ -5,6 +5,8 @@ generated from fusion_data.pkl (written by fusion_section.py).
 import os
 import pickle
 
+import o3h_tex
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 CLS = {"GHZ": "GHZ", "LC-eps": r"LC($\epsilon$)", "LC-|eps|": r"LC($|\epsilon|$)", "higher": "beyond GHZ/LC",
@@ -16,14 +18,23 @@ def f4(x):
 
 
 def irr(lab):
-    return "$" + lab + "$"
+    """an icosahedral irrep as o3harmonics prints it (the fusion section is about I_h)"""
+    try:
+        return "$" + o3h_tex.label_tex("Ih", lab) + "$"
+    except KeyError:
+        return "$" + lab + "$"
+
+
+# o3harmonics' class symbols, the count in front: \cls{12C_{5}}
+CLASS_SYMBOL = {"E": "E", "C_5": "C_{5}", "C_5^2": "C_{5}^{2}", "C_3": "C_{3}", "C_2": "C_{2}", "i": "i",
+                "S_{10}^3": "S_{10}^{3}", "S_{10}": "S_{10}", "S_6": "S_{6}", r"\sigma": r"\sigma"}
 
 
 def lowest_J(D, lab):
     for J in range(0, 7):
         for s in ("g", "u"):
             if lab in D["rot"][(J, s)]:
-                return "$%d^{%s}$" % (J, s)
+                return r"$\irrJp{%d}{%s}$" % (J, "+" if s == "g" else "-")
     return "--"
 
 
@@ -95,17 +106,17 @@ def molecule_block(D, m, other_note):
     # Gamma_mol derivation
     out.append(r"\begin{center}\small\setlength\tabcolsep{3.5pt}")
     out.append(r"\begin{tabular}{l" + "c" * len(cls_order) + "}")
-    out.append(r"\toprule class & " + " & ".join("$%d%s$" % (sizes[c], c) if sizes[c] > 1 else "$%s$" % c
-                                                  for c in cls_order) + r"\\\midrule")
+    out.append(r"\toprule class & " + " & ".join(r"$\cls{%d%s}$" % (sizes[c], CLASS_SYMBOL[c]) if sizes[c] > 1
+                                                  else r"$\cls{%s}$" % CLASS_SYMBOL[c] for c in cls_order) + r"\\\midrule")
     ct = []
     for c in cls_order:
         cyc = m["classes"][c]["cycles"]
         ct.append("$" + r"\,".join("%d^{%d}" % (L, k) for L, k in sorted(cyc.items())) + "$")
     out.append(r"cycle type $\ell^{\,\#}$ & " + " & ".join(ct) + r"\\")
-    out.append(r"cycles $c[p(R)]$ & " + " & ".join(str(m["classes"][c]["ncyc"]) for c in cls_order) + r"\\")
-    out.append(r"${\rm sgn}\,p(R)=\chi_{\Gamma_{\rm mol}}$ & " +
+    out.append(r"cycles $c[p(\gel)]$ & " + " & ".join(str(m["classes"][c]["ncyc"]) for c in cls_order) + r"\\")
+    out.append(r"$\operatorname{sign}p(\gel)=\chi_{\Gamma_{\rm mol}}$ & " +
                " & ".join("$%+d$" % m["classes"][c]["parity"] for c in cls_order) + r"\\")
-    out.append(r"$\chi^{\rm(n)}=2^{c[p(R)]}$ & " +
+    out.append(r"$\chi^{\rm(n)}=2^{c[p(\gel)]}$ & " +
                " & ".join("$2^{%d}$" % m["classes"][c]["ncyc"] for c in cls_order) + r"\\")
     out.append(r"\bottomrule\end{tabular}\end{center}")
     # spin and vibrational content
@@ -121,7 +132,7 @@ def molecule_block(D, m, other_note):
     rows = [r for r in D["N2_rows"] if r["mol"] == m["mol"]]
     out.append(r"\begin{center}\small\setlength\tabcolsep{5pt}")
     out.append(r"\begin{tabular}{ccc l l l}")
-    out.append(r"\toprule $\Gamma_{\rm r}$ & $\Gamma_{\rm n}$ & $\Gamma_{\rm v}$ & lowest $J^\sigma$ & "
+    out.append(r"\toprule $\Gamma_{\rm r}$ & $\Gamma_{\rm n}$ & $\Gamma_{\rm v}$ & lowest $\irrJp{J}{p}$ & "
                r"spin multiplets $m^{\rm(n)}_{\Gamma_{\rm n}}$ & vibration\\\midrule")
     for r in rows:
         nv = m["vib"].get(r["v"], 0)
@@ -210,7 +221,7 @@ by whether the nuclear-spin and vibrational carriers first form their intermedia
 
 \noindent\emph{$(H,H,H)$.} Both copies lie in ${\rm Sym}^3H$ (${\rm Sym}^3H\supset2A_g$; ${\rm Alt}^3H$ and the mixed part contain
 none), so \emph{no permutation label} distinguishes them. The distinction comes instead from the chain
-$\mathsf{SO}(3)\supset I$: $H=D^{(2)}|_I$, and a pair of $H$ carriers couples to $\mathsf{SO}(3)$ rank $K=0,\dots,4$, of which only
+$\grp{SO}(3)\supset I$: $H=D^{(2)}|_I$, and a pair of $H$ carriers couples to $\grp{SO}(3)$ rank $K=0,\dots,4$, of which only
 $K=2$ ($\to H$) and $K=4$ ($\to G\oplus H$) contain $H$. Therefore $\mathcal F={\rm span}\{\ket{K{=}2},\ket{K{=}4}\}$. The state
 $\ket{K{=}2}$ is exactly the Wigner $3j$ coupling $(2\,2\,2)$, the one coupling a spherical body would also allow (computed weight of
 the $3j$ tensor in $\mathcal F$: %s; overlap with $\ket{K{=}2}$: %s); $\ket{K{=}4}$ exists only because the symmetry is
@@ -251,7 +262,7 @@ $2(c_{\rm rn}+c_{\rm rv}+c_{\rm nv})$.
 \label{sec:fusion_sphere}
 Write $\ket{C(\theta,\varphi)}=\cos\tfrac\theta2\ket{C_1}+e^{i\varphi}\sin\tfrac\theta2\ket{C_2}$ in the natural basis and evaluate
 two LU invariants: the negativity $\mathcal N$ of each two-sector marginal (entanglement left between two sectors after the third
-is discarded) and the geometric measure $E_G=-\log_2\Lambda^2$, $\Lambda^2=\max|\langle abc|C\rangle|^2$ over product states
+is discarded) and the geometric measure $E_{\rm geo}=-\log_2\Lambda^2$, $\Lambda^2=\max|\langle abc|C\rangle|^2$ over product states
 (GHZ$_d$: $\log_2 d$; $\epsilon$: $\log_26$; $|\epsilon|$: $\log_2\tfrac92$). Both vary continuously over the sphere
 (Fig.~\ref{fig:fusion}), so by item 1 each $N=2$ species contains a \emph{continuum of SLOCC-inequivalent} genuinely tripartite
 states, all symmetry-allowed; which one the molecule is in is decided by the inter-sector couplings.
@@ -271,7 +282,7 @@ $=\ket{C_2}$; labels in the corners). Rows: $T$ with $C_{1,2}=|\epsilon|,\epsilo
 $I_{\rm h}$ $(H_g,H_g,H_g)$ with $C_{1,2}=\ket{K{=}2}$ (the $3j$ state), $\ket{K{=}4}$; $I_{\rm h}$ $(G_g,H_g,H_g)$ with $C_{1,2}$ = S, A
 (circles: Coriolis $\mathbf L^{\rm(r)}\!\cdot\mathbf L^{\rm(v)}$ eigenstates; triangles: spin--rotation $\mathbf L^{\rm(r)}\!\cdot\mathbf L^{\rm(n)}$
 eigenstates; spin--vibration eigenstates are the poles). Stars: exact rank-5 states (GHZ$_5$ for $(H,H,H)$, GHZ-type for
-$(G,H,H)$). Columns: geometric entanglement $E_G$, and the negativities of the
+$(G,H,H)$). Columns: geometric entanglement $E_{\rm geo}$, and the negativities of the
 r--n and n--v marginals (r--v equals r--n in every row). Darker = more entangled. Grid $19\times36$; $\Lambda^2$ from 30
 power-method restarts per point.}
 \label{fig:fusion}
@@ -312,9 +323,9 @@ C--H $=1.10$\,\AA\ (radii %s and %s\,\AA), the rigid spherical-top estimate $I=\
 """ % ("%.2f" % D["rC"], "%.2f" % D["rH"], "%.3f" % dod["B"]))
     s.append(molecule_block(D, dod, ""))
     s.append(r"""
-\noindent Every operation is an even permutation of the protons ($C_5$: four 5-cycles; $C_3$: two fixed protons and six 3-cycles;
-$C_2$, $i$: ten transpositions; $\sigma$: four protons in the plane and eight transpositions; $S_{10}$: two 10-cycles; $S_6$: one
-transposition and three 6-cycles), so $\Gamma_{\rm mol}=A_g$. The spin multiplicities sum to $\sum_\Gamma d_\Gamma m_\Gamma=2^{20}$.
+\noindent Every operation is an even permutation of the protons ($\cls{12C_{5}}$, $\cls{12C_{5}^{2}}$: four 5-cycles; $\cls{20C_{3}}$: two fixed protons and six 3-cycles;
+$\cls{15C_{2}}$, $\cls{i}$: ten transpositions; $\cls{15\sigma}$: four protons in the plane and eight transpositions; $\cls{12S_{10}}$,
+$\cls{12S_{10}^{3}}$: two 10-cycles; $\cls{20S_{6}}$: one transposition and three 6-cycles), so $\Gamma_{\rm mol}=A_g$. The spin multiplicities sum to $\sum_\Gamma d_\Gamma m_\Gamma=2^{20}$.
 The 114 vibrations include six $H_g$ and four each of $G_g$, $G_u$, $H_u$.
 
 \emph{The fusion doublet.} The cleanest case is $(H_g,H_g,H_g)$: $J=2$, $\sigma=g$ (about $6B\approx%s\ {\rm cm^{-1}}$ above
@@ -332,8 +343,9 @@ Sixty $^{13}$C ($I=\tfrac12$) on the truncated icosahedron (cage radius $3.55$\,
 """ % ("%.5f" % c60["B"], "%.5f" % c60["B12"]))
     s.append(molecule_block(D, c60, ""))
     s.append(r"""
-\noindent Again every operation is an even permutation ($C_5$: twelve 5-cycles; $C_3$: twenty 3-cycles; $C_2$, $i$: thirty
-transpositions; $\sigma$: four atoms in the plane and 28 transpositions; $S_{10}$: six 10-cycles; $S_6$: ten 6-cycles), so
+\noindent Again every operation is an even permutation ($\cls{12C_{5}}$, $\cls{12C_{5}^{2}}$: twelve 5-cycles; $\cls{20C_{3}}$: twenty 3-cycles; $\cls{15C_{2}}$, $\cls{i}$: thirty
+transpositions; $\cls{15\sigma}$: four atoms in the plane and 28 transpositions; $\cls{12S_{10}}$, $\cls{12S_{10}^{3}}$: six 10-cycles;
+$\cls{20S_{6}}$: ten 6-cycles), so
 $\Gamma_{\rm mol}=A_g$, and $\sum_\Gamma d_\Gamma m_\Gamma=2^{60}$. The vibrational content is the familiar
 $2A_g+3T_{1g}+4T_{2g}+6G_g+8H_g+A_u+4T_{1u}+5T_{2u}+6G_u+7H_u$, which serves as a check on the construction.
 

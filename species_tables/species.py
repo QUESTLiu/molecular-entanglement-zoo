@@ -36,6 +36,8 @@ class RotationGroup:
         self.labels = [("\\mathcal D^{(%d)}_{%s}" % (J, p)) if p else ("\\mathcal D^{(%d)}" % J) for J, p in self.irr]
         self.dims = [2 * J + 1 for J, p in self.irr]
         self.order = None
+        # o3harmonics' record (SO3, O3) and ids; the partner order m = J..-J is already its own
+        self.o3h_record, self.ids = pg.o3h_ids(self.name, self.labels)
 
     def real1d(self):
         return [i for i, (J, p) in enumerate(self.irr) if J == 0]
@@ -219,6 +221,7 @@ def analyse_group(G, cache, verbose=True):
     mols = real1d(G)
     out = dict(name=G.name, latex=G.latex, family=G.family, order=G.order,
                labels=list(G.labels), dims=list(G.dims), mols=mols,
+               o3h_record=getattr(G, "o3h_record", None), ids=list(getattr(G, "ids", None) or []),
                truncated=getattr(G, "truncated", False), tables={})
     abelian = max(G.dims) == 1
     out["abelian"] = abelian

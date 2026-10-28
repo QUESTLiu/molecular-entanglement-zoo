@@ -1,18 +1,24 @@
 """
-Point groups of O(3): construction, irreducible representations (over C),
-standard (paper-convention) bases, and Mulliken labels.
+Point groups of O(3): construction, irreducible representations (over C), their bases,
+and Mulliken labels, matched to o3harmonics (SCOPE-notation.md: S-keep and option C).
 
-Conventions (match main_phase_space.tex):
+Conventions:
+  * elements act actively on column vectors, and products compose from right to left:
+    D(g) D(h) = D(gh), gh = "h first";
   * principal axis z, C2' axis along x, sigma_v = xz plane;
-  * two-dimensional E-type irreps are written in the complex basis
-    |1E>, |2E> with D(C_n)|1E> = e^{+i theta}|1E>, and the "swap" element
-    (C2'(x), sigma_v(xz), sigma_d or C2[1-10]) acting as the plain permutation;
-  * three-dimensional T irreps of the cubic/icosahedral groups are written in
-    a Cartesian basis (x, y, z) adapted to {C2x, C2y, C2z} with
-    C3[111]: x -> y -> z acting as a permutation matrix;
-  * complex-conjugate pairs of 1D irreps are kept separate (irreducible over C)
-    and labelled 1E, 2E (1E has character e^{+2 pi i k/n} on the generator).
+  * every irrep of a finite group is o3harmonics' (o3h_irreps.json, from o3harmonics 10dab5c),
+    read in this convention: D(g) = D_o3h(phys g)^dagger, where phys g is the o3harmonics
+    element with row matrix P = R^T (the same physical operation). o3harmonics acts on rows,
+    r -> r P(g), and on functions by U(g)^{-1}, so its tabulated D(g) is ours at g^{-1}. Labels,
+    partner order and coupling coefficients are therefore o3harmonics' for the same state;
+  * complex-conjugate pairs of 1D irreps are labelled as o3harmonics labels the same state:
+    {}^2E_k has character e^{+2 pi i k/n} on the generator in this active convention, the
+    conjugate of the tabulated {}^2E_k (the "S" identification);
+  * the finite stand-ins of the linear groups keep their own matrices (complex basis, the swap
+    as the plain permutation) and take o3harmonics' labels and ids.
 """
+import json
+import os
 import numpy as np
 from fractions import Fraction
 
@@ -175,6 +181,33 @@ class FiniteGroup:
         self.dims = [self.dims[i] for i in order]
         self.labels = [self.labels[i] for i in order]
         assert len(set(self.labels)) == len(self.labels), (self.name, self.labels)
+        self._import_o3h()
+
+    def _import_o3h(self):
+        """replace each irrep by o3harmonics' for the same state: D(g) = D_o3h(phys g)^dagger"""
+        rec = O3H_RECORD.get(self.name, self.name)
+        data = o3h_data()["records"].get(rec)
+        if data is None:             # the linear stand-ins keep their own matrices; ids after the cut
+            self.o3h_record, self.ids = None, None
+            return
+        self.o3h_record, self.ids = o3h_ids(self.name, self.labels)
+        keys = {mkey(np.array(e["P"]).T): k for k, e in enumerate(data["elements"])}
+        phys = np.array([keys[mkey(R)] for R in self.elems])
+        mats = [np.array([[[complex(*z) for z in row] for row in m] for m in ir["mats"]]) for ir in data["irreps"]]
+        chis = [np.einsum("gii->g", M) for M in mats]
+        D, ids = [], []
+        for i in range(len(self.D)):
+            js = [j for j, M in enumerate(mats) if M.shape[1] == self.dims[i]
+                  and np.allclose(chis[j][phys], np.conj(self.chars[i]), atol=1e-8)]
+            assert len(js) == 1, (self.name, self.labels[i], js)
+            D.append(np.conj(np.transpose(mats[js[0]][phys], (0, 2, 1))))
+            ids.append(data["irreps"][js[0]]["id"])
+        assert ids == self.ids, (self.name, ids, self.ids)
+        for Dk in D:
+            self._check(Dk)
+        chars = [np.einsum("gii->g", Dk) for Dk in D]
+        assert all(np.allclose(a, b, atol=1e-8) for a, b in zip(chars, self.chars)), self.name
+        self.D = D
 
     def _check(self, D):
         G = self.order
@@ -299,8 +332,8 @@ def _cyclic_core(n, z):
     if 2 * k == n:
         return "B", "", 0
     if k < n / 2:
-        return "E", "1", k
-    return "E", "2", n - k
+        return "E", "2", k      # e^{+2 pi i k/n} on the generator: o3harmonics' {}^2E_k (S)
+    return "E", "1", n - k
 
 
 def label_axial(G, i):
@@ -355,7 +388,7 @@ def label_linear(G, i):
                 return mk(r"\Sigma", par)
             if kk > 3 or 2 * k == n:
                 return "skip%d" % i
-            pre = "1" if k < n / 2 else "2"
+            pre = "2" if k < n / 2 else "1"      # as o3harmonics labels the same state (S)
             return mk(greek[kk], par, pre)
         if kk != 0:
             return "skip%d" % i
@@ -376,7 +409,7 @@ def label_cubic(G, i):
             k = _frac_angle(G.chi(i, "C3"), 3)
             if k == 0:
                 return mk("A", par)
-            return mk("E", par, "1" if k == 1 else "2")
+            return mk("E", par, "2" if k == 1 else "1")      # o3harmonics' label of the state (S)
         if fam == "Td":
             return mk("A", ("1" if _sign(G.chi(i, "sd")) > 0 else "2") + par)
         return mk("A", ("1" if _sign(G.chi(i, "C4")) > 0 else "2") + par)
@@ -410,6 +443,39 @@ for f in ("I", "Ih"):
     LABELERS[f] = label_icosa
 for f in ("Cinf", "Cinfh", "Cinfv", "Dinfh"):
     LABELERS[f] = label_linear
+
+
+# ----------------------------------------------------------------------------
+# o3harmonics data (o3h_irreps.json, o3h_labels.json; notation-scope/scripts/export_o3h_irreps.py)
+# ----------------------------------------------------------------------------
+HERE = os.path.dirname(os.path.abspath(__file__))
+O3H_RECORD = {"Cs": "C1h", "Ci": "S2"}     # every other finite group has o3harmonics' name
+_O3H = {}
+
+
+def o3h_data():
+    if "irreps" not in _O3H:
+        with open(os.path.join(HERE, "o3h_irreps.json")) as f:
+            _O3H["irreps"] = json.load(f)
+    return _O3H["irreps"]
+
+
+def o3h_labels():
+    if "labels" not in _O3H:
+        with open(os.path.join(HERE, "o3h_labels.json"), encoding="utf-8") as f:
+            _O3H["labels"] = json.load(f)["groups"]
+    return _O3H["labels"]
+
+
+def o3h_ids(name, labels):
+    """o3harmonics' record and the id of each irrep, from the label map"""
+    g = o3h_labels()[name]
+    return g["o3h_record"], [g["labels"][lab]["id"] for lab in labels]
+
+
+def o3h_doc(name, label):
+    """the label as o3harmonics' documents write it (\\irr{a}_{1\\ptag{g}}, \\conjpair{2}\\irr{e})"""
+    return o3h_labels()[name]["labels"][label]["doc"]
 
 
 # ----------------------------------------------------------------------------
@@ -490,6 +556,7 @@ def linear_groups():
         G.chars = [G.chars[i] for i in keep]
         G.dims = [G.dims[i] for i in keep]
         G.labels = [G.labels[i] for i in keep]
+        G.o3h_record, G.ids = o3h_ids(G.name, G.labels)
         G.truncated = True
         out.append(G)
     return out

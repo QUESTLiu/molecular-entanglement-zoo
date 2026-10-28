@@ -37,6 +37,22 @@ import sympy as sp
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'species_tables'))
 import pointgroups as pg   # noqa: E402
+import o3h_tex             # noqa: E402  (o3harmonics' printed forms)
+
+# The residue rules and Law 1 below are stated in bases in which C_n is diagonal with e^{+i theta}
+# first and a swap acts as the plain permutation: the REPO's own (pointgroups._adapt). This module
+# keeps them; o3harmonics' bases differ for 24 two-dimensional irreps (a sign on partner 2, or an
+# exchange with a sign), so the tables print o3harmonics' labels, groups and elements and give the
+# map of each ket to o3harmonics' partners (o3h_print.json, the S identification).
+def _own_bases(self):
+    rec = pg.O3H_RECORD.get(self.name, self.name)
+    if pg.o3h_data()["records"].get(rec) is None:
+        self.o3h_record, self.ids = None, None
+    else:
+        self.o3h_record, self.ids = pg.o3h_ids(self.name, self.labels)
+
+
+pg.FiniteGroup._import_o3h = _own_bases
 
 TOL = 1e-8
 V_MULT = 12          # multiplicity tables
@@ -203,6 +219,8 @@ def coeff_tex(c):
     """Return (sign, body) with sign '+' or '-', body a LaTeX factor ('' for 1)."""
     mag2 = abs(c) ** 2
     F = Fraction(mag2).limit_denominator(4000)
+    if abs(float(F) - mag2) > 1e-13:     # not rational: the exact Q(sqrt5) form below (sqrt(17/451) was a rational guess)
+        F = Fraction(-1)
     ph = (np.angle(c) / (2 * np.pi)) % 1.0
     Fp = Fraction(ph).limit_denominator(48) % 1
     if abs(float(F) - mag2) < 1e-9 and abs(((float(Fp) - ph + 0.5) % 1.0) - 0.5) < 1e-9:
@@ -232,8 +250,8 @@ def ket_tex(n, kind):
     if kind == '2d':          # tuple (n_1E, n_2E) = (n-, n+)  ->  |n+, n->
         return r'\ket{%d,%d}' % (n[1], n[0])
     if max(n) > 9:
-        return r'\ket{' + ','.join(map(str, n)) + '}'
-    return r'\ket{' + ''.join(map(str, n)) + '}'
+        return r'\occ{' + ','.join(map(str, n)) + '}'
+    return r'\occ{' + ''.join(map(str, n)) + '}'
 
 def state_tex(vec, basis, kind):
     terms = []
@@ -262,7 +280,8 @@ def degenerate_modes(G):
         elif np.max(np.abs(G.chars[a].imag)) > 1e-6 and a not in used:
             b = next(j for j in range(len(G.labels)) if np.allclose(G.chars[j], G.chars[a].conj()))
             used |= {a, b}
-            i1, i2 = sorted([a, b], key=lambda i: G.labels[i])     # {}^{1}E first
+            # first the member with character e^{+2 pi i k/n} on the generator, o3harmonics' {}^{2}E_k
+            i1, i2 = sorted([a, b], key=lambda i: G.labels[i], reverse=True)
             D = np.zeros((G.order, 2, 2), complex)
             D[:, 0, 0] = G.D[i1][:, 0, 0]; D[:, 1, 1] = G.D[i2][:, 0, 0]
             modes.append((G.labels[i1] + r'\oplus ' + G.labels[i2], D, 'pair'))
@@ -442,7 +461,7 @@ def icosa_bases(G):
         B = fock_basis(3, v)
         Us = [fock_matrix(vec[g] * par[g], B) for g in range(G.order)]   # proper part only
         for a, lab in enumerate(G.labels):
-            if not lab.startswith(target):
+            if G.dims[a] != {'H': 5, 'G': 4}[target]:
                 continue
             chi = G.chars[a]
             d = G.dims[a]
@@ -466,7 +485,7 @@ def icosa_bases(G):
             for g in range(0, G.order, 7):
                 for h in range(G.order):
                     assert np.allclose(Dn[g] @ Dn[h], Dn[G.mul[g, h]], atol=1e-8)
-            text = [state_tex(Q[:, mu], B, '3d').replace(r'\ket', r'\kett') for mu in range(d)]
+            text = [state_tex(Q[:, mu], B, '3d').replace(r'\occ', r'\kett') for mu in range(d)]
             out[lab] = (Dn, text)
     return out
 
@@ -504,6 +523,13 @@ EXAMPLES = [('C3v', 'E'), ('C4v', 'E'), ('D3h', "E'"), ('D6h', 'E_{1u}'), ('Td',
 def run():
     os.chdir(HERE)
     groups = [G for G in pg.all_finite_groups(8) if not getattr(G, 'truncated', False)]
+    global EXAMPLES, COMB_EXAMPLES   # the worked examples, named by the printed labels
+    EXAMPLES = [(g, o3h_tex.label_tex(g, lab)) for g, lab in EXAMPLES]
+    COMB_EXAMPLES = [(g, tuple(o3h_tex.label_tex(g, lab) for lab in labs), vs) for g, labs, vs in COMB_EXAMPLES]
+    for G in groups:           # print o3harmonics' forms; the REPO labels and the ids go to the JSON
+        G.repo_labels = list(G.labels)
+        G.labels = [o3h_tex.label_tex(G.name, lab) for lab in G.labels]
+        G.latex = o3h_tex.group_tex(G.name)
     data, tex_groups = {}, []
     stats = dict(residue=0, harmonic=0, explicit=0, pair=0, law1=0, law2=0)
     examples = {}
@@ -513,7 +539,8 @@ def run():
         irreps = group_irreps(G, override)
         if override:
             G_D = {lab: D for lab, D in irreps}
-        gd = {'order': G.order, 'irreps': G.labels, 'modes': []}
+        gd = {'order': G.order, 'irreps': G.labels, 'irreps_repo': G.repo_labels, 'o3h_record': G.o3h_record,
+              'o3h_ids': G.ids, 'modes': []}
         sec = {'G': G, 'modes': [], 'bases': override}
         modes_all, harm_modes = [], []
         for lab, D, kind in degenerate_modes(G):
@@ -816,18 +843,8 @@ def comb_state_tex(vec, bases, kinds):
 
 
 def elem_name(G, g):
-    R = G.elems[g]
-    d = round(np.linalg.det(R))
-    if np.allclose(R, -np.eye(3)):
-        return 'i'
-    x, o = g, 1
-    while x != 0:
-        x = G.mul[x, g]; o += 1
-    if d > 0:
-        return 'C_{%d}' % o
-    if o == 2:
-        return r'\sigma'
-    return 'S_{%d}' % o
+    """the element by o3harmonics' symbol (its class symbol: S_{3}, not the S_{6} of its order)"""
+    return o3h_tex.element_tex(G.name, G.elems[g])
 
 def comb_group(G, irreps, modes_all, harm_modes, stats):
     """Combination-band data for one group, with all checks."""
@@ -904,7 +921,7 @@ def tex_residue(lab, kind, info):
 
 def tex_harmonic(G, lab, info):
     eps, harm, br = info['eps'], info['harm'], info['branching']
-    L = [r'\emph{Mode $%s$, vector-like: $D(R)=\varepsilon(R)\,R$ with $\varepsilon=%s$.} Every SALC is $\mathcal N_{v,L}\,(a^\dagger\!\cdot a^\dagger)^{(v-L)/2}\psi_L$ with $\psi_L$ a harmonic SALC below and $\mathcal N_{v,L}^{-2}=4^kk!\,(L+\tfrac32)_k$, $k=(v-L)/2$. Species of the harmonic layer $\mathcal H_L$:' % (lab, eps)]
+    L = [r'\emph{Mode $%s$, vector-like: $D(\gel)=\varepsilon(\gel)\,\gmat$ with $\varepsilon=%s$.} Every SALC is $\mathcal N_{v,L}\,(a^\dagger\!\cdot a^\dagger)^{(v-L)/2}\psi_L$ with $\psi_L$ a harmonic SALC below and $\mathcal N_{v,L}^{-2}=4^kk!\,(L+\tfrac32)_k$, $k=(v-L)/2$. Species of the harmonic layer $\mathcal H_L$:' % (lab, eps)]
     L.append(r'\begin{longtable}{c l}\hline $L$ & $\mathcal H_L$\\ \hline\endhead')
     for Lv, row in enumerate(br):
         parts = [('%d\\,' % c if c > 1 else '') + l for l, c in zip(G.labels, row) if c]
@@ -1022,7 +1039,8 @@ def tex_comb_group(G, comb):
 
 def write_tex(tex_groups, examples_both, stats, n_gt):
     examples, comb_examples = examples_both
-    out = [PREAMBLE]
+    macros = open(os.path.join(HERE, '..', 'species_tables', 'o3h_macros.tex'), encoding='utf-8').read().rstrip('\n')
+    out = [PREAMBLE.replace('@@O3H_MACROS@@', macros)]
     # worked examples
     out.append(r'\section{Worked examples at finite $v$}\label{sec:examples}')
     out.append(r'Explicit SALCs of one mode for $v\le6$, from the projector construction; each set is orthonormal, complete, and transforms with the irrep matrices. They are special cases of the tables of Sec.~\ref{sec:groups}.')
@@ -1070,6 +1088,7 @@ PREAMBLE = r"""\documentclass[11pt]{article}
 \usepackage[margin=2cm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,braket,longtable}
 \usepackage[hidelinks]{hyperref}
+@@O3H_MACROS@@
 \emergencystretch=3em
 \newcommand{\kett}[1]{|#1\rangle\!\rangle}
 \newtheorem{proposition}{Proposition}
@@ -1082,9 +1101,9 @@ PREAMBLE = r"""\documentclass[11pt]{article}
 
 \section{What is tabulated}
 
-A degenerate vibrational mode $\Gamma_s$ of dimension $d$ has creation operators $a^\dagger_1,\ldots,a^\dagger_d$, and its $v$-quantum states span $\mathrm{Sym}^v\Gamma_s$. The point group acts by Lemma~2 of the paper, $U(R)\,a^\dagger_iU(R)^\dagger=\sum_jD_{ji}(R)\,a^\dagger_j$, and the symmetry-adapted states (SALCs) $\ket{{}^\mu\Gamma;k}$ are obtained with the matrix-valued projectors $P^\Gamma_{\mu\nu}=(d_\Gamma/|\mathsf G|)\sum_RD^\Gamma_{\mu\nu}(R)^*U(R)$ (Theorem~1): copies $k$ by projecting occupation states in order, partners by $P^\Gamma_{\mu1}$. This is the construction of \texttt{salc\_fock\_basis.wl}. The groups, irrep matrices, and Mulliken labels are those of \texttt{species\_tables/pointgroups.py}, so the vibrational carriers here are in the same bases as the rotational and nuclear-spin carriers of the species tables.
+A degenerate vibrational mode $\Gamma_s$ of dimension $d$ has creation operators $a^\dagger_1,\ldots,a^\dagger_d$, and its $v$-quantum states span $\mathrm{Sym}^v\Gamma_s$. The point group acts by Lemma~2 of the paper, $U(\gel)\,a^\dagger_iU(\gel)^\dagger=\sum_jD_{ji}(\gel)\,a^\dagger_j$, and the symmetry-adapted states (SALCs) $\ket{{}^\mu\Gamma;k}$ are obtained with the matrix-valued projectors $P^\Gamma_{\mu\nu}=(d_\Gamma/|\mathsf G|)\sum_RD^\Gamma_{\mu\nu}(R)^*U(R)$ (Theorem~1): copies $k$ by projecting occupation states in order, partners by $P^\Gamma_{\mu1}$. This is the construction of \texttt{salc\_fock\_basis.wl}. The groups, irrep matrices, and Mulliken labels are those of \texttt{species\_tables/pointgroups.py}, so the vibrational carriers here are in the same bases as the rotational and nuclear-spin carriers of the species tables.
 
-\emph{Kets.} Two-dimensional modes are written $\ket{n_+,n_-}$ with vibrational angular momentum $\ell=n_+-n_-$; a ${}^1E$ quantum is counted in $n_-$ ($\ell=-1$) and a ${}^2E$ quantum in $n_+$, and $U(C_n)=e^{-2\pi i\ell/n}$. Three-dimensional modes are written $\ket{n_xn_yn_z}$ in the Cartesian basis. Coefficients are exact where they are recognised ($\omega=e^{2\pi i/3}$); the remaining icosahedral ones are given to four decimals.
+\emph{Kets.} A two-dimensional mode is written $\ket{n_+,n_-}$, with $n_-$ quanta in partner~1 of its basis and $n_+$ in partner~2, and vibrational angular momentum $\ell=n_+-n_-$. The basis is the one in which $\elt{C_{n}}$ is diagonal with $e^{+2\pi i/n}$ first and a swap acts as the plain permutation, so $U(\elt{C_{n}})=e^{-2\pi i\ell/n}$ on a mode on which $\elt{C_{n}}$ turns by $2\pi/n$. In o3harmonics' partners the ket is $\occ{n_-n_+}$; it is $(-1)^{n_+}\occ{n_-n_+}$ for the 18 irreps whose partner~2 has the opposite sign there, and $(-1)^{n_-}\occ{n_+n_-}$ for $\irr{e}_{3}$ of $\grp{D_{4d}}$, $\irr{e}_{4}$, $\irr{e}_{5}$ of $\grp{D_{6d}}$ and $\irr{e}_{5}$ to $\irr{e}_{7}$ of $\grp{D_{8d}}$ (\texttt{species\_tables/o3h\_print.json}). A complex pair $\conjpair{2}\irr{e}_k\oplus\conjpair{1}\irr{e}_k$ is a mode whose first member has character $e^{+2\pi ik/n}$ on the generator; o3harmonics labels that state $\conjpair{2}\irr{e}_k$. Three-dimensional modes are written $\occ{n_xn_yn_z}$, in the partners $x$, $y$, $z$ of o3harmonics. Coefficients are exact where they are recognised ($\omega=e^{2\pi i/3}$); the remaining icosahedral ones are given to four decimals.
 
 \section{Three classifications}
 
@@ -1095,11 +1114,11 @@ The vibrational angular momentum ($\ell$ for $d=2$, $L$ for vector-like $d=3$) h
 \end{proposition}
 
 \begin{proposition}[Residues, $d=2$]
-Every group element acts on a two-dimensional mode as $s\,\mathrm{diag}(e^{i\theta},e^{-i\theta})$ or $s$ times a swap, with $s=\pm1$. Hence it maps $\ket{n_+,n_-}$ to a multiple of $\ket{n_+,n_-}$ or $\ket{n_-,n_+}$, every SALC lies in $\mathrm{span}\{\ket{n_+,n_-},\ket{n_-,n_+}\}$, and its species and coefficients depend only on $\ell$ modulo a period $N'$, the least common multiple of the orders of the nonzero matrix entries of the mode: the phase of $\ket{n_+,n_-}$ under an element is such an entry to the power $-\ell$, because $v-\ell$ is even. One table with $N'$ rows therefore gives the SALCs for every $v$.
+In these bases every group element acts on a two-dimensional mode as $s\,\mathrm{diag}(e^{i\theta},e^{-i\theta})$ or $s$ times a swap, with $s=\pm1$. Hence it maps $\ket{n_+,n_-}$ to a multiple of $\ket{n_+,n_-}$ or $\ket{n_-,n_+}$, every SALC lies in $\mathrm{span}\{\ket{n_+,n_-},\ket{n_-,n_+}\}$, and its species and coefficients depend only on $\ell$ modulo a period $N'$, the least common multiple of the orders of the nonzero matrix entries of the mode: the phase of $\ket{n_+,n_-}$ under an element is such an entry to the power $-\ell$, because $v-\ell$ is even. One table with $N'$ rows therefore gives the SALCs for every $v$.
 \end{proposition}
 
 \begin{proposition}[Harmonics, vector-like $d=3$]
-If $D(R)=\varepsilon(R)\,R$ for a one-dimensional character $\varepsilon$, the invariant $a^\dagger\!\cdot a^\dagger=\sum_ia^{\dagger2}_i$ and its adjoint commute with $U(R)$, and
+If $D(\gel)=\varepsilon(\gel)\,\gmat$ for a one-dimensional character $\varepsilon$, the invariant $a^\dagger\!\cdot a^\dagger=\sum_ia^{\dagger2}_i$ and its adjoint commute with $U(\gel)$, and
 \[
 \mathrm{Sym}^v=\bigoplus_{L=v,v-2,\ldots}(a^\dagger\!\cdot a^\dagger)^{(v-L)/2}\,\mathcal H_L,\qquad \mathcal H_L=\ker(a\cdot a)\cap\mathrm{Sym}^L,\quad\dim\mathcal H_L=2L+1 .
 \]
@@ -1117,7 +1136,7 @@ Quanta in several distinct modes form combination bands. The overtone tables det
 \begin{proposition}[Law 0: product]
 For distinct modes $s=1,2,\ldots$ the manifold is the ordinary product $\mathcal H(v_1,v_2,\ldots)=\bigotimes_s\mathrm{Sym}^{v_s}\Gamma_s$; only quanta in the same mode are symmetrised, so two different modes of the same species are distinct factors. The multiplicities have the generating function
 \[
-\sum_{v_1,v_2,\ldots}m_\Gamma(v_1,v_2,\ldots)\,t_1^{v_1}t_2^{v_2}\cdots=\frac1{|\mathsf G|}\sum_{R\in\mathsf G}\frac{\chi_\Gamma(R)^*}{\prod_s\det\bigl[1-t_sD^{\Gamma_s}(R)\bigr]} .
+\sum_{v_1,v_2,\ldots}m_\Gamma(v_1,v_2,\ldots)\,t_1^{v_1}t_2^{v_2}\cdots=\frac1{|\grp{G}|}\sum_{\gel\in\grp{G}}\frac{\chi_\Gamma(\gel)^*}{\prod_s\det\bigl[1-t_sD^{\Gamma_s}(\gel)\bigr]} .
 \]
 \end{proposition}
 
@@ -1130,7 +1149,7 @@ and the plain swap maps it to $\ket{-\boldsymbol\ell}$ (all $\ell_s\to-\ell_s$).
 \end{proposition}
 
 \begin{proposition}[Law 2: coupling of harmonic layers, vector-like $d=3$]
-For vector-like modes $D_s(R)=\varepsilon_s(R)R$,
+For vector-like modes $D_s(\gel)=\varepsilon_s(\gel)\,\gmat$,
 \[
 \mathrm{Sym}^{a}\Gamma_1\otimes\mathrm{Sym}^{b}\Gamma_2=\bigoplus_{L_1,L_2}\ \bigoplus_{L=|L_1-L_2|}^{L_1+L_2}D^{L}\big|_{\mathsf G}\otimes\bigl[\det^{L_1+L_2}\varepsilon_1^{L_1}\varepsilon_2^{L_2}\bigr],
 \]
@@ -1150,7 +1169,10 @@ def main():
     groups, data, tex_groups, examples, stats = run()
     n_gt = check_gtpack(groups)
     print('GTPack:', ('%d groups agree' % n_gt) if n_gt else 'skipped')
-    json.dump({'conventions': 'kets |n+,n-> (2d; 1E quantum in n-) and |nx ny nz>; labels of species_tables/pointgroups.py',
+    json.dump({'conventions': ('irreps: o3harmonics labels for the same state (S), printed as its documents print them; '
+                               'irreps_repo and o3h_ids alongside. Kets |n+,n-> of a 2d mode count n- quanta in partner 1 of '
+                               'the REPO basis (C_n diagonal, e^{+i theta} first, swap plain): o3harmonics \\occ{n- n+}, up to '
+                               'the sign and order of species_tables/o3h_print.json; |nx ny nz> are o3harmonics partners x, y, z'),
                'groups': data}, open('salc_tables.json', 'w'), indent=1, default=str)
     write_tex(tex_groups, examples, stats, n_gt)
     print('stats', stats)
