@@ -5,6 +5,7 @@ species_data.json.
 import json
 import os
 import pickle
+import re
 import subprocess
 from collections import OrderedDict
 from fractions import Fraction
@@ -35,6 +36,16 @@ COARSE = {
     "higher": "tripartite, beyond GHZ/LC",
 }
 PRINTABLE = {"I", "Ih", "K", "Kh"}  # groups whose tensors are NOT written out
+
+
+def names_tex(s):
+    """fill the placeholders @@G:<group>@@ and @@L:<group>:<label>@@ of a hand-written string with
+    o3harmonics' printed group and irrep (o3h_tex; REPO group names, prototype labels), so the prose
+    names them as the tables do"""
+    s = re.sub(r"@@G:(\w+)@@", lambda m: o3h_tex.group_tex(m.group(1)), s)
+    s = re.sub(r"@@L:(\w+):(.+?)@@", lambda m: o3h_tex.label_tex(m.group(1), m.group(2)), s)
+    assert not re.search(r"@@[GL]:", s), s
+    return s
 
 
 def class_tex(cls, rank):
@@ -78,10 +89,18 @@ def mag_tex(x):
         return "%.4f" % x
     if f == 1:
         return ""
-    p, q = f.numerator, f.denominator
-    if p == 1:
-        return r"\tfrac{1}{\sqrt{%d}}" % q
-    return r"\sqrt{\tfrac{%d}{%d}}" % (p, q)
+    # o3harmonics' rationalised form (D8): sqrt(p/q) = (a/q) sqrt(b) with pq = a^2 b, b squarefree
+    a, b = 1, f.numerator * f.denominator
+    k = 2
+    while k * k <= b:
+        while b % (k * k) == 0:
+            a, b = a * k, b // (k * k)
+        k += 1
+    c = Fraction(a, f.denominator)
+    root = r"\sqrt{%d}" % b if b > 1 else ""
+    if c == 1:
+        return root
+    return ("%d" % c.numerator if c.denominator == 1 else r"\tfrac{%d}{%d}" % (c.numerator, c.denominator)) + root
 
 
 def ket_labels(d, cubic):
@@ -94,7 +113,8 @@ def ket_labels(d, cubic):
     return [str(i + 1) for i in range(d)]
 
 
-def tensor_tex(T, cubic):
+def tensor_tex(T, cubic, irreps):
+    """irreps: the printed labels of the triple; a one-dimensional partner is written |Gamma>, as o3harmonics does"""
     dims = T.shape
     labs = [ket_labels(d, cubic) for d in dims]
     terms = []
@@ -104,7 +124,7 @@ def tensor_tex(T, cubic):
             ket = r"\,".join(labs[p][idx[p]] for p in range(3) if labs[p][0] is not None)
             terms.append((c, ket))
     if all(d == 1 for d in dims):
-        return r"$\ket{A}\ket{A}\ket{A}$"
+        return "$" + "".join(r"\ket{%s}" % l for l in irreps) + "$"
     mags = np.array([abs(c) for c, _ in terms])
     common = np.allclose(mags, mags[0], atol=1e-7)
     s = ""
@@ -180,10 +200,10 @@ def nontrivial_table(g, m, fam, has_tau, out):
                 cells.insert(4, "%d/%d%s" % (t + 1, N, ("\\," + c["tag"]) if c["tag"] else "") if N > 1 else "")
             lines.append(cells)
     ncol = len(lines[0]) if lines else (7 if has_tau else 6)
-    head = [r"$\Gamma_{\rm r}$", r"$\Gamma_{\rm n}$", r"$\Gamma_{\rm v}$", r"$(d_{\rm r},d_{\rm n},d_{\rm v})$",
+    head = [r"$\Grot$", r"$\Gspin$", r"$\Gvib$", r"$(d_{\mathrm r},d_{\mathrm n},d_{\mathrm v})$",
             "class", "fam."]
     if has_tau:
-        head.insert(4, r"$\tau/N$")
+        head.insert(4, r"$\mult/N$")
     K = 52
     blank = [""] * ncol
     for start in range(0, len(lines), 2 * K):
@@ -230,25 +250,25 @@ def abelian_grid(g, m, out):
         out.append(r"\resizebox{\linewidth}{!}{%")
     out.append(r"\begin{tabular}{c|%s}" % ("c" * n))
     out.append(r"\toprule")
-    out.append(r"$\Gamma_{\rm r}\backslash\Gamma_{\rm n}$ & " + " & ".join("$" + l + "$" for l in labs) + r"\\")
+    out.append(r"$\Grot\backslash\Gspin$ & " + " & ".join("$" + l + "$" for l in labs) + r"\\")
     out.append(r"\midrule")
     for r in range(n):
-        out.append("$" + labs[r] + "$ & " + " & ".join(("$" + labs[grid[(r, k)]] + "$") if (r, k) in grid else r"($|\Lambda|{>}3$)"
+        out.append("$" + labs[r] + "$ & " + " & ".join(("$" + labs[grid[(r, k)]] + "$") if (r, k) in grid else r"($\Xi{>}3$)"
                                                 for k in range(n)) + r"\\")
     out.append(r"\bottomrule")
     out.append(r"\end{tabular}" + ("}" if wide else ""))
     out.append(r"\end{center}")
 
 
-GROUP_TITLES = OrderedDict([
-    ("nonaxial", "Non-axial groups $C_1$, $C_{\\mathrm s}$, $C_{\\mathrm i}$"),
-    ("Cn", "Cyclic groups $C_n$"),
-    ("S2n", "Improper cyclic groups $S_{2n}$"),
-    ("Cnh", "Groups $C_{n\\mathrm h}$"),
-    ("Cnv", "Groups $C_{n\\mathrm v}$"),
-    ("Dn", "Dihedral groups $D_n$"),
-    ("Dnh", "Groups $D_{n\\mathrm h}$"),
-    ("Dnd", "Groups $D_{n\\mathrm d}$"),
+GROUP_TITLES = OrderedDict([       # through names_tex; the axial order is n (B1-018)
+    ("nonaxial", "Non-axial groups $@@G:C1@@$, $@@G:Cs@@$, $@@G:Ci@@$"),
+    ("Cn", "Cyclic groups $\\grp{C_{\\mathnormal{n}}}$"),
+    ("S2n", "Improper cyclic groups $\\grp{S_{2\\mathnormal{n}}}$"),
+    ("Cnh", "Groups $\\grp{C_{\\mathnormal{n}h}}$"),
+    ("Cnv", "Groups $\\grp{C_{\\mathnormal{n}v}}$"),
+    ("Dn", "Dihedral groups $\\grp{D_{\\mathnormal{n}}}$"),
+    ("Dnh", "Groups $\\grp{D_{\\mathnormal{n}h}}$"),
+    ("Dnd", "Groups $\\grp{D_{\\mathnormal{n}d}}$"),
     ("cubic", "Tetrahedral and octahedral groups"),
     ("icosa", "Icosahedral groups"),
     ("linear", "Linear (continuous axial) groups"),
@@ -292,24 +312,25 @@ def group_section(g, out, data):
             out.append(r" Truncated at $J\le 3$; each coupling tensor equals the Wigner $3j$ symbol up to an overall "
                        r"sign, in the basis $\jm{J}{m}$, $m=J,\dots,-J$.")
         else:
-            out.append(r" Truncated at $|\Lambda|\le 3$ (exact for these irreps: computed with the finite subgroup "
+            out.append(r" Truncated at $\Xi\le 3$, $\Xi$ the subscript of $\irr{e}_{\Xi}$ and $0$ for $\irr{a}$ "
+                       r"(exact for these irreps: computed with the finite subgroup "
                        r"$\grp{C_{13}}$, $\grp{C_{14h}}$, $\grp{C_{13v}}$ or $\grp{D_{14h}}$, whose invariants coincide "
-                       r"with those of the continuous group when $|\Lambda_1|+|\Lambda_2|+|\Lambda_3|<13$).")
+                       r"with those of the continuous group when $\Xi_1+\Xi_2+\Xi_3<13$).")
     mols = ", ".join("$%s$" % labs[m] for m in g["mols"])
-    out.append(r" Possible $\Gamma_{\rm mol}$ (real one-dimensional irreps): %s." % mols)
+    out.append(r" Possible $\Gmol$ (real one-dimensional irreps): %s." % mols)
     ids = g.get("ids") or [None] * len(keys)
     gd = dict(group=g["name"], o3h_record=g.get("o3h_record"), order=g["order"],
               irreps=[dict(label=k, id=i, dim=d) for k, i, d in zip(keys, ids, g["dims"])], tables={})
     data.append(gd)
     if g["abelian"]:
         out.append(r" All irreps are one-dimensional, so every admissible triple is \textbf{separable}, "
-                   r"the coupling tensor is the single number $1$, and for given $(\Gamma_{\rm r},\Gamma_{\rm n})$ "
-                   r"the vibrational species is unique, $\Gamma_{\rm v}=\Gamma_{\rm mol}\otimes\Gamma_{\rm r}^*"
-                   r"\otimes\Gamma_{\rm n}^*$. Each grid below lists that $\Gamma_{\rm v}$ "
-                   r"(rows $\Gamma_{\rm r}$, columns $\Gamma_{\rm n}$)%s.\par"
+                   r"the coupling tensor is the single number $1$, and for given $(\Grot,\Gspin)$ "
+                   r"the vibrational species is unique, $\Gvib=\Gmol\irrprod\Grot^*"
+                   r"\irrprod\Gspin^*$. Each grid below lists that $\Gvib$ "
+                   r"(rows $\Grot$, columns $\Gspin$)%s.\par"
                    % ("" if g["truncated"] else "; all %d entries per grid are admissible" % (len(labs) ** 2)))
         for m in g["mols"]:
-            out.append(r"\paragraph{$\Gamma_{\rm mol}=%s$} (%d admissible triples, all separable)" %
+            out.append(r"\paragraph{$\Gmol=%s$} (%d admissible triples, all separable)" %
                        (labs[m], len(g["tables"][m])))
             abelian_grid(g, m, out)
             gd["tables"][keys[m]] = [dict(r=keys[x["r"]], n=keys[x["n"]], v=keys[x["v"]], dims=[1, 1, 1], N=1,
@@ -323,7 +344,7 @@ def group_section(g, out, data):
     out.append(r"\par\smallskip\noindent\textit{Coupling-tensor families.} ")
     if printable:
         out.append(r"Kets list the partners of the degenerate carriers in the order $(\mathrm r,\mathrm n,\mathrm v)$ of "
-                   r"the representative triple (one-dimensional carriers omitted). They are o3harmonics' partners $\mu$: "
+                   r"the representative triple (one-dimensional carriers omitted). They are o3harmonics' partners $\intx$: "
                    + (r"$x,y,z$ of each $\irr{t}$, and $1,2$ of $\irr{e}$; $\rootunity{3}=\expe^{2\pi\iunit/3}$."
                       if cubic else r"$1,2,\dots$ in order.")
                    )
@@ -345,7 +366,8 @@ def group_section(g, out, data):
             cl += r" \emph{(%s)}" % COARSE[info["cls"]].replace("tripartite", "trip.")
         rk = str(info["rank"]) if info["rank"] > 0 else r"$>%d$" % (-info["rank"])
         if printable:
-            out.append("(%s) & %s & %s & %s & %s\\\\" % (nm, cl, rk, reps, tensor_tex(info["T"], cubic)))
+            tens = tensor_tex(info["T"], cubic, [labs[x] for x in rep])
+            out.append("(%s) & %s & %s & %s & %s\\\\" % (nm, cl, rk, reps, tens))
         else:
             out.append("(%s) & %s & %s & %s\\\\" % (nm, cl, rk, reps))
     out.append(r"\hline\end{longtable}}")
@@ -364,9 +386,9 @@ def group_section(g, out, data):
                                               for c in row["comps"]),
                                     class_tex(gen["cls"], gen["rank"])))
         out.append(r"\noindent\textit{Multiplicity $N>1$.} The coupling space is $N$-dimensional; the table lists an "
-                   r"orthonormal basis adapted to the permutation symmetry of equal carriers "
-                   r"(S symmetric, A antisymmetric, M mixed/none), and the entanglement class depends on the "
-                   r"chosen vector. Generic (random) members of each space:")
+                   r"orthonormal basis of it, the copies $\mult=1,\dots,N$, adapted to the exchange symmetry of equal "
+                   r"carriers (S exchange-symmetric, A exchange-antisymmetric, M mixed or none), and the entanglement "
+                   r"class depends on the chosen vector. Generic (random) members of each space:")
         out.append(r"{\footnotesize\begin{itemize}\setlength\itemsep{0pt}")
         for nt in notes:
             out.append(r"\item " + nt)
@@ -374,7 +396,7 @@ def group_section(g, out, data):
     for m in g["mols"]:
         cnt = class_counts(g, m)
         cs = ", ".join("%d %s" % (v, class_tex(k, 0) if k != "higher" else "beyond GHZ/LC") for k, v in cnt.items() if v)
-        out.append(r"\subsubsection*{$%s$, $\Gamma_{\rm mol}=%s$ \normalfont\small(%d admissible triples: %s)}"
+        out.append(r"\subsubsection*{$%s$, $\Gmol=%s$ \normalfont\small(%d admissible triples: %s)}"
                    % (g["latex"], labs[m], len(g["tables"][m]), cs))
         nontrivial_table(g, m, fam, has_tau, out)
         rows_json = []
@@ -392,7 +414,7 @@ def group_section(g, out, data):
 def summary_table(results, out):
     out.append(r"{\footnotesize\setlength\tabcolsep{3.5pt}")
     out.append(r"\begin{longtable}{l r r r l r r r r r r r}")
-    hdr = (r"\hline $\grp{G}$ & $|\grp{G}|$ & \#irr & $d_{\max}$ & $\Gamma_{\rm mol}$ choices & \#adm. & sep & bip & "
+    hdr = (r"\hline $\grp{G}$ & $|\grp{G}|$ & \#irr & $d_{\max}$ & $\Gmol$ choices & \#adm. & sep & bip & "
            r"GHZ & GHZ-t. & LC & beyond\\\hline")
     out.append(hdr + r"\endfirsthead")
     out.append(hdr + r"\endhead")
@@ -419,8 +441,13 @@ PREAMBLE = r"""\documentclass[10pt]{article}
 @@O3H_MACROS@@
 \setcounter{tocdepth}{2}
 \newcommand{\ket}[1]{|#1\rangle}
+% the sector species, the PAPER's commands (SCOPE-notation.md B4-001)
+\newcommand{\Gmol}{\Gamma_{\mathrm{mol}}}
+\newcommand{\Grot}{\Gamma_{\mathrm{r}}}
+\newcommand{\Gspin}{\Gamma_{\mathrm{n}}}
+\newcommand{\Gvib}{\Gamma_{\mathrm{v}}}
 \title{Admissible rotation--nuclear-spin--vibration species and their\\ symmetry-enforced entanglement
-for the point groups of $\grp{O}(3)$}
+for the point groups of $@@G:Kh@@$}
 \author{Generated with \texttt{species\_tables/} (Python)}
 \date{\today}
 \begin{document}
@@ -429,32 +456,38 @@ for the point groups of $\grp{O}(3)$}
 
 INTRO = r"""
 \section{What is tabulated}
-For a point group $\grp{G}\subset\grp{O}(3)$ and a required molecular species $\Gamma_{\rm mol}$, a triple
-$(\Gamma_{\rm r},\Gamma_{\rm n},\Gamma_{\rm v})$ of rotational, nuclear-spin and vibrational species is admissible when
+For a point group $\grp{G}\subset@@G:Kh@@$ and a required molecular species $\Gmol$, a triple
+$(\Grot,\Gspin,\Gvib)$ of rotational, nuclear-spin and vibrational species is admissible when
 \begin{equation}
-N^{\Gamma_{\rm mol}}_{\Gamma_{\rm r}\Gamma_{\rm n}\Gamma_{\rm v}}=\frac1{|\grp{G}|}\sum_{\gel\in\grp{G}}
-\chi_{\Gamma_{\rm r}}(\gel)\chi_{\Gamma_{\rm n}}(\gel)\chi_{\Gamma_{\rm v}}(\gel)\chi^*_{\Gamma_{\rm mol}}(\gel)\neq0 .
+N^{\Gmol}_{\Grot\Gspin\Gvib}=\frac1{|\grp{G}|}\sum_{\gel\in\grp{G}}
+\chi_{\Grot}(\gel)\chi_{\Gspin}(\gel)\chi_{\Gvib}(\gel)\chi^*_{\Gmol}(\gel)\neq0 .
 \end{equation}
 The coupling (fusion) space is the range of the projector
-$P=\frac1{|\grp{G}|}\sum_{\gel}\chi^*_{\Gamma_{\rm mol}}(\gel)\,D^{\Gamma_{\rm r}}(\gel)\otimes D^{\Gamma_{\rm n}}(\gel)\otimes D^{\Gamma_{\rm v}}(\gel)$;
-for $N=1$ it is spanned by one normalised tensor $C_{abc}$ (the Clebsch--Gordan coupling to $\Gamma_{\rm mol}$), and the carrier state is
-$\ket{C}=\sum_{abc}C_{abc}\ket{a}_{\rm r}\ket{b}_{\rm n}\ket{c}_{\rm v}$.
+$P=\frac1{|\grp{G}|}\sum_{\gel}\chi^*_{\Gmol}(\gel)\,D^{\Grot}(\gel)\otimes D^{\Gspin}(\gel)\otimes D^{\Gvib}(\gel)$;
+for $N=1$ it is spanned by one normalised tensor $C_{\intx_{\mathrm r}\intx_{\mathrm n}\intx_{\mathrm v}}$ (the Clebsch--Gordan
+coupling to $\Gmol$), and the carrier state is
+$\ket{C}=\sum C_{\intx_{\mathrm r}\intx_{\mathrm n}\intx_{\mathrm v}}\irket{\Grot}{\intx_{\mathrm r}}\irket{\Gspin}{\intx_{\mathrm n}}
+\irket{\Gvib}{\intx_{\mathrm v}}$, summed over the partners $\intx$ of the three carriers.
 
 \paragraph{Scope.}
 \begin{itemize}\setlength\itemsep{0pt}
-\item \emph{Groups.} All closed subgroups of $\mathsf O(3)$: $C_1,C_{\rm s},C_{\rm i}$; the seven axial families
-$C_n,S_{2n},C_{n\rm h},C_{n\rm v},D_n,D_{n\rm h},D_{n\rm d}$ for $n=2,\dots,8$; $T,T_{\rm h},T_{\rm d},O,O_{\rm h},I,I_{\rm h}$;
-the linear groups $C_\infty,C_{\infty\rm h},C_{\infty\rm v},D_{\infty\rm h}$ (irreps with $|\Lambda|\le3$);
-and $\mathsf{SO}(3)$, $\mathsf O(3)$ (irreps $J\le3$). ($D_\infty\cong C_{\infty\rm v}$ has the same table as
-$C_{\infty\rm v}$ with $\Sigma^\pm\to A_{1,2}$.)
-\item \emph{$\Gamma_{\rm mol}$.} Eq.~(gamma\_mol) of the main text, $\chi_{\Gamma_{\rm mol}}(\gel)=\prod_a\operatorname{sign}[p_a(\gel)]^{2I_a}$,
-only produces characters $\pm1$, so $\Gamma_{\rm mol}$ runs over \emph{every real one-dimensional irrep} of $\mathsf G$; each gets its own table.
-Complex one-dimensional irreps ($\conjpair{1}\irr{e}$, $\conjpair{2}\irr{e}$ of $\grp{C_{\mathnormal{n}}}$, $\grp{T}$, \dots) cannot be $\Gamma_{\rm mol}$.
-Tables for different $\Gamma_{\rm mol}$ are related by $\Gamma_{\rm v}\mapsto\Gamma_{\rm v}\otimes\Gamma_{\rm mol}\otimes\Gamma'_{\rm mol}$
+\item \emph{Groups.} All closed subgroups of $@@G:Kh@@$: $@@G:C1@@$, $@@G:Cs@@$, $@@G:Ci@@$ (also written $\grp{C_{s}}$, $\grp{C_{i}}$);
+the seven axial families $\grp{C_{\mathnormal{n}}}$, $\grp{S_{2\mathnormal{n}}}$, $\grp{C_{\mathnormal{n}h}}$, $\grp{C_{\mathnormal{n}v}}$,
+$\grp{D_{\mathnormal{n}}}$, $\grp{D_{\mathnormal{n}h}}$, $\grp{D_{\mathnormal{n}d}}$ for $n=2,\dots,8$; $@@G:T@@$, $@@G:Th@@$, $@@G:Td@@$,
+$@@G:O@@$, $@@G:Oh@@$, $@@G:I@@$, $@@G:Ih@@$;
+the linear groups $@@G:Cinf@@$, $@@G:Cinfh@@$, $@@G:Cinfv@@$, $@@G:Dinfh@@$ (irreps with $\Xi\le3$, $\Xi$ the subscript of
+$\irr{e}_{\Xi}$, $\conjpair{1}\irr{e}_{\Xi}$, $\conjpair{2}\irr{e}_{\Xi}$ and $0$ for $\irr{a}$);
+and $@@G:K@@$, $@@G:Kh@@$ (irreps $J\le3$). ($\grp{D_{\infty}}$, isomorphic to $@@G:Cinfv@@$, has the same table as
+$@@G:Cinfv@@$, with the same labels.)
+\item \emph{$\Gmol$.} Eq.~(gamma\_mol) of the main text, $\chi_{\Gmol}(\gel)=\prod_a\operatorname{sign}[p_a(\gel)]^{2I_a}$,
+only produces characters $\pm1$, so $\Gmol$ runs over \emph{every real one-dimensional irrep} of $\grp{G}$; each gets its own table.
+Complex one-dimensional irreps ($\conjpair{1}\irr{e}$, $\conjpair{2}\irr{e}$ of $\grp{C_{\mathnormal{n}}}$, $@@G:T@@$, \dots) cannot be $\Gmol$.
+Tables for different $\Gmol$ are related by $\Gvib\mapsto\Gvib\irrprod\Gmol\irrprod\Gmol'$
 and contain the same entanglement classes.
 \item \emph{Species.} Every irrep is allowed in every sector (pure group theory). Molecule-specific restrictions, e.g.\ the
-nuclear-spin species that a given set of identical nuclei can actually carry, are \emph{not} imposed: e.g.\ the 43 $T_{\rm d}$,
-$\Gamma_{\rm mol}=A_2$ triples reduce to the 26 rows of the $\mathrm{CH_4}$ table when $\Gamma_{\rm n}\in\{A_1,E,T_2\}$.
+nuclear-spin species that a given set of identical nuclei can actually carry, are \emph{not} imposed: e.g.\ the 43 $@@G:Td@@$,
+$\Gmol=@@L:Td:A_{2}@@$ triples reduce to the 26 rows of the $\mathrm{CH_4}$ table when
+$\Gspin\in\{@@L:Td:A_{1}@@,@@L:Td:E@@,@@L:Td:T_{2}@@\}$.
 \item Irreps are irreducible over $\mathbb C$, with o3harmonics' names; complex-conjugate pairs are listed separately as
 $\conjpair{1}\irr{e}_k$, $\conjpair{2}\irr{e}_k$, named as o3harmonics names the same state. Here elements act actively, so
 $\conjpair{2}\irr{e}_k$ has character $\expe^{+2\pi\iunit k/n}$ on the generating rotation or rotoreflection, the complex conjugate
@@ -464,11 +497,11 @@ of the value o3harmonics tabulates.
 \paragraph{Conventions and o3harmonics.} Group elements act on states actively, by $U(\gel)$; matrices act on column
 vectors and products compose from right to left. The irrep matrices of every finite group are those of o3harmonics
 (commit 10dab5c), read in this convention: o3harmonics uses row vectors, $\mathbf r\mapsto\mathbf r P(\gel)$, and lets
-$\gel$ act on a function by $U(\gel)^{-1}$, so $D^\Gamma(\gel)=D^\Gamma_{\rm o3h}(\gel^{-1})=D^\Gamma_{\rm o3h}(\gel)^\dagger$,
-with $\gel$ the same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\mu$
+$\gel$ act on a function by $U(\gel)^{-1}$, so $D^\Gamma(\gel)=D^\Gamma_{\mathrm{o3h}}(\gel^{-1})=D^\Gamma_{\mathrm{o3h}}(\gel)^\dagger$,
+with $\gel$ the same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\intx$
 and the coupling tensors are o3harmonics' for the same state; for the irreps whose partner map was the identity
-(all but 24 two-dimensional irreps and the icosahedral $\irr{g}$, $\irr{h}$) the matrices are the ones these tables used
-before, and the tensors (a)--(g) of the $\grp{T_{d}}$ example are unchanged. Principal axis $z$, $\elt{C_{2}'}$ along $x$,
+(all but 24 two-dimensional irreps and the icosahedral $@@L:I:G@@$, $@@L:I:H@@$) the matrices are the ones these tables used
+before, and the tensors (a)--(g) of the $@@G:Td@@$ example are unchanged. Principal axis $z$, $\elt{C_{2}'}$ along $x$,
 $\elt{\sigma_{v}}$ the $xz$ plane. The finite stand-ins of the linear groups keep their own complex bases, with the swap as
 the plain permutation. Entanglement classes do not depend on these choices.
 
@@ -480,51 +513,55 @@ SLOCC iff they are equivalent under local unitaries, so the following labels are
 \begin{tabular}{l l p{0.62\linewidth}}
 \toprule
 label & nature & criterion\\\midrule
-separable & separable & $d_{\rm r}=d_{\rm n}=d_{\rm v}=1$.\\
+separable & separable & $d_{\mathrm r}=d_{\mathrm n}=d_{\mathrm v}=1$.\\
 bipartite & bipartite & exactly one carrier one-dimensional; the other two form a maximally entangled $d\times d$ pair
 (Schmidt rank $d$, flat spectrum).\\
-GHZ & GHZ-type tripartite & $d_{\rm r}=d_{\rm n}=d_{\rm v}=d>1$ and tensor rank $d$; LU-equivalent to
+GHZ & GHZ-type tripartite & $d_{\mathrm r}=d_{\mathrm n}=d_{\mathrm v}=d>1$ and tensor rank $d$; LU-equivalent to
 $d^{-1/2}\sum_i\ket{iii}$ (verified by maximising the LU fidelity).\\
 GHZ-type & GHZ-type tripartite & all $d>1$, unequal, tensor rank $=d_{\max}$: $\ket C=\sum_{i=1}^{d_{\max}}\ket{a_i}\ket{b_i}\ket{c_i}$, i.e.\ a
-$\mathrm{GHZ}_{d_{\max}}$ state with the smaller carriers' levels compressed (e.g.\ $T_{\rm d}$ family (e$_\pm$), $(3,2,3)$).\\
-LC($\epsilon$) & Levi-Civita-type tripartite & $(3,3,3)$, LU-equivalent to $6^{-1/2}\sum\epsilon_{ijk}\ket{ijk}$ (tensor rank 5).\\
-LC($|\epsilon|$) & Levi-Civita-type tripartite & $(3,3,3)$, LU-equivalent to $6^{-1/2}\sum|\epsilon_{ijk}|\ket{ijk}$ (the symmetric,
+$\mathrm{GHZ}_{d_{\max}}$ state with the smaller carriers' levels compressed (e.g.\ $@@G:Td@@$ family (e$_\pm$), $(3,2,3)$).\\
+LC($\epsilon$) & Levi-Civita-type tripartite & $(3,3,3)$, LU-equivalent to $\tfrac{1}{6}\sqrt{6}\sum\epsilon_{ijk}\ket{ijk}$ (tensor rank 5).\\
+LC($|\epsilon|$) & Levi-Civita-type tripartite & $(3,3,3)$, LU-equivalent to $\tfrac{1}{6}\sqrt{6}\sum|\epsilon_{ijk}|\ket{ijk}$ (the symmetric,
 permanent-type partner; tensor rank 4, hence SLOCC-inequivalent to $\epsilon$).\\
-tri.\ ($r{=}R$) & tripartite, beyond GHZ/LC & genuinely tripartite with tensor rank $R>d_{\max}$ and not of LC form
-(only in $I$, $I_{\rm h}$, $\mathsf{SO}(3)$, $\mathsf O(3)$ and for generic members of $N>1$ spaces).\\
+tri.\ ($r{=}\mathnormal{R}$) & tripartite, beyond GHZ/LC & genuinely tripartite with tensor rank $\mathnormal{R}>d_{\max}$ and not of LC form
+(only in $@@G:I@@$, $@@G:Ih@@$, $@@G:K@@$, $@@G:Kh@@$ and for generic members of $N>1$ spaces).\\
 \bottomrule
 \end{tabular}
 \end{center}
 \noindent\emph{Method.} Tensor ranks are obtained numerically: the lower bound $d_{\max}$ is the flattening rank; an explicit,
 well-conditioned complex CP decomposition with residual $<10^{-9}$ (alternating least squares + Levenberg--Marquardt, many random
 starts) certifies the upper bound. Hence the GHZ/GHZ-type assignments ($r=d_{\max}$) are rigorous; ranks reported above
-$d_{\max}$ are the smallest $R$ for which a decomposition was found (for $\epsilon$ and $|\epsilon|$ they agree with the known values
+$d_{\max}$ are the smallest $\mathnormal{R}$ for which a decomposition was found (for $\epsilon$ and $|\epsilon|$ they agree with the known values
 5 and 4). LU equivalence to $\mathrm{GHZ}_d$, $\epsilon$, $|\epsilon|$ is tested by maximising $|\langle S|U_1\otimes U_2\otimes U_3|C\rangle|$
 (fidelity $1$ to $10^{-7}$).
 
 \paragraph{Families.} Within each group, tensors are given a letter by their modulus pattern (up to permutation of the three
-sectors) and class; subscripts distinguish phase variants (e.g.\ the $\pm$ of family (b), or (e$_\pm$), of the $T_{\rm d}$
+sectors) and class; subscripts distinguish phase variants (e.g.\ the $\pm$ of family (b), or (e$_\pm$), of the $@@G:Td@@$
 example). The legend at the start of each group writes the tensor of one representative triple.
 
 \paragraph{Observations.}
 \begin{enumerate}\setlength\itemsep{0pt}
-\item Abelian groups ($C_n,S_{2n},C_{n\rm h},C_1,C_{\rm s},C_{\rm i},D_2,D_{2\rm h},C_{2\rm v},C_\infty,C_{\infty\rm h}$): separable only.
-\item Axial non-Abelian groups and $C_{\infty\rm v},D_{\infty\rm h}$ (all irreps of dimension $\le2$): only separable, bipartite
-($2\times2$ Bell pairs) and GHZ $(2,2,2)$. For $E_a\otimes E_b\otimes E_c$ the tensor is always the two-term GHZ state
+\item Abelian groups ($\grp{C_{\mathnormal{n}}}$, $\grp{S_{2\mathnormal{n}}}$, $\grp{C_{\mathnormal{n}h}}$, $@@G:C1@@$, $@@G:Cs@@$, $@@G:Ci@@$,
+$@@G:D2@@$, $@@G:D2h@@$, $@@G:C2v@@$, $@@G:Cinf@@$, $@@G:Cinfh@@$): separable only.
+\item Axial non-Abelian groups and $@@G:Cinfv@@$, $@@G:Dinfh@@$ (all irreps of dimension $\le2$): only separable, bipartite
+($2\times2$ Bell pairs) and GHZ $(2,2,2)$. For $\irr{e}_{a}\irrprod\irr{e}_{b}\irrprod\irr{e}_{c}$ the tensor is always the two-term GHZ state
 because a single pair of sign patterns $\pm a\pm b\pm c\equiv0\pmod n$ survives.
 \item Cubic groups add $(1,3,3)$-type bipartite states, GHZ-type $(2,3,3)$ states (rank 3), and both Levi-Civita types.
-In $T_{\rm d}$, $O$, $O_{\rm h}$ both $\epsilon$ and $|\epsilon|$ occur, distinguished by whether the $T\otimes T\to T$
-step is antisymmetric or symmetric.
-\item \textbf{Multiplicity two outside the icosahedral groups.} In $T$ and $T_{\rm h}$ one has $T\otimes T=A\oplus{}^1E\oplus{}^2E\oplus2T$,
-so $(T,T,T)$ (and its $g/u$ versions in $T_{\rm h}$) has $N=2$: the space is spanned by $|\epsilon|$ (symmetric) and
-$\epsilon$ (antisymmetric). Its members range over different classes: $\epsilon$ and $|\epsilon|$ themselves, the combination
-$(|\epsilon|+\epsilon)/\sqrt2\propto\ket{xyz}+\ket{yzx}+\ket{zxy}$ which is GHZ, and generic members of rank 5.
+In $@@G:Td@@$, $@@G:O@@$, $@@G:Oh@@$ both $\epsilon$ and $|\epsilon|$ occur, distinguished by whether the $\irr{t}\irrprod\irr{t}\to\irr{t}$
+step is exchange-antisymmetric or exchange-symmetric.
+\item \textbf{Multiplicity two outside the icosahedral groups.} In $@@G:T@@$ and $@@G:Th@@$ one has
+$@@L:T:T@@\irrprod@@L:T:T@@=@@L:T:A@@\oplus@@L:T:{}^{1}E@@\oplus@@L:T:{}^{2}E@@\oplus2\,@@L:T:T@@$,
+so $(@@L:T:T@@,@@L:T:T@@,@@L:T:T@@)$ (and its $\ptag{g}/\ptag{u}$ versions in $@@G:Th@@$) has $N=2$: the space is spanned by $|\epsilon|$ (exchange-symmetric) and
+$\epsilon$ (exchange-antisymmetric). Its members range over different classes: $\epsilon$ and $|\epsilon|$ themselves, the combination
+$\tfrac{1}{2}\sqrt{2}\,(|\epsilon|+\epsilon)\propto\ket{xyz}+\ket{yzx}+\ket{zxy}$ which is GHZ, and generic members of rank 5.
 This is an exception to the statement that $N\le1$ for all non-icosahedral molecular point groups.
-\item Icosahedral groups: $N=2$ occurs exactly for $(G,H,H)$ and $(H,H,H)$ up to permutation (and their $g/u$ versions),
-confirming Eq.~(icosahedral\_products) of the main text. Besides bipartite, $\epsilon$-type $(T_1,T_1,T_1)$, $(T_2,T_2,T_2)$ and
+\item Icosahedral groups: $N=2$ occurs exactly for $(@@L:I:G@@,@@L:I:H@@,@@L:I:H@@)$ and $(@@L:I:H@@,@@L:I:H@@,@@L:I:H@@)$ up to
+permutation (and their $\ptag{g}/\ptag{u}$ versions), confirming Eq.~(icosahedral\_products) of the main text. Besides bipartite,
+$\epsilon$-type $(@@L:I:T_{1}@@,@@L:I:T_{1}@@,@@L:I:T_{1}@@)$, $(@@L:I:T_{2}@@,@@L:I:T_{2}@@,@@L:I:T_{2}@@)$ and
 GHZ-type $(3,3,5)$ couplings (rank 5), most tripartite triples are of a new kind: rank 5 for $(3,3,4)$ and $(4,4,4)$, 6 for $(3,4,4)$
 and $(3,4,5)$, 7 for $(4,4,5)$, 8 for $(3,5,5)$, $(4,5,5)$, $(5,5,5)$.
-\item $\mathsf{SO}(3)$/$\mathsf O(3)$ ($3j$ tensors): $(1,1,1)$ is exactly $\epsilon$; $(1,1,2)$ and $(1,2,3)$ are GHZ-type (rank $=d_{\max}$);
+\item $@@G:K@@$/$@@G:Kh@@$ ($3j$ tensors; the triples are $(J_{\mathrm r},J_{\mathrm n},J_{\mathrm v})$): $(1,1,1)$ is exactly $\epsilon$;
+$(1,1,2)$ and $(1,2,3)$ are GHZ-type (rank $=d_{\max}$);
 all others are beyond GHZ/LC. For the $7$-dimensional cases $(2,3,3)$ and $(3,3,3)$ no decomposition was found up to rank 15
 (reported as $r>15$).
 \end{enumerate}
@@ -542,9 +579,9 @@ def main():
         g["latex"] = o3h_tex.group_tex(g["name"])
     macros = open(os.path.join(HERE, "o3h_macros.tex"), encoding="utf-8").read().rstrip("\n")
     from fusion_tex import fusion_tex
-    out = [PREAMBLE.replace("@@O3H_MACROS@@", macros), INTRO, fusion_tex()]
+    out = [names_tex(PREAMBLE).replace("@@O3H_MACROS@@", macros), names_tex(INTRO), fusion_tex()]
     out.append(r"\section{Summary}")
-    out.append(r"Counts are for one $\Gamma_{\rm mol}$ (identical for every choice); for $N>1$ each basis tensor is counted. "
+    out.append(r"Counts are for one $\Gmol$ (identical for every choice); for $N>1$ each basis tensor is counted. "
                r"$^*$: truncated continuous group.")
     summary_table(results, out)
     out.append(r"\tableofcontents")
@@ -554,7 +591,7 @@ def main():
     for g in results:
         sec = section_of(g)
         if sec != current:
-            out.append(r"\clearpage\section{%s}" % GROUP_TITLES[sec])
+            out.append(r"\clearpage\section{%s}" % names_tex(GROUP_TITLES[sec]))
             current = sec
         group_section(g, out, data)
     out.append(r"\end{document}")

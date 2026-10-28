@@ -17,6 +17,7 @@ import mpmath as mp
 import pointgroups as pg
 from species import tensors_finite, phase_fix
 from entanglement import classify, lu_fidelity, RNG
+from fusion_tex import LETTERS, o3h
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 groups = {G.name: G for G in pg.cubic_groups()}
@@ -289,10 +290,12 @@ def scan(C1, C2):
     return grid
 
 
+# panel titles in o3harmonics' notation, by fusion_tex's placeholders (group, then the REPO labels)
 families = {
-    "T": dict(title=r"$T$: $(T,T,T)\to A$", C1=aeps, C2=eps, l1=r"$|\epsilon|$", l2=r"$\epsilon$"),
-    "HHH": dict(title=r"$I_{\rm h}$: $(H_g,H_g,H_g)\to A_g$", C1=C_K2, C2=C_K4, l1=r"$K{=}2$ (3j)", l2=r"$K{=}4$"),
-    "GHH": dict(title=r"$I_{\rm h}$: $(G_g,H_g,H_g)\to A_g$", C1=C_S, C2=C_A, l1="S", l2="A"),
+    "T": dict(title=o3h(r"$[[T]]$: $[[T:T,T,T]]\to[[T:A]]$"), C1=aeps, C2=eps, l1=r"$|\epsilon|$", l2=r"$\epsilon$"),
+    "HHH": dict(title=o3h(r"$[[Ih]]$: $[[Ih:H_{g},H_{g},H_{g}]]\to[[Ih:A_{g}]]$"), C1=C_K2, C2=C_K4, l1=r"$K{=}2$ ($3j$)",
+                l2=r"$K{=}4$"),
+    "GHH": dict(title=o3h(r"$[[Ih]]$: $[[Ih:G_{g},H_{g},H_{g}]]\to[[Ih:A_{g}]]$"), C1=C_S, C2=C_A, l1="S", l2="A"),
 }
 cache = os.path.join(HERE, "fusion_scan.pkl")
 if os.path.exists(cache):
@@ -308,11 +311,12 @@ DATA["ranges"] = {k: {q: (float(v.min()), float(v.max())) for q, v in s.items()}
 # distinguished points
 points = {
     "T": [("GHZ (even cyclic)", Cp), ("GHZ (odd cyclic)", Cm), (r"$|\epsilon|$", aeps), (r"$\epsilon$", eps),
-          (r"$(|\epsilon|+i\epsilon)/\sqrt2$", (aeps + 1j * eps) / np.sqrt(2))],
-    "HHH": [(r"$K{=}2$ (= SO(3) $3j$)", C_K2), (r"$K{=}4$ (icosahedral)", C_K4),
-            (r"$(K2+K4)/\sqrt2$", (C_K2 + C_K4) / np.sqrt(2)), (r"$(K2+iK4)/\sqrt2$", (C_K2 + 1j * C_K4) / np.sqrt(2))],
-    "GHH": [("S", C_S), ("A", C_A), (r"$(S+A)/\sqrt2$", (C_S + C_A) / np.sqrt(2)),
-            (r"$(S+iA)/\sqrt2$", (C_S + 1j * C_A) / np.sqrt(2)),
+          (r"$\tfrac12\sqrt2\,(|\epsilon|+\iunit\epsilon)$", (aeps + 1j * eps) / np.sqrt(2))],
+    "HHH": [(o3h(r"$K{=}2$ (= $[[K]]$ $3j$)"), C_K2), (r"$K{=}4$ (icosahedral)", C_K4),
+            (r"$\tfrac12\sqrt2\,(K2+K4)$", (C_K2 + C_K4) / np.sqrt(2)),
+            (r"$\tfrac12\sqrt2\,(K2+\iunit K4)$", (C_K2 + 1j * C_K4) / np.sqrt(2))],
+    "GHH": [("S", C_S), ("A", C_A), (r"$\tfrac12\sqrt2\,(S+A)$", (C_S + C_A) / np.sqrt(2)),
+            (r"$\tfrac12\sqrt2\,(S+\iunit A)$", (C_S + 1j * C_A) / np.sqrt(2)),
             ("Coriolis eigenstate 1", eigG["rv"][1][0]), ("Coriolis eigenstate 2", eigG["rv"][1][1])],
 }
 DATA["points"] = {}
@@ -367,10 +371,19 @@ def make_figure():
     from matplotlib.colors import LinearSegmentedColormap
     ramp = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
     cmap = LinearSegmentedColormap.from_list("seqblue", ramp)
+    # The text is set by LaTeX with the packages and macros of species_tables.pdf (make_pdf.py) and the
+    # section's letters, so groups, irreps and letters print as in the section. The PDF is written by the
+    # pgf backend (pdflatex itself): under usetex, matplotlib 3.11's own PDF backend drops slot 0 of every
+    # Type 1 font it subsets, which is the minus sign.
+    macros = open(os.path.join(HERE, "o3h_macros.tex"), encoding="utf-8").read()
+    preamble = "\n".join([r"\usepackage{amsmath,amssymb}", r"\usepackage[dvipsnames]{xcolor}", r"\usepackage[T1]{fontenc}",
+                          r"\usepackage{lmodern}", macros, LETTERS])
     plt.rcParams.update({"font.size": 8, "axes.edgecolor": "#888888", "axes.linewidth": 0.6,
-                         "xtick.color": "#555555", "ytick.color": "#555555", "mathtext.fontset": "cm"})
-    cols = [("EG", r"$E_G=-\log_2\Lambda^2$"), ("N_rn", r"negativity $\mathcal{N}(\rho_{\rm rn})$"),
-            ("N_nv", r"negativity $\mathcal{N}(\rho_{\rm nv})$")]
+                         "xtick.color": "#555555", "ytick.color": "#555555",
+                         "text.usetex": True, "text.latex.preamble": preamble, "font.family": "serif",
+                         "pgf.texsystem": "pdflatex", "pgf.rcfonts": False, "pgf.preamble": preamble})
+    cols = [("EG", r"$E_{\mathrm{geo}}=-\log_2\Lambda^2$"), ("N_rn", r"negativity $\mathcal{N}(\rho_{\mathrm{rn}})$"),
+            ("N_nv", r"negativity $\mathcal{N}(\rho_{\mathrm{nv}})$")]
     fig, axes = plt.subplots(3, 3, figsize=(7.0, 6.3), constrained_layout=True)
     for r, (k, f) in enumerate(families.items()):
         s = scans[k]
@@ -400,10 +413,12 @@ def make_figure():
             if r == 0:
                 ax.set_title(lab, fontsize=8)
             if c == 0:
-                ax.set_ylabel(f["title"] + "\n" + r"$\theta$", fontsize=7.5)
+                # one tabular, so LaTeX sets the leading in both backends (matplotlib stacks usetex lines
+                # without it, and the Agg/dvipng preview ignores a zero-width strut)
+                ax.set_ylabel(r"\begin{tabular}{@{}c@{}}" + f["title"] + r"\\$\theta$\end{tabular}", fontsize=7.5)
             if r == 2:
-                ax.set_xlabel(r"$\varphi$", fontsize=7.5)
-    fig.savefig(os.path.join(HERE, "fig_fusion_qubit.pdf"))
+                ax.set_xlabel(r"$\blochaz$", fontsize=7.5)
+    fig.savefig(os.path.join(HERE, "fig_fusion_qubit.pdf"), backend="pgf")
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     fig.savefig(os.path.join(HERE, "build", "fig_fusion_qubit.png"), dpi=110)
 
