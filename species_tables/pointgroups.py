@@ -1,29 +1,32 @@
 """
 Point groups of O(3): construction, irreducible representations (over C), their bases,
-and Mulliken labels, matched to o3harmonics (SCOPE-notation.md: S-keep and option C).
+and Mulliken labels, matched to o3harmonics.
+
+Groups (all_finite_groups(10)): Altmann and Herzig's 75. These are the 73 finite groups C1, Cs, Ci;
+C_n, C_nv, C_nh, S_2n, D_n, D_nh, D_nd for n = 2..10; T, Th, Td, O, Oh, I, Ih, each with its
+o3harmonics record (o3h_irreps.json, 73 records), and the linear groups C_inf v and D_inf h as
+finite stand-ins (C13v, D14h), valid for Xi <= 3 (Xi the subscript n of E_n, 0 for the A irreps).
 
 Conventions:
   * elements act actively on column vectors, and products compose from right to left:
     D(g) D(h) = D(gh), gh = "h first";
   * principal axis z, C2' axis along x, sigma_v = xz plane;
-  * every irrep of a finite group is o3harmonics' (o3h_irreps.json, from o3harmonics 10dab5c),
+  * every irrep of a finite group is o3harmonics' (o3h_irreps.json, from o3harmonics 99b3710),
     read in this convention: D(g) = D_o3h(phys g)^dagger, where phys g is the o3harmonics
     element with row matrix P = R^T (the same physical operation). o3harmonics acts on rows,
     r -> r P(g), and on functions by U(g)^{-1}, so its tabulated D(g) is ours at g^{-1}. Labels,
     partner order and coupling coefficients are therefore o3harmonics' for the same state;
-  * complex-conjugate pairs of 1D irreps are labelled as o3harmonics labels the same state:
-    {}^2E_k has character e^{+2 pi i k/n} on the generator in this active convention, the
-    conjugate of the tabulated {}^2E_k (the "S" identification);
+  * complex-conjugate pairs of 1D irreps are labelled as o3harmonics labels the same state, and
+    in this active convention their characters are the complex conjugates of o3harmonics'
+    tabulated ones ({}^2E has character i at C_4 in C_4, and at S_4 in S_4);
   * the finite stand-ins of the linear groups keep their own matrices (complex basis, the swap
     as the plain permutation) and take o3harmonics' labels and ids.
 """
 import json
 import os
 import numpy as np
-from fractions import Fraction
 
 PI = np.pi
-TOL = 1e-7
 
 
 # ----------------------------------------------------------------------------
@@ -50,7 +53,6 @@ C2Y = np.diag([-1.0, 1, -1])
 C2Z = np.diag([-1.0, -1, 1])
 C3D = np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0.0]])   # x->y->z  (C3 about [111])
 SD_XY = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1.0]])  # sigma_d swapping x<->y
-C2_1M10 = np.array([[0, -1, 0], [-1, 0, 0], [0, 0, -1.0]])  # C2 about [1,-1,0]
 C4Z = Rz(PI / 2)
 GOLD = (1 + 5 ** 0.5) / 2
 C5I = Raxis([0, 1, GOLD], 2 * PI / 5)  # 5-fold axis through icosahedron vertex
@@ -82,12 +84,11 @@ def closure(gens):
 # finite group with irreps from the regular representation
 # ----------------------------------------------------------------------------
 class FiniteGroup:
-    def __init__(self, name, latex, family, gens, probes, n=None, meta=None):
-        self.name, self.latex, self.family, self.n = name, latex, family, n
+    def __init__(self, name, family, gens, probes, n=None, meta=None):
+        self.name, self.family, self.n = name, family, n
         self.meta = meta or {}
         self.elems, self.keys = closure(gens)
         self.order = len(self.elems)
-        self.probe_mats = probes
         self.probes = {}
         for pname, M in probes.items():
             k = mkey(M)
@@ -96,9 +97,6 @@ class FiniteGroup:
         self._mult_table()
         self._classes()
         self._irreps()
-
-    def idx(self, M):
-        return self.keys[mkey(M)]
 
     def _mult_table(self):
         G = self.order
@@ -120,7 +118,6 @@ class FiniteGroup:
                 seen[x] = len(classes)
             classes.append(cl)
         self.classes = classes
-        self.class_of = seen
 
     def _irreps(self):
         G = self.order
@@ -174,7 +171,7 @@ class FiniteGroup:
         self.chars = [np.array([np.trace(D[g]) for g in range(G)]) for D in self.D]
         self.dims = [D.shape[1] for D in self.D]
         self.labels = [self.labeler(i) for i in range(len(self.D))]
-        # sort: dimension, then label
+        # sort by label (label_sortkey): parity tag, primes, letter, subscript, sign of a Sigma, complex-pair prefix
         order = sorted(range(len(self.D)), key=lambda i: self._sortkey(i))
         self.D = [self.D[i] for i in order]
         self.chars = [self.chars[i] for i in order]
@@ -187,8 +184,11 @@ class FiniteGroup:
         """replace each irrep by o3harmonics' for the same state: D(g) = D_o3h(phys g)^dagger"""
         rec = O3H_RECORD.get(self.name, self.name)
         data = o3h_data()["records"].get(rec)
-        if data is None:             # the linear stand-ins keep their own matrices; ids after the cut
-            self.o3h_record, self.ids = None, None
+        if data is None:
+            if self.family not in LINEAR:
+                raise LookupError("no o3harmonics record %s for %s in o3h_irreps.json; only the linear "
+                                  "stand-ins %s keep their own matrices" % (rec, self.name, ", ".join(LINEAR)))
+            self.o3h_record, self.ids = None, None      # the stand-in's ids are set after the cut
             return
         self.o3h_record, self.ids = o3h_ids(self.name, self.labels)
         keys = {mkey(np.array(e["P"]).T): k for k, e in enumerate(data["elements"])}
@@ -218,45 +218,25 @@ class FiniteGroup:
                 assert np.allclose(D[g] @ D[h], D[self.mul[g, h]], atol=1e-8)
 
     # ------------------------------------------------------------------
-    # basis adaptation
+    # the basis of a linear stand-in
     # ------------------------------------------------------------------
     def _adapt(self, D):
-        d = D.shape[1]
-        if d == 1:
+        """a two-dimensional irrep of a linear stand-in in its own complex basis: partner 1 the e^{+i theta}
+        eigenvector of C_n, partner 2 its image under C2' (or sigma_v), which is then the plain exchange. Every other
+        irrep is returned unchanged, and _import_o3h replaces each irrep of a finite group by o3harmonics' matrices."""
+        if D.shape[1] != 2 or self.family not in LINEAR:
             return D
-        fam = self.family
-        if d == 2 and fam in ("Cnv", "Dn", "Dnh", "Dnd", "Td", "O", "Oh", "Cinfv", "Dinfh"):
-            if fam in ("Td", "O", "Oh"):
-                P = self.probes["C3"]
-                s = self.probes.get("C2_1m10", self.probes.get("sd"))
-            else:
-                P = self.probes["S2n"] if (fam == "Dnd" and self.n % 2 == 0) else self.probes["Cn"]
-                s = self.probes.get("C2p", self.probes.get("sv"))
-            w, U = np.linalg.eig(D[P])
-            ang = np.angle(w)
-            i1 = int(np.argmax(ang))  # e^{+i theta}, theta in (0, pi)
-            v1 = U[:, i1] / np.linalg.norm(U[:, i1])
-            v2 = D[s] @ v1
-            Q = np.column_stack([v1, v2])
-            Dn = np.einsum("ji,gjk,kl->gil", Q.conj(), D, Q)
-            assert np.allclose(Dn[s], [[0, 1], [1, 0]], atol=1e-8)
-            return Dn
-        if d == 3 and fam in ("T", "Th", "Td", "O", "Oh", "I", "Ih"):
-            ax, ay, az = self.probes["C2x"], self.probes["C2y"], self.probes["C2z"]
-            M = D[ax] + 2.0 * D[ay] + 3.7 * D[az]
-            M = (M + M.conj().T) / 2
-            w, U = np.linalg.eigh(M)
-            # vector with C2x=+1, C2y=-1, C2z=-1 -> eigenvalue 1-2-3.7
-            i = int(np.argmin(abs(w - (1 - 2 - 3.7))))
-            ex = U[:, i]
-            C3 = self.probes["C3"]
-            ey = D[C3] @ ex
-            ez = D[C3] @ ey
-            Q = np.column_stack([ex, ey, ez])
-            Dn = np.einsum("ji,gjk,kl->gil", Q.conj(), D, Q)
-            assert np.allclose(Dn[C3], C3D, atol=1e-8)
-            return Dn
-        return D
+        P = self.probes["Cn"]
+        s = self.probes.get("C2p", self.probes.get("sv"))
+        w, U = np.linalg.eig(D[P])
+        ang = np.angle(w)
+        i1 = int(np.argmax(ang))  # e^{+i theta}, theta in (0, pi)
+        v1 = U[:, i1] / np.linalg.norm(U[:, i1])
+        v2 = D[s] @ v1
+        Q = np.column_stack([v1, v2])
+        Dn = np.einsum("ji,gjk,kl->gil", Q.conj(), D, Q)
+        assert np.allclose(Dn[s], [[0, 1], [1, 0]], atol=1e-8)
+        return Dn
 
     # ------------------------------------------------------------------
     # labels
@@ -272,9 +252,9 @@ class FiniteGroup:
 
 
 # ----------------------------------------------------------------------------
-# labeling helpers.  A label is LaTeX math (without $).
+# labelling helpers.  A label is LaTeX math (without $).
 # ----------------------------------------------------------------------------
-MAIN_ORDER = ["A", "B", "E", "T", "G", "H", r"\Sigma", r"\Pi", r"\Delta", r"\Phi", r"\Gamma"]
+MAIN_ORDER = ["A", "B", "E", "T", "G", "H", r"\Sigma", r"\Pi", r"\Delta", r"\Phi"]
 
 
 def label_sortkey(lab):
@@ -332,7 +312,7 @@ def _cyclic_core(n, z):
     if 2 * k == n:
         return "B", "", 0
     if k < n / 2:
-        return "E", "2", k      # e^{+2 pi i k/n} on the generator: o3harmonics' {}^2E_k (S)
+        return "E", "2", k      # e^{+2 pi i k/n} on the generator: o3harmonics' {}^2E_k
     return "E", "1", n - k
 
 
@@ -375,21 +355,14 @@ def label_axial(G, i):
 
 
 def label_linear(G, i):
-    # finite approximant of C_inf, C_inf h, C_inf v, D_inf h
-    fam, n, d = G.family, G.n, G.dims[i]
+    # finite stand-in of C_inf v or D_inf h
+    n, d = G.n, G.dims[i]
     par = _parity(G, i)
     z = G.chi(i, "Cn")
-    greek = {0: r"\Sigma", 1: r"\Pi", 2: r"\Delta", 3: r"\Phi", 4: r"\Gamma"}
+    greek = {0: r"\Sigma", 1: r"\Pi", 2: r"\Delta", 3: r"\Phi"}
     if d == 1:
         k = _frac_angle(z, n)
         kk = min(k, n - k)
-        if fam in ("Cinf", "Cinfh"):
-            if kk == 0:
-                return mk(r"\Sigma", par)
-            if kk > 3 or 2 * k == n:
-                return "skip%d" % i
-            pre = "2" if k < n / 2 else "1"      # as o3harmonics labels the same state (S)
-            return mk(greek[kk], par, pre)
         if kk != 0:
             return "skip%d" % i
         sup = "+" if _sign(G.chi(i, "sv")) > 0 else "-"
@@ -409,7 +382,7 @@ def label_cubic(G, i):
             k = _frac_angle(G.chi(i, "C3"), 3)
             if k == 0:
                 return mk("A", par)
-            return mk("E", par, "2" if k == 1 else "1")      # o3harmonics' label of the state (S)
+            return mk("E", par, "2" if k == 1 else "1")      # o3harmonics' label of the state
         if fam == "Td":
             return mk("A", ("1" if _sign(G.chi(i, "sd")) > 0 else "2") + par)
         return mk("A", ("1" if _sign(G.chi(i, "C4")) > 0 else "2") + par)
@@ -434,6 +407,7 @@ def label_icosa(G, i):
     return mk({4: "G", 5: "H"}[d], par)
 
 
+LINEAR = ("Cinfv", "Dinfh")      # the linear groups, built as finite stand-ins (linear_groups)
 LABELERS = {}
 for f in ("C1", "Cs", "Ci", "Cn", "Cnv", "Cnh", "S2n", "Dn", "Dnh", "Dnd"):
     LABELERS[f] = label_axial
@@ -441,12 +415,12 @@ for f in ("T", "Th", "Td", "O", "Oh"):
     LABELERS[f] = label_cubic
 for f in ("I", "Ih"):
     LABELERS[f] = label_icosa
-for f in ("Cinf", "Cinfh", "Cinfv", "Dinfh"):
+for f in LINEAR:
     LABELERS[f] = label_linear
 
 
 # ----------------------------------------------------------------------------
-# o3harmonics data (o3h_irreps.json, o3h_labels.json; notation-scope/scripts/export_o3h_irreps.py)
+# o3harmonics data (o3h_irreps.json, o3h_labels.json)
 # ----------------------------------------------------------------------------
 HERE = os.path.dirname(os.path.abspath(__file__))
 O3H_RECORD = {"Cs": "C1h", "Ci": "S2"}     # every other finite group has o3harmonics' name
@@ -473,11 +447,6 @@ def o3h_ids(name, labels):
     return g["o3h_record"], [g["labels"][lab]["id"] for lab in labels]
 
 
-def o3h_doc(name, label):
-    """the label as o3harmonics' documents write it (\\irr{a}_{1\\ptag{g}}, \\conjpair{2}\\irr{e})"""
-    return o3h_labels()[name]["labels"][label]["doc"]
-
-
 # ----------------------------------------------------------------------------
 # group catalogue
 # ----------------------------------------------------------------------------
@@ -487,21 +456,19 @@ def axial_group(fam, n):
     probes = {"Cn": Cn, "C2p": C2X, "sv": SV, "sh": SH, "i": INV, "S2n": S2n,
               "C2x": C2X, "C2y": C2Y, "C2z": C2Z}
     if fam == "Cn":
-        gens, name, latex = [Cn], "C%d" % n, "C_{%d}" % n
+        gens, name = [Cn], "C%d" % n
     elif fam == "Cnv":
-        gens, name, latex = [Cn, SV], "C%dv" % n, "C_{%d\\mathrm{v}}" % n
+        gens, name = [Cn, SV], "C%dv" % n
     elif fam == "Cnh":
-        gens, name, latex = [Cn, SH], "C%dh" % n, "C_{%d\\mathrm{h}}" % n
+        gens, name = [Cn, SH], "C%dh" % n
     elif fam == "S2n":
-        gens, name, latex = [S2n], "S%d" % (2 * n), "S_{%d}" % (2 * n)
+        gens, name = [S2n], "S%d" % (2 * n)
     elif fam == "Dn":
-        gens, name, latex = [Cn, C2X], "D%d" % n, "D_{%d}" % n
+        gens, name = [Cn, C2X], "D%d" % n
     elif fam == "Dnh":
-        gens, name, latex = [Cn, C2X, SH], "D%dh" % n, "D_{%d\\mathrm{h}}" % n
+        gens, name = [Cn, C2X, SH], "D%dh" % n
     elif fam == "Dnd":
-        gens, name, latex = [S2n, C2X], "D%dd" % n, "D_{%d\\mathrm{d}}" % n
-    if fam in ("Cnh",) and n % 2 == 1:
-        probes.pop("i")
+        gens, name = [S2n, C2X], "D%dd" % n
     # sigma_v / C2' only meaningful where present (closure decides)
     # number of distinct E_k (for subscripting)
     if fam == "S2n" and n % 2 == 0:
@@ -510,47 +477,35 @@ def axial_group(fam, n):
         nE = n - 1
     else:
         nE = (n - 1) // 2
-    G = FiniteGroup(name, latex, fam, gens, probes, n=n, meta={"nE": nE})
+    G = FiniteGroup(name, fam, gens, probes, n=n, meta={"nE": nE})
     return G
 
 
 def special_groups():
     out = []
-    pr = {"sh": SH, "i": INV, "Cn": E3, "sv": SV}
-    out.append(FiniteGroup("C1", "C_1", "C1", [E3], {"Cn": E3}, n=1))
-    out.append(FiniteGroup("Cs", "C_{\\mathrm s}", "Cs", [SH], {"Cn": E3, "sh": SH}, n=1))
-    out.append(FiniteGroup("Ci", "C_{\\mathrm i}", "Ci", [INV], {"Cn": E3, "i": INV}, n=1))
+    out.append(FiniteGroup("C1", "C1", [E3], {"Cn": E3}, n=1))
+    out.append(FiniteGroup("Cs", "Cs", [SH], {"Cn": E3, "sh": SH}, n=1))
+    out.append(FiniteGroup("Ci", "Ci", [INV], {"Cn": E3, "i": INV}, n=1))
     return out
 
 
 def cubic_groups():
-    pr = {"C2x": C2X, "C2y": C2Y, "C2z": C2Z, "C3": C3D, "C4": C4Z, "sd": SD_XY,
-          "C2_1m10": C2_1M10, "i": INV, "C5": C5I}
+    pr = {"C3": C3D, "C4": C4Z, "sd": SD_XY, "i": INV, "C5": C5I}
     base = [C2Z, C2X, C3D]
-    defs = [("T", "T", base), ("Th", "T_{\\mathrm h}", base + [INV]),
-            ("Td", "T_{\\mathrm d}", base + [SD_XY]), ("O", "O", base + [C4Z]),
-            ("Oh", "O_{\\mathrm h}", base + [C4Z, INV])]
-    out = []
-    for name, latex, gens in defs:
-        p = dict(pr)
-        if name == "Td":
-            p.pop("C2_1m10")
-        out.append(FiniteGroup(name, latex, name, gens, p))
-    for name, latex, gens in [("I", "I", base + [C5I]), ("Ih", "I_{\\mathrm h}", base + [C5I, INV])]:
-        out.append(FiniteGroup(name, latex, name, gens, pr))
-    return out
+    defs = [("T", base), ("Th", base + [INV]), ("Td", base + [SD_XY]), ("O", base + [C4Z]),
+            ("Oh", base + [C4Z, INV]), ("I", base + [C5I]), ("Ih", base + [C5I, INV])]
+    return [FiniteGroup(name, name, gens, pr) for name, gens in defs]
 
 
 def linear_groups():
-    """finite approximants valid for |Lambda| <= 3"""
+    """finite stand-ins of C_inf v and D_inf h (C13v, D14h), valid for Xi <= 3"""
     out = []
-    specs = [("Cinf", "C_{\\infty}", "Cn", 13), ("Cinfh", "C_{\\infty\\mathrm h}", "Cnh", 14),
-             ("Cinfv", "C_{\\infty\\mathrm v}", "Cnv", 13), ("Dinfh", "D_{\\infty\\mathrm h}", "Dnh", 14)]
-    for name, latex, fam, n in specs:
+    specs = [("Cinfv", "Cnv", 13), ("Dinfh", "Dnh", 14)]
+    for name, fam, n in specs:
         Cn = Rz(2 * PI / n)
-        gens = {"Cn": [Cn], "Cnh": [Cn, SH], "Cnv": [Cn, SV], "Dnh": [Cn, C2X, SH]}[fam]
+        gens = {"Cnv": [Cn, SV], "Dnh": [Cn, C2X, SH]}[fam]
         probes = {"Cn": Cn, "sv": SV, "sh": SH, "i": INV, "C2p": C2X}
-        G = FiniteGroup(name, latex, name, gens, probes, n=n)
+        G = FiniteGroup(name, name, gens, probes, n=n)
         keep = [i for i, l in enumerate(G.labels) if not l.startswith("skip")]
         G.D = [G.D[i] for i in keep]
         G.chars = [G.chars[i] for i in keep]
@@ -562,7 +517,7 @@ def linear_groups():
     return out
 
 
-def all_finite_groups(nmax=8):
+def all_finite_groups(nmax=10):
     groups = special_groups()
     for fam in ("Cn", "Cnv", "Cnh", "S2n", "Dn", "Dnh", "Dnd"):
         for n in range(2, nmax + 1):
@@ -570,9 +525,3 @@ def all_finite_groups(nmax=8):
     groups += cubic_groups()
     groups += linear_groups()
     return groups
-
-
-if __name__ == "__main__":
-    import sys
-    for G in all_finite_groups(int(sys.argv[1]) if len(sys.argv) > 1 else 6):
-        print(G.name, G.order, list(zip(G.labels, G.dims)))

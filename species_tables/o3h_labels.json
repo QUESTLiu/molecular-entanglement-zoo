@@ -1,7 +1,8 @@
 {
  "provenance": {
-  "o3harmonics": "10dab5c",
-  "from": "notation-scope/irrep_crosswalk.csv (S identification)"
+  "o3harmonics": "99b3710",
+  "from": "Each irrep label of this code is matched to the o3harmonics irrep of the same state, with that irrep's id and LaTeX (doc). In a complex pair, {}^2E_k is the member with character e^{+2 pi i k/n} on the generator under this code's active U(g), the complex conjugate of o3harmonics' tabulated value.",
+  "covers": "The 75 groups of the species tables, with the stand-ins of Cinfv and Dinfh under their Greek labels."
  },
  "groups": {
   "C1": {
@@ -9,7 +10,6 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     }
    }
@@ -19,12 +19,10 @@
    "labels": {
     "A'": {
      "id": "Ap",
-     "display": "A'",
      "doc": "\\irr{a}'"
     },
     "A''": {
      "id": "App",
-     "display": "A''",
      "doc": "\\irr{a}''"
     }
    }
@@ -34,12 +32,10 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     }
    }
@@ -49,12 +45,10 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     }
    }
@@ -64,17 +58,14 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "{}^{2}E": {
      "id": "2E1",
-     "display": "{}^{2}E",
      "doc": "\\conjpair{2}\\irr{e}"
     },
     "{}^{1}E": {
      "id": "1E1",
-     "display": "{}^{1}E",
      "doc": "\\conjpair{1}\\irr{e}"
     }
    }
@@ -84,22 +75,18 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E": {
      "id": "2E1",
-     "display": "{}^{2}E",
      "doc": "\\conjpair{2}\\irr{e}"
     },
     "{}^{1}E": {
      "id": "1E1",
-     "display": "{}^{1}E",
      "doc": "\\conjpair{1}\\irr{e}"
     }
    }
@@ -109,27 +96,22 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     }
    }
@@ -139,32 +121,26 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     }
    }
@@ -174,37 +150,30 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     },
     "{}^{2}E_{3}": {
      "id": "2E3",
-     "display": "{}^{2}E_{3}",
      "doc": "\\conjpair{2}\\irr{e}_{3}"
     },
     "{}^{1}E_{3}": {
      "id": "1E3",
-     "display": "{}^{1}E_{3}",
      "doc": "\\conjpair{1}\\irr{e}_{3}"
     }
    }
@@ -214,43 +183,121 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     },
     "{}^{2}E_{3}": {
      "id": "2E3",
-     "display": "{}^{2}E_{3}",
      "doc": "\\conjpair{2}\\irr{e}_{3}"
     },
     "{}^{1}E_{3}": {
      "id": "1E3",
-     "display": "{}^{1}E_{3}",
      "doc": "\\conjpair{1}\\irr{e}_{3}"
+    }
+   }
+  },
+  "C9": {
+   "o3h_record": "C9",
+   "labels": {
+    "A": {
+     "id": "A",
+     "doc": "\\irr{a}"
+    },
+    "{}^{2}E_{1}": {
+     "id": "2E1",
+     "doc": "\\conjpair{2}\\irr{e}_{1}"
+    },
+    "{}^{1}E_{1}": {
+     "id": "1E1",
+     "doc": "\\conjpair{1}\\irr{e}_{1}"
+    },
+    "{}^{2}E_{2}": {
+     "id": "2E2",
+     "doc": "\\conjpair{2}\\irr{e}_{2}"
+    },
+    "{}^{1}E_{2}": {
+     "id": "1E2",
+     "doc": "\\conjpair{1}\\irr{e}_{2}"
+    },
+    "{}^{2}E_{3}": {
+     "id": "2E3",
+     "doc": "\\conjpair{2}\\irr{e}_{3}"
+    },
+    "{}^{1}E_{3}": {
+     "id": "1E3",
+     "doc": "\\conjpair{1}\\irr{e}_{3}"
+    },
+    "{}^{2}E_{4}": {
+     "id": "2E4",
+     "doc": "\\conjpair{2}\\irr{e}_{4}"
+    },
+    "{}^{1}E_{4}": {
+     "id": "1E4",
+     "doc": "\\conjpair{1}\\irr{e}_{4}"
+    }
+   }
+  },
+  "C10": {
+   "o3h_record": "C10",
+   "labels": {
+    "A": {
+     "id": "A",
+     "doc": "\\irr{a}"
+    },
+    "B": {
+     "id": "B",
+     "doc": "\\irr{b}"
+    },
+    "{}^{2}E_{1}": {
+     "id": "2E1",
+     "doc": "\\conjpair{2}\\irr{e}_{1}"
+    },
+    "{}^{1}E_{1}": {
+     "id": "1E1",
+     "doc": "\\conjpair{1}\\irr{e}_{1}"
+    },
+    "{}^{2}E_{2}": {
+     "id": "2E2",
+     "doc": "\\conjpair{2}\\irr{e}_{2}"
+    },
+    "{}^{1}E_{2}": {
+     "id": "1E2",
+     "doc": "\\conjpair{1}\\irr{e}_{2}"
+    },
+    "{}^{2}E_{3}": {
+     "id": "2E3",
+     "doc": "\\conjpair{2}\\irr{e}_{3}"
+    },
+    "{}^{1}E_{3}": {
+     "id": "1E3",
+     "doc": "\\conjpair{1}\\irr{e}_{3}"
+    },
+    "{}^{2}E_{4}": {
+     "id": "2E4",
+     "doc": "\\conjpair{2}\\irr{e}_{4}"
+    },
+    "{}^{1}E_{4}": {
+     "id": "1E4",
+     "doc": "\\conjpair{1}\\irr{e}_{4}"
     }
    }
   },
@@ -259,22 +306,18 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     }
    }
@@ -284,17 +327,14 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E": {
      "id": "E1",
-     "display": "E",
      "doc": "\\irr{e}"
     }
    }
@@ -304,27 +344,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E": {
      "id": "E1",
-     "display": "E",
      "doc": "\\irr{e}"
     }
    }
@@ -334,22 +369,18 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     }
    }
@@ -359,32 +390,26 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     }
    }
@@ -394,27 +419,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     }
    }
@@ -424,38 +444,97 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
+    }
+   }
+  },
+  "C9v": {
+   "o3h_record": "C9v",
+   "labels": {
+    "A_{1}": {
+     "id": "A1",
+     "doc": "\\irr{a}_{1}"
+    },
+    "A_{2}": {
+     "id": "A2",
+     "doc": "\\irr{a}_{2}"
+    },
+    "E_{1}": {
+     "id": "E1",
+     "doc": "\\irr{e}_{1}"
+    },
+    "E_{2}": {
+     "id": "E2",
+     "doc": "\\irr{e}_{2}"
+    },
+    "E_{3}": {
+     "id": "E3",
+     "doc": "\\irr{e}_{3}"
+    },
+    "E_{4}": {
+     "id": "E4",
+     "doc": "\\irr{e}_{4}"
+    }
+   }
+  },
+  "C10v": {
+   "o3h_record": "C10v",
+   "labels": {
+    "A_{1}": {
+     "id": "A1",
+     "doc": "\\irr{a}_{1}"
+    },
+    "A_{2}": {
+     "id": "A2",
+     "doc": "\\irr{a}_{2}"
+    },
+    "B_{1}": {
+     "id": "B1",
+     "doc": "\\irr{b}_{1}"
+    },
+    "B_{2}": {
+     "id": "B2",
+     "doc": "\\irr{b}_{2}"
+    },
+    "E_{1}": {
+     "id": "E1",
+     "doc": "\\irr{e}_{1}"
+    },
+    "E_{2}": {
+     "id": "E2",
+     "doc": "\\irr{e}_{2}"
+    },
+    "E_{3}": {
+     "id": "E3",
+     "doc": "\\irr{e}_{3}"
+    },
+    "E_{4}": {
+     "id": "E4",
+     "doc": "\\irr{e}_{4}"
     }
    }
   },
@@ -464,22 +543,18 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "B_{g}": {
      "id": "Bg",
-     "display": "B_g",
      "doc": "\\irr{b}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "B_{u}": {
      "id": "Bu",
-     "display": "B_u",
      "doc": "\\irr{b}_{\\ptag{u}}"
     }
    }
@@ -489,32 +564,26 @@
    "labels": {
     "A'": {
      "id": "Ap",
-     "display": "A'",
      "doc": "\\irr{a}'"
     },
     "{}^{2}E'": {
      "id": "2E1p",
-     "display": "{}^{2}E'",
      "doc": "\\conjpair{2}\\irr{e}'"
     },
     "{}^{1}E'": {
      "id": "1E1p",
-     "display": "{}^{1}E'",
      "doc": "\\conjpair{1}\\irr{e}'"
     },
     "A''": {
      "id": "App",
-     "display": "A''",
      "doc": "\\irr{a}''"
     },
     "{}^{2}E''": {
      "id": "2E1pp",
-     "display": "{}^{2}E''",
      "doc": "\\conjpair{2}\\irr{e}''"
     },
     "{}^{1}E''": {
      "id": "1E1pp",
-     "display": "{}^{1}E''",
      "doc": "\\conjpair{1}\\irr{e}''"
     }
    }
@@ -524,42 +593,34 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "B_{g}": {
      "id": "Bg",
-     "display": "B_g",
      "doc": "\\irr{b}_{\\ptag{g}}"
     },
     "{}^{2}E_{g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_g",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{g}}"
     },
     "{}^{1}E_{g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_g",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "B_{u}": {
      "id": "Bu",
-     "display": "B_u",
      "doc": "\\irr{b}_{\\ptag{u}}"
     },
     "{}^{2}E_{u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_u",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{u}}"
     },
     "{}^{1}E_{u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_u",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{u}}"
     }
    }
@@ -569,52 +630,42 @@
    "labels": {
     "A'": {
      "id": "Ap",
-     "display": "A'",
      "doc": "\\irr{a}'"
     },
     "{}^{2}E_{1}'": {
      "id": "2E1p",
-     "display": "{}^{2}E_{1}'",
      "doc": "\\conjpair{2}\\irr{e}_{1}'"
     },
     "{}^{1}E_{1}'": {
      "id": "1E1p",
-     "display": "{}^{1}E_{1}'",
      "doc": "\\conjpair{1}\\irr{e}_{1}'"
     },
     "{}^{2}E_{2}'": {
      "id": "2E2p",
-     "display": "{}^{2}E_{2}'",
      "doc": "\\conjpair{2}\\irr{e}_{2}'"
     },
     "{}^{1}E_{2}'": {
      "id": "1E2p",
-     "display": "{}^{1}E_{2}'",
      "doc": "\\conjpair{1}\\irr{e}_{2}'"
     },
     "A''": {
      "id": "App",
-     "display": "A''",
      "doc": "\\irr{a}''"
     },
     "{}^{2}E_{1}''": {
      "id": "2E1pp",
-     "display": "{}^{2}E_{1}''",
      "doc": "\\conjpair{2}\\irr{e}_{1}''"
     },
     "{}^{1}E_{1}''": {
      "id": "1E1pp",
-     "display": "{}^{1}E_{1}''",
      "doc": "\\conjpair{1}\\irr{e}_{1}''"
     },
     "{}^{2}E_{2}''": {
      "id": "2E2pp",
-     "display": "{}^{2}E_{2}''",
      "doc": "\\conjpair{2}\\irr{e}_{2}''"
     },
     "{}^{1}E_{2}''": {
      "id": "1E2pp",
-     "display": "{}^{1}E_{2}''",
      "doc": "\\conjpair{1}\\irr{e}_{2}''"
     }
    }
@@ -624,62 +675,50 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "B_{g}": {
      "id": "Bg",
-     "display": "B_g",
      "doc": "\\irr{b}_{\\ptag{g}}"
     },
     "{}^{2}E_{1g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_{1g}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{1}E_{1g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_{1g}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{2}E_{2g}": {
      "id": "2E2g",
-     "display": "{}^{2}E_{2g}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{1}E_{2g}": {
      "id": "1E2g",
-     "display": "{}^{1}E_{2g}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "B_{u}": {
      "id": "Bu",
-     "display": "B_u",
      "doc": "\\irr{b}_{\\ptag{u}}"
     },
     "{}^{2}E_{1u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_{1u}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{1}E_{1u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_{1u}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{2}E_{2u}": {
      "id": "2E2u",
-     "display": "{}^{2}E_{2u}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{1}E_{2u}": {
      "id": "1E2u",
-     "display": "{}^{1}E_{2u}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
     }
    }
@@ -689,72 +728,58 @@
    "labels": {
     "A'": {
      "id": "Ap",
-     "display": "A'",
      "doc": "\\irr{a}'"
     },
     "{}^{2}E_{1}'": {
      "id": "2E1p",
-     "display": "{}^{2}E_{1}'",
      "doc": "\\conjpair{2}\\irr{e}_{1}'"
     },
     "{}^{1}E_{1}'": {
      "id": "1E1p",
-     "display": "{}^{1}E_{1}'",
      "doc": "\\conjpair{1}\\irr{e}_{1}'"
     },
     "{}^{2}E_{2}'": {
      "id": "2E2p",
-     "display": "{}^{2}E_{2}'",
      "doc": "\\conjpair{2}\\irr{e}_{2}'"
     },
     "{}^{1}E_{2}'": {
      "id": "1E2p",
-     "display": "{}^{1}E_{2}'",
      "doc": "\\conjpair{1}\\irr{e}_{2}'"
     },
     "{}^{2}E_{3}'": {
      "id": "2E3p",
-     "display": "{}^{2}E_{3}'",
      "doc": "\\conjpair{2}\\irr{e}_{3}'"
     },
     "{}^{1}E_{3}'": {
      "id": "1E3p",
-     "display": "{}^{1}E_{3}'",
      "doc": "\\conjpair{1}\\irr{e}_{3}'"
     },
     "A''": {
      "id": "App",
-     "display": "A''",
      "doc": "\\irr{a}''"
     },
     "{}^{2}E_{1}''": {
      "id": "2E1pp",
-     "display": "{}^{2}E_{1}''",
      "doc": "\\conjpair{2}\\irr{e}_{1}''"
     },
     "{}^{1}E_{1}''": {
      "id": "1E1pp",
-     "display": "{}^{1}E_{1}''",
      "doc": "\\conjpair{1}\\irr{e}_{1}''"
     },
     "{}^{2}E_{2}''": {
      "id": "2E2pp",
-     "display": "{}^{2}E_{2}''",
      "doc": "\\conjpair{2}\\irr{e}_{2}''"
     },
     "{}^{1}E_{2}''": {
      "id": "1E2pp",
-     "display": "{}^{1}E_{2}''",
      "doc": "\\conjpair{1}\\irr{e}_{2}''"
     },
     "{}^{2}E_{3}''": {
      "id": "2E3pp",
-     "display": "{}^{2}E_{3}''",
      "doc": "\\conjpair{2}\\irr{e}_{3}''"
     },
     "{}^{1}E_{3}''": {
      "id": "1E3pp",
-     "display": "{}^{1}E_{3}''",
      "doc": "\\conjpair{1}\\irr{e}_{3}''"
     }
    }
@@ -764,83 +789,229 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "B_{g}": {
      "id": "Bg",
-     "display": "B_g",
      "doc": "\\irr{b}_{\\ptag{g}}"
     },
     "{}^{2}E_{1g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_{1g}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{1}E_{1g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_{1g}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{2}E_{2g}": {
      "id": "2E2g",
-     "display": "{}^{2}E_{2g}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{1}E_{2g}": {
      "id": "1E2g",
-     "display": "{}^{1}E_{2g}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{2}E_{3g}": {
      "id": "2E3g",
-     "display": "{}^{2}E_{3g}",
      "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{g}}"
     },
     "{}^{1}E_{3g}": {
      "id": "1E3g",
-     "display": "{}^{1}E_{3g}",
      "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "B_{u}": {
      "id": "Bu",
-     "display": "B_u",
      "doc": "\\irr{b}_{\\ptag{u}}"
     },
     "{}^{2}E_{1u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_{1u}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{1}E_{1u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_{1u}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{2}E_{2u}": {
      "id": "2E2u",
-     "display": "{}^{2}E_{2u}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{1}E_{2u}": {
      "id": "1E2u",
-     "display": "{}^{1}E_{2u}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{2}E_{3u}": {
      "id": "2E3u",
-     "display": "{}^{2}E_{3u}",
      "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{u}}"
     },
     "{}^{1}E_{3u}": {
      "id": "1E3u",
-     "display": "{}^{1}E_{3u}",
      "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{u}}"
+    }
+   }
+  },
+  "C9h": {
+   "o3h_record": "C9h",
+   "labels": {
+    "A'": {
+     "id": "Ap",
+     "doc": "\\irr{a}'"
+    },
+    "{}^{2}E_{1}'": {
+     "id": "2E1p",
+     "doc": "\\conjpair{2}\\irr{e}_{1}'"
+    },
+    "{}^{1}E_{1}'": {
+     "id": "1E1p",
+     "doc": "\\conjpair{1}\\irr{e}_{1}'"
+    },
+    "{}^{2}E_{2}'": {
+     "id": "2E2p",
+     "doc": "\\conjpair{2}\\irr{e}_{2}'"
+    },
+    "{}^{1}E_{2}'": {
+     "id": "1E2p",
+     "doc": "\\conjpair{1}\\irr{e}_{2}'"
+    },
+    "{}^{2}E_{3}'": {
+     "id": "2E3p",
+     "doc": "\\conjpair{2}\\irr{e}_{3}'"
+    },
+    "{}^{1}E_{3}'": {
+     "id": "1E3p",
+     "doc": "\\conjpair{1}\\irr{e}_{3}'"
+    },
+    "{}^{2}E_{4}'": {
+     "id": "2E4p",
+     "doc": "\\conjpair{2}\\irr{e}_{4}'"
+    },
+    "{}^{1}E_{4}'": {
+     "id": "1E4p",
+     "doc": "\\conjpair{1}\\irr{e}_{4}'"
+    },
+    "A''": {
+     "id": "App",
+     "doc": "\\irr{a}''"
+    },
+    "{}^{2}E_{1}''": {
+     "id": "2E1pp",
+     "doc": "\\conjpair{2}\\irr{e}_{1}''"
+    },
+    "{}^{1}E_{1}''": {
+     "id": "1E1pp",
+     "doc": "\\conjpair{1}\\irr{e}_{1}''"
+    },
+    "{}^{2}E_{2}''": {
+     "id": "2E2pp",
+     "doc": "\\conjpair{2}\\irr{e}_{2}''"
+    },
+    "{}^{1}E_{2}''": {
+     "id": "1E2pp",
+     "doc": "\\conjpair{1}\\irr{e}_{2}''"
+    },
+    "{}^{2}E_{3}''": {
+     "id": "2E3pp",
+     "doc": "\\conjpair{2}\\irr{e}_{3}''"
+    },
+    "{}^{1}E_{3}''": {
+     "id": "1E3pp",
+     "doc": "\\conjpair{1}\\irr{e}_{3}''"
+    },
+    "{}^{2}E_{4}''": {
+     "id": "2E4pp",
+     "doc": "\\conjpair{2}\\irr{e}_{4}''"
+    },
+    "{}^{1}E_{4}''": {
+     "id": "1E4pp",
+     "doc": "\\conjpair{1}\\irr{e}_{4}''"
+    }
+   }
+  },
+  "C10h": {
+   "o3h_record": "C10h",
+   "labels": {
+    "A_{g}": {
+     "id": "Ag",
+     "doc": "\\irr{a}_{\\ptag{g}}"
+    },
+    "B_{g}": {
+     "id": "Bg",
+     "doc": "\\irr{b}_{\\ptag{g}}"
+    },
+    "{}^{2}E_{1g}": {
+     "id": "2E1g",
+     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
+    },
+    "{}^{1}E_{1g}": {
+     "id": "1E1g",
+     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
+    },
+    "{}^{2}E_{2g}": {
+     "id": "2E2g",
+     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
+    },
+    "{}^{1}E_{2g}": {
+     "id": "1E2g",
+     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
+    },
+    "{}^{2}E_{3g}": {
+     "id": "2E3g",
+     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{g}}"
+    },
+    "{}^{1}E_{3g}": {
+     "id": "1E3g",
+     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{g}}"
+    },
+    "{}^{2}E_{4g}": {
+     "id": "2E4g",
+     "doc": "\\conjpair{2}\\irr{e}_{4\\ptag{g}}"
+    },
+    "{}^{1}E_{4g}": {
+     "id": "1E4g",
+     "doc": "\\conjpair{1}\\irr{e}_{4\\ptag{g}}"
+    },
+    "A_{u}": {
+     "id": "Au",
+     "doc": "\\irr{a}_{\\ptag{u}}"
+    },
+    "B_{u}": {
+     "id": "Bu",
+     "doc": "\\irr{b}_{\\ptag{u}}"
+    },
+    "{}^{2}E_{1u}": {
+     "id": "2E1u",
+     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
+    },
+    "{}^{1}E_{1u}": {
+     "id": "1E1u",
+     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
+    },
+    "{}^{2}E_{2u}": {
+     "id": "2E2u",
+     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
+    },
+    "{}^{1}E_{2u}": {
+     "id": "1E2u",
+     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
+    },
+    "{}^{2}E_{3u}": {
+     "id": "2E3u",
+     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{u}}"
+    },
+    "{}^{1}E_{3u}": {
+     "id": "1E3u",
+     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{u}}"
+    },
+    "{}^{2}E_{4u}": {
+     "id": "2E4u",
+     "doc": "\\conjpair{2}\\irr{e}_{4\\ptag{u}}"
+    },
+    "{}^{1}E_{4u}": {
+     "id": "1E4u",
+     "doc": "\\conjpair{1}\\irr{e}_{4\\ptag{u}}"
     }
    }
   },
@@ -849,22 +1020,18 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E": {
      "id": "2E1",
-     "display": "{}^{2}E",
      "doc": "\\conjpair{2}\\irr{e}"
     },
     "{}^{1}E": {
      "id": "1E1",
-     "display": "{}^{1}E",
      "doc": "\\conjpair{1}\\irr{e}"
     }
    }
@@ -874,32 +1041,26 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "{}^{2}E_{g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_g",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{g}}"
     },
     "{}^{1}E_{g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_g",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "{}^{2}E_{u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_u",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{u}}"
     },
     "{}^{1}E_{u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_u",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{u}}"
     }
    }
@@ -909,42 +1070,34 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     },
     "{}^{2}E_{3}": {
      "id": "2E3",
-     "display": "{}^{2}E_{3}",
      "doc": "\\conjpair{2}\\irr{e}_{3}"
     },
     "{}^{1}E_{3}": {
      "id": "1E3",
-     "display": "{}^{1}E_{3}",
      "doc": "\\conjpair{1}\\irr{e}_{3}"
     }
    }
@@ -954,52 +1107,42 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "{}^{2}E_{1g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_{1g}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{1}E_{1g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_{1g}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{2}E_{2g}": {
      "id": "2E2g",
-     "display": "{}^{2}E_{2g}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{1}E_{2g}": {
      "id": "1E2g",
-     "display": "{}^{1}E_{2g}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "{}^{2}E_{1u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_{1u}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{1}E_{1u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_{1u}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{2}E_{2u}": {
      "id": "2E2u",
-     "display": "{}^{2}E_{2u}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{1}E_{2u}": {
      "id": "1E2u",
-     "display": "{}^{1}E_{2u}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
     }
    }
@@ -1009,62 +1152,50 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     },
     "{}^{2}E_{3}": {
      "id": "2E3",
-     "display": "{}^{2}E_{3}",
      "doc": "\\conjpair{2}\\irr{e}_{3}"
     },
     "{}^{1}E_{3}": {
      "id": "1E3",
-     "display": "{}^{1}E_{3}",
      "doc": "\\conjpair{1}\\irr{e}_{3}"
     },
     "{}^{2}E_{4}": {
      "id": "2E4",
-     "display": "{}^{2}E_{4}",
      "doc": "\\conjpair{2}\\irr{e}_{4}"
     },
     "{}^{1}E_{4}": {
      "id": "1E4",
-     "display": "{}^{1}E_{4}",
      "doc": "\\conjpair{1}\\irr{e}_{4}"
     },
     "{}^{2}E_{5}": {
      "id": "2E5",
-     "display": "{}^{2}E_{5}",
      "doc": "\\conjpair{2}\\irr{e}_{5}"
     },
     "{}^{1}E_{5}": {
      "id": "1E5",
-     "display": "{}^{1}E_{5}",
      "doc": "\\conjpair{1}\\irr{e}_{5}"
     }
    }
@@ -1074,72 +1205,58 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "{}^{2}E_{1g}": {
      "id": "2E1g",
-     "display": "{}^{2}E_{1g}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{1}E_{1g}": {
      "id": "1E1g",
-     "display": "{}^{1}E_{1g}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
     },
     "{}^{2}E_{2g}": {
      "id": "2E2g",
-     "display": "{}^{2}E_{2g}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{1}E_{2g}": {
      "id": "1E2g",
-     "display": "{}^{1}E_{2g}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
     },
     "{}^{2}E_{3g}": {
      "id": "2E3g",
-     "display": "{}^{2}E_{3g}",
      "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{g}}"
     },
     "{}^{1}E_{3g}": {
      "id": "1E3g",
-     "display": "{}^{1}E_{3g}",
      "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "{}^{2}E_{1u}": {
      "id": "2E1u",
-     "display": "{}^{2}E_{1u}",
      "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{1}E_{1u}": {
      "id": "1E1u",
-     "display": "{}^{1}E_{1u}",
      "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
     },
     "{}^{2}E_{2u}": {
      "id": "2E2u",
-     "display": "{}^{2}E_{2u}",
      "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{1}E_{2u}": {
      "id": "1E2u",
-     "display": "{}^{1}E_{2u}",
      "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
     },
     "{}^{2}E_{3u}": {
      "id": "2E3u",
-     "display": "{}^{2}E_{3u}",
      "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{u}}"
     },
     "{}^{1}E_{3u}": {
      "id": "1E3u",
-     "display": "{}^{1}E_{3u}",
      "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{u}}"
     }
    }
@@ -1149,83 +1266,229 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B": {
      "id": "B",
-     "display": "B",
      "doc": "\\irr{b}"
     },
     "{}^{2}E_{1}": {
      "id": "2E1",
-     "display": "{}^{2}E_{1}",
      "doc": "\\conjpair{2}\\irr{e}_{1}"
     },
     "{}^{1}E_{1}": {
      "id": "1E1",
-     "display": "{}^{1}E_{1}",
      "doc": "\\conjpair{1}\\irr{e}_{1}"
     },
     "{}^{2}E_{2}": {
      "id": "2E2",
-     "display": "{}^{2}E_{2}",
      "doc": "\\conjpair{2}\\irr{e}_{2}"
     },
     "{}^{1}E_{2}": {
      "id": "1E2",
-     "display": "{}^{1}E_{2}",
      "doc": "\\conjpair{1}\\irr{e}_{2}"
     },
     "{}^{2}E_{3}": {
      "id": "2E3",
-     "display": "{}^{2}E_{3}",
      "doc": "\\conjpair{2}\\irr{e}_{3}"
     },
     "{}^{1}E_{3}": {
      "id": "1E3",
-     "display": "{}^{1}E_{3}",
      "doc": "\\conjpair{1}\\irr{e}_{3}"
     },
     "{}^{2}E_{4}": {
      "id": "2E4",
-     "display": "{}^{2}E_{4}",
      "doc": "\\conjpair{2}\\irr{e}_{4}"
     },
     "{}^{1}E_{4}": {
      "id": "1E4",
-     "display": "{}^{1}E_{4}",
      "doc": "\\conjpair{1}\\irr{e}_{4}"
     },
     "{}^{2}E_{5}": {
      "id": "2E5",
-     "display": "{}^{2}E_{5}",
      "doc": "\\conjpair{2}\\irr{e}_{5}"
     },
     "{}^{1}E_{5}": {
      "id": "1E5",
-     "display": "{}^{1}E_{5}",
      "doc": "\\conjpair{1}\\irr{e}_{5}"
     },
     "{}^{2}E_{6}": {
      "id": "2E6",
-     "display": "{}^{2}E_{6}",
      "doc": "\\conjpair{2}\\irr{e}_{6}"
     },
     "{}^{1}E_{6}": {
      "id": "1E6",
-     "display": "{}^{1}E_{6}",
      "doc": "\\conjpair{1}\\irr{e}_{6}"
     },
     "{}^{2}E_{7}": {
      "id": "2E7",
-     "display": "{}^{2}E_{7}",
      "doc": "\\conjpair{2}\\irr{e}_{7}"
     },
     "{}^{1}E_{7}": {
      "id": "1E7",
-     "display": "{}^{1}E_{7}",
      "doc": "\\conjpair{1}\\irr{e}_{7}"
+    }
+   }
+  },
+  "S18": {
+   "o3h_record": "S18",
+   "labels": {
+    "A_{g}": {
+     "id": "Ag",
+     "doc": "\\irr{a}_{\\ptag{g}}"
+    },
+    "{}^{2}E_{1g}": {
+     "id": "2E1g",
+     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
+    },
+    "{}^{1}E_{1g}": {
+     "id": "1E1g",
+     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
+    },
+    "{}^{2}E_{2g}": {
+     "id": "2E2g",
+     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
+    },
+    "{}^{1}E_{2g}": {
+     "id": "1E2g",
+     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
+    },
+    "{}^{2}E_{3g}": {
+     "id": "2E3g",
+     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{g}}"
+    },
+    "{}^{1}E_{3g}": {
+     "id": "1E3g",
+     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{g}}"
+    },
+    "{}^{2}E_{4g}": {
+     "id": "2E4g",
+     "doc": "\\conjpair{2}\\irr{e}_{4\\ptag{g}}"
+    },
+    "{}^{1}E_{4g}": {
+     "id": "1E4g",
+     "doc": "\\conjpair{1}\\irr{e}_{4\\ptag{g}}"
+    },
+    "A_{u}": {
+     "id": "Au",
+     "doc": "\\irr{a}_{\\ptag{u}}"
+    },
+    "{}^{2}E_{1u}": {
+     "id": "2E1u",
+     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
+    },
+    "{}^{1}E_{1u}": {
+     "id": "1E1u",
+     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
+    },
+    "{}^{2}E_{2u}": {
+     "id": "2E2u",
+     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
+    },
+    "{}^{1}E_{2u}": {
+     "id": "1E2u",
+     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
+    },
+    "{}^{2}E_{3u}": {
+     "id": "2E3u",
+     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{u}}"
+    },
+    "{}^{1}E_{3u}": {
+     "id": "1E3u",
+     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{u}}"
+    },
+    "{}^{2}E_{4u}": {
+     "id": "2E4u",
+     "doc": "\\conjpair{2}\\irr{e}_{4\\ptag{u}}"
+    },
+    "{}^{1}E_{4u}": {
+     "id": "1E4u",
+     "doc": "\\conjpair{1}\\irr{e}_{4\\ptag{u}}"
+    }
+   }
+  },
+  "S20": {
+   "o3h_record": "S20",
+   "labels": {
+    "A": {
+     "id": "A",
+     "doc": "\\irr{a}"
+    },
+    "B": {
+     "id": "B",
+     "doc": "\\irr{b}"
+    },
+    "{}^{2}E_{1}": {
+     "id": "2E1",
+     "doc": "\\conjpair{2}\\irr{e}_{1}"
+    },
+    "{}^{1}E_{1}": {
+     "id": "1E1",
+     "doc": "\\conjpair{1}\\irr{e}_{1}"
+    },
+    "{}^{2}E_{2}": {
+     "id": "2E2",
+     "doc": "\\conjpair{2}\\irr{e}_{2}"
+    },
+    "{}^{1}E_{2}": {
+     "id": "1E2",
+     "doc": "\\conjpair{1}\\irr{e}_{2}"
+    },
+    "{}^{2}E_{3}": {
+     "id": "2E3",
+     "doc": "\\conjpair{2}\\irr{e}_{3}"
+    },
+    "{}^{1}E_{3}": {
+     "id": "1E3",
+     "doc": "\\conjpair{1}\\irr{e}_{3}"
+    },
+    "{}^{2}E_{4}": {
+     "id": "2E4",
+     "doc": "\\conjpair{2}\\irr{e}_{4}"
+    },
+    "{}^{1}E_{4}": {
+     "id": "1E4",
+     "doc": "\\conjpair{1}\\irr{e}_{4}"
+    },
+    "{}^{2}E_{5}": {
+     "id": "2E5",
+     "doc": "\\conjpair{2}\\irr{e}_{5}"
+    },
+    "{}^{1}E_{5}": {
+     "id": "1E5",
+     "doc": "\\conjpair{1}\\irr{e}_{5}"
+    },
+    "{}^{2}E_{6}": {
+     "id": "2E6",
+     "doc": "\\conjpair{2}\\irr{e}_{6}"
+    },
+    "{}^{1}E_{6}": {
+     "id": "1E6",
+     "doc": "\\conjpair{1}\\irr{e}_{6}"
+    },
+    "{}^{2}E_{7}": {
+     "id": "2E7",
+     "doc": "\\conjpair{2}\\irr{e}_{7}"
+    },
+    "{}^{1}E_{7}": {
+     "id": "1E7",
+     "doc": "\\conjpair{1}\\irr{e}_{7}"
+    },
+    "{}^{2}E_{8}": {
+     "id": "2E8",
+     "doc": "\\conjpair{2}\\irr{e}_{8}"
+    },
+    "{}^{1}E_{8}": {
+     "id": "1E8",
+     "doc": "\\conjpair{1}\\irr{e}_{8}"
+    },
+    "{}^{2}E_{9}": {
+     "id": "2E9",
+     "doc": "\\conjpair{2}\\irr{e}_{9}"
+    },
+    "{}^{1}E_{9}": {
+     "id": "1E9",
+     "doc": "\\conjpair{1}\\irr{e}_{9}"
     }
    }
   },
@@ -1234,22 +1497,18 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "B_{3}": {
      "id": "B3",
-     "display": "B_{3}",
      "doc": "\\irr{b}_{3}"
     }
    }
@@ -1259,17 +1518,14 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E": {
      "id": "E1",
-     "display": "E",
      "doc": "\\irr{e}"
     }
    }
@@ -1279,27 +1535,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E": {
      "id": "E1",
-     "display": "E",
      "doc": "\\irr{e}"
     }
    }
@@ -1309,22 +1560,18 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     }
    }
@@ -1334,32 +1581,26 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     }
    }
@@ -1369,27 +1610,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     }
    }
@@ -1399,38 +1635,97 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
+    }
+   }
+  },
+  "D9": {
+   "o3h_record": "D9",
+   "labels": {
+    "A_{1}": {
+     "id": "A1",
+     "doc": "\\irr{a}_{1}"
+    },
+    "A_{2}": {
+     "id": "A2",
+     "doc": "\\irr{a}_{2}"
+    },
+    "E_{1}": {
+     "id": "E1",
+     "doc": "\\irr{e}_{1}"
+    },
+    "E_{2}": {
+     "id": "E2",
+     "doc": "\\irr{e}_{2}"
+    },
+    "E_{3}": {
+     "id": "E3",
+     "doc": "\\irr{e}_{3}"
+    },
+    "E_{4}": {
+     "id": "E4",
+     "doc": "\\irr{e}_{4}"
+    }
+   }
+  },
+  "D10": {
+   "o3h_record": "D10",
+   "labels": {
+    "A_{1}": {
+     "id": "A1",
+     "doc": "\\irr{a}_{1}"
+    },
+    "A_{2}": {
+     "id": "A2",
+     "doc": "\\irr{a}_{2}"
+    },
+    "B_{1}": {
+     "id": "B1",
+     "doc": "\\irr{b}_{1}"
+    },
+    "B_{2}": {
+     "id": "B2",
+     "doc": "\\irr{b}_{2}"
+    },
+    "E_{1}": {
+     "id": "E1",
+     "doc": "\\irr{e}_{1}"
+    },
+    "E_{2}": {
+     "id": "E2",
+     "doc": "\\irr{e}_{2}"
+    },
+    "E_{3}": {
+     "id": "E3",
+     "doc": "\\irr{e}_{3}"
+    },
+    "E_{4}": {
+     "id": "E4",
+     "doc": "\\irr{e}_{4}"
     }
    }
   },
@@ -1439,42 +1734,34 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "B_{1g}": {
      "id": "B1g",
-     "display": "B_{1g}",
      "doc": "\\irr{b}_{1\\ptag{g}}"
     },
     "B_{2g}": {
      "id": "B2g",
-     "display": "B_{2g}",
      "doc": "\\irr{b}_{2\\ptag{g}}"
     },
     "B_{3g}": {
      "id": "B3g",
-     "display": "B_{3g}",
      "doc": "\\irr{b}_{3\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "B_{1u}": {
      "id": "B1u",
-     "display": "B_{1u}",
      "doc": "\\irr{b}_{1\\ptag{u}}"
     },
     "B_{2u}": {
      "id": "B2u",
-     "display": "B_{2u}",
      "doc": "\\irr{b}_{2\\ptag{u}}"
     },
     "B_{3u}": {
      "id": "B3u",
-     "display": "B_{3u}",
      "doc": "\\irr{b}_{3\\ptag{u}}"
     }
    }
@@ -1484,32 +1771,26 @@
    "labels": {
     "A_{1}'": {
      "id": "A1p",
-     "display": "A_{1}'",
      "doc": "\\irr{a}_{1}'"
     },
     "A_{2}'": {
      "id": "A2p",
-     "display": "A_{2}'",
      "doc": "\\irr{a}_{2}'"
     },
     "E'": {
      "id": "E1p",
-     "display": "E'",
      "doc": "\\irr{e}'"
     },
     "A_{1}''": {
      "id": "A1pp",
-     "display": "A_{1}''",
      "doc": "\\irr{a}_{1}''"
     },
     "A_{2}''": {
      "id": "A2pp",
-     "display": "A_{2}''",
      "doc": "\\irr{a}_{2}''"
     },
     "E''": {
      "id": "E1pp",
-     "display": "E''",
      "doc": "\\irr{e}''"
     }
    }
@@ -1519,52 +1800,42 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "B_{1g}": {
      "id": "B1g",
-     "display": "B_{1g}",
      "doc": "\\irr{b}_{1\\ptag{g}}"
     },
     "B_{2g}": {
      "id": "B2g",
-     "display": "B_{2g}",
      "doc": "\\irr{b}_{2\\ptag{g}}"
     },
     "E_{g}": {
      "id": "E1g",
-     "display": "E_g",
      "doc": "\\irr{e}_{\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "B_{1u}": {
      "id": "B1u",
-     "display": "B_{1u}",
      "doc": "\\irr{b}_{1\\ptag{u}}"
     },
     "B_{2u}": {
      "id": "B2u",
-     "display": "B_{2u}",
      "doc": "\\irr{b}_{2\\ptag{u}}"
     },
     "E_{u}": {
      "id": "E1u",
-     "display": "E_u",
      "doc": "\\irr{e}_{\\ptag{u}}"
     }
    }
@@ -1574,42 +1845,34 @@
    "labels": {
     "A_{1}'": {
      "id": "A1p",
-     "display": "A_{1}'",
      "doc": "\\irr{a}_{1}'"
     },
     "A_{2}'": {
      "id": "A2p",
-     "display": "A_{2}'",
      "doc": "\\irr{a}_{2}'"
     },
     "E_{1}'": {
      "id": "E1p",
-     "display": "E_{1}'",
      "doc": "\\irr{e}_{1}'"
     },
     "E_{2}'": {
      "id": "E2p",
-     "display": "E_{2}'",
      "doc": "\\irr{e}_{2}'"
     },
     "A_{1}''": {
      "id": "A1pp",
-     "display": "A_{1}''",
      "doc": "\\irr{a}_{1}''"
     },
     "A_{2}''": {
      "id": "A2pp",
-     "display": "A_{2}''",
      "doc": "\\irr{a}_{2}''"
     },
     "E_{1}''": {
      "id": "E1pp",
-     "display": "E_{1}''",
      "doc": "\\irr{e}_{1}''"
     },
     "E_{2}''": {
      "id": "E2pp",
-     "display": "E_{2}''",
      "doc": "\\irr{e}_{2}''"
     }
    }
@@ -1619,62 +1882,50 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "B_{1g}": {
      "id": "B1g",
-     "display": "B_{1g}",
      "doc": "\\irr{b}_{1\\ptag{g}}"
     },
     "B_{2g}": {
      "id": "B2g",
-     "display": "B_{2g}",
      "doc": "\\irr{b}_{2\\ptag{g}}"
     },
     "E_{1g}": {
      "id": "E1g",
-     "display": "E_{1g}",
      "doc": "\\irr{e}_{1\\ptag{g}}"
     },
     "E_{2g}": {
      "id": "E2g",
-     "display": "E_{2g}",
      "doc": "\\irr{e}_{2\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "B_{1u}": {
      "id": "B1u",
-     "display": "B_{1u}",
      "doc": "\\irr{b}_{1\\ptag{u}}"
     },
     "B_{2u}": {
      "id": "B2u",
-     "display": "B_{2u}",
      "doc": "\\irr{b}_{2\\ptag{u}}"
     },
     "E_{1u}": {
      "id": "E1u",
-     "display": "E_{1u}",
      "doc": "\\irr{e}_{1\\ptag{u}}"
     },
     "E_{2u}": {
      "id": "E2u",
-     "display": "E_{2u}",
      "doc": "\\irr{e}_{2\\ptag{u}}"
     }
    }
@@ -1684,52 +1935,42 @@
    "labels": {
     "A_{1}'": {
      "id": "A1p",
-     "display": "A_{1}'",
      "doc": "\\irr{a}_{1}'"
     },
     "A_{2}'": {
      "id": "A2p",
-     "display": "A_{2}'",
      "doc": "\\irr{a}_{2}'"
     },
     "E_{1}'": {
      "id": "E1p",
-     "display": "E_{1}'",
      "doc": "\\irr{e}_{1}'"
     },
     "E_{2}'": {
      "id": "E2p",
-     "display": "E_{2}'",
      "doc": "\\irr{e}_{2}'"
     },
     "E_{3}'": {
      "id": "E3p",
-     "display": "E_{3}'",
      "doc": "\\irr{e}_{3}'"
     },
     "A_{1}''": {
      "id": "A1pp",
-     "display": "A_{1}''",
      "doc": "\\irr{a}_{1}''"
     },
     "A_{2}''": {
      "id": "A2pp",
-     "display": "A_{2}''",
      "doc": "\\irr{a}_{2}''"
     },
     "E_{1}''": {
      "id": "E1pp",
-     "display": "E_{1}''",
      "doc": "\\irr{e}_{1}''"
     },
     "E_{2}''": {
      "id": "E2pp",
-     "display": "E_{2}''",
      "doc": "\\irr{e}_{2}''"
     },
     "E_{3}''": {
      "id": "E3pp",
-     "display": "E_{3}''",
      "doc": "\\irr{e}_{3}''"
     }
    }
@@ -1739,73 +1980,181 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "B_{1g}": {
      "id": "B1g",
-     "display": "B_{1g}",
      "doc": "\\irr{b}_{1\\ptag{g}}"
     },
     "B_{2g}": {
      "id": "B2g",
-     "display": "B_{2g}",
      "doc": "\\irr{b}_{2\\ptag{g}}"
     },
     "E_{1g}": {
      "id": "E1g",
-     "display": "E_{1g}",
      "doc": "\\irr{e}_{1\\ptag{g}}"
     },
     "E_{2g}": {
      "id": "E2g",
-     "display": "E_{2g}",
      "doc": "\\irr{e}_{2\\ptag{g}}"
     },
     "E_{3g}": {
      "id": "E3g",
-     "display": "E_{3g}",
      "doc": "\\irr{e}_{3\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "B_{1u}": {
      "id": "B1u",
-     "display": "B_{1u}",
      "doc": "\\irr{b}_{1\\ptag{u}}"
     },
     "B_{2u}": {
      "id": "B2u",
-     "display": "B_{2u}",
      "doc": "\\irr{b}_{2\\ptag{u}}"
     },
     "E_{1u}": {
      "id": "E1u",
-     "display": "E_{1u}",
      "doc": "\\irr{e}_{1\\ptag{u}}"
     },
     "E_{2u}": {
      "id": "E2u",
-     "display": "E_{2u}",
      "doc": "\\irr{e}_{2\\ptag{u}}"
     },
     "E_{3u}": {
      "id": "E3u",
-     "display": "E_{3u}",
      "doc": "\\irr{e}_{3\\ptag{u}}"
+    }
+   }
+  },
+  "D9h": {
+   "o3h_record": "D9h",
+   "labels": {
+    "A_{1}'": {
+     "id": "A1p",
+     "doc": "\\irr{a}_{1}'"
+    },
+    "A_{2}'": {
+     "id": "A2p",
+     "doc": "\\irr{a}_{2}'"
+    },
+    "E_{1}'": {
+     "id": "E1p",
+     "doc": "\\irr{e}_{1}'"
+    },
+    "E_{2}'": {
+     "id": "E2p",
+     "doc": "\\irr{e}_{2}'"
+    },
+    "E_{3}'": {
+     "id": "E3p",
+     "doc": "\\irr{e}_{3}'"
+    },
+    "E_{4}'": {
+     "id": "E4p",
+     "doc": "\\irr{e}_{4}'"
+    },
+    "A_{1}''": {
+     "id": "A1pp",
+     "doc": "\\irr{a}_{1}''"
+    },
+    "A_{2}''": {
+     "id": "A2pp",
+     "doc": "\\irr{a}_{2}''"
+    },
+    "E_{1}''": {
+     "id": "E1pp",
+     "doc": "\\irr{e}_{1}''"
+    },
+    "E_{2}''": {
+     "id": "E2pp",
+     "doc": "\\irr{e}_{2}''"
+    },
+    "E_{3}''": {
+     "id": "E3pp",
+     "doc": "\\irr{e}_{3}''"
+    },
+    "E_{4}''": {
+     "id": "E4pp",
+     "doc": "\\irr{e}_{4}''"
+    }
+   }
+  },
+  "D10h": {
+   "o3h_record": "D10h",
+   "labels": {
+    "A_{1g}": {
+     "id": "A1g",
+     "doc": "\\irr{a}_{1\\ptag{g}}"
+    },
+    "A_{2g}": {
+     "id": "A2g",
+     "doc": "\\irr{a}_{2\\ptag{g}}"
+    },
+    "B_{1g}": {
+     "id": "B1g",
+     "doc": "\\irr{b}_{1\\ptag{g}}"
+    },
+    "B_{2g}": {
+     "id": "B2g",
+     "doc": "\\irr{b}_{2\\ptag{g}}"
+    },
+    "E_{1g}": {
+     "id": "E1g",
+     "doc": "\\irr{e}_{1\\ptag{g}}"
+    },
+    "E_{2g}": {
+     "id": "E2g",
+     "doc": "\\irr{e}_{2\\ptag{g}}"
+    },
+    "E_{3g}": {
+     "id": "E3g",
+     "doc": "\\irr{e}_{3\\ptag{g}}"
+    },
+    "E_{4g}": {
+     "id": "E4g",
+     "doc": "\\irr{e}_{4\\ptag{g}}"
+    },
+    "A_{1u}": {
+     "id": "A1u",
+     "doc": "\\irr{a}_{1\\ptag{u}}"
+    },
+    "A_{2u}": {
+     "id": "A2u",
+     "doc": "\\irr{a}_{2\\ptag{u}}"
+    },
+    "B_{1u}": {
+     "id": "B1u",
+     "doc": "\\irr{b}_{1\\ptag{u}}"
+    },
+    "B_{2u}": {
+     "id": "B2u",
+     "doc": "\\irr{b}_{2\\ptag{u}}"
+    },
+    "E_{1u}": {
+     "id": "E1u",
+     "doc": "\\irr{e}_{1\\ptag{u}}"
+    },
+    "E_{2u}": {
+     "id": "E2u",
+     "doc": "\\irr{e}_{2\\ptag{u}}"
+    },
+    "E_{3u}": {
+     "id": "E3u",
+     "doc": "\\irr{e}_{3\\ptag{u}}"
+    },
+    "E_{4u}": {
+     "id": "E4u",
+     "doc": "\\irr{e}_{4\\ptag{u}}"
     }
    }
   },
@@ -1814,27 +2163,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E": {
      "id": "E1",
-     "display": "E",
      "doc": "\\irr{e}"
     }
    }
@@ -1844,32 +2188,26 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "E_{g}": {
      "id": "E1g",
-     "display": "E_g",
      "doc": "\\irr{e}_{\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "E_{u}": {
      "id": "E1u",
-     "display": "E_u",
      "doc": "\\irr{e}_{\\ptag{u}}"
     }
    }
@@ -1879,37 +2217,30 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     }
    }
@@ -1919,42 +2250,34 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "E_{1g}": {
      "id": "E1g",
-     "display": "E_{1g}",
      "doc": "\\irr{e}_{1\\ptag{g}}"
     },
     "E_{2g}": {
      "id": "E2g",
-     "display": "E_{2g}",
      "doc": "\\irr{e}_{2\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "E_{1u}": {
      "id": "E1u",
-     "display": "E_{1u}",
      "doc": "\\irr{e}_{1\\ptag{u}}"
     },
     "E_{2u}": {
      "id": "E2u",
-     "display": "E_{2u}",
      "doc": "\\irr{e}_{2\\ptag{u}}"
     }
    }
@@ -1964,47 +2287,38 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     },
     "E_{4}": {
      "id": "E4",
-     "display": "E_{4}",
      "doc": "\\irr{e}_{4}"
     },
     "E_{5}": {
      "id": "E5",
-     "display": "E_{5}",
      "doc": "\\irr{e}_{5}"
     }
    }
@@ -2014,52 +2328,42 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "E_{1g}": {
      "id": "E1g",
-     "display": "E_{1g}",
      "doc": "\\irr{e}_{1\\ptag{g}}"
     },
     "E_{2g}": {
      "id": "E2g",
-     "display": "E_{2g}",
      "doc": "\\irr{e}_{2\\ptag{g}}"
     },
     "E_{3g}": {
      "id": "E3g",
-     "display": "E_{3g}",
      "doc": "\\irr{e}_{3\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "E_{1u}": {
      "id": "E1u",
-     "display": "E_{1u}",
      "doc": "\\irr{e}_{1\\ptag{u}}"
     },
     "E_{2u}": {
      "id": "E2u",
-     "display": "E_{2u}",
      "doc": "\\irr{e}_{2\\ptag{u}}"
     },
     "E_{3u}": {
      "id": "E3u",
-     "display": "E_{3u}",
      "doc": "\\irr{e}_{3\\ptag{u}}"
     }
    }
@@ -2069,58 +2373,157 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "B_{1}": {
      "id": "B1",
-     "display": "B_{1}",
      "doc": "\\irr{b}_{1}"
     },
     "B_{2}": {
      "id": "B2",
-     "display": "B_{2}",
      "doc": "\\irr{b}_{2}"
     },
     "E_{1}": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "E_{2}": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "E_{3}": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     },
     "E_{4}": {
      "id": "E4",
-     "display": "E_{4}",
      "doc": "\\irr{e}_{4}"
     },
     "E_{5}": {
      "id": "E5",
-     "display": "E_{5}",
      "doc": "\\irr{e}_{5}"
     },
     "E_{6}": {
      "id": "E6",
-     "display": "E_{6}",
      "doc": "\\irr{e}_{6}"
     },
     "E_{7}": {
      "id": "E7",
-     "display": "E_{7}",
      "doc": "\\irr{e}_{7}"
+    }
+   }
+  },
+  "D9d": {
+   "o3h_record": "D9d",
+   "labels": {
+    "A_{1g}": {
+     "id": "A1g",
+     "doc": "\\irr{a}_{1\\ptag{g}}"
+    },
+    "A_{2g}": {
+     "id": "A2g",
+     "doc": "\\irr{a}_{2\\ptag{g}}"
+    },
+    "E_{1g}": {
+     "id": "E1g",
+     "doc": "\\irr{e}_{1\\ptag{g}}"
+    },
+    "E_{2g}": {
+     "id": "E2g",
+     "doc": "\\irr{e}_{2\\ptag{g}}"
+    },
+    "E_{3g}": {
+     "id": "E3g",
+     "doc": "\\irr{e}_{3\\ptag{g}}"
+    },
+    "E_{4g}": {
+     "id": "E4g",
+     "doc": "\\irr{e}_{4\\ptag{g}}"
+    },
+    "A_{1u}": {
+     "id": "A1u",
+     "doc": "\\irr{a}_{1\\ptag{u}}"
+    },
+    "A_{2u}": {
+     "id": "A2u",
+     "doc": "\\irr{a}_{2\\ptag{u}}"
+    },
+    "E_{1u}": {
+     "id": "E1u",
+     "doc": "\\irr{e}_{1\\ptag{u}}"
+    },
+    "E_{2u}": {
+     "id": "E2u",
+     "doc": "\\irr{e}_{2\\ptag{u}}"
+    },
+    "E_{3u}": {
+     "id": "E3u",
+     "doc": "\\irr{e}_{3\\ptag{u}}"
+    },
+    "E_{4u}": {
+     "id": "E4u",
+     "doc": "\\irr{e}_{4\\ptag{u}}"
+    }
+   }
+  },
+  "D10d": {
+   "o3h_record": "D10d",
+   "labels": {
+    "A_{1}": {
+     "id": "A1",
+     "doc": "\\irr{a}_{1}"
+    },
+    "A_{2}": {
+     "id": "A2",
+     "doc": "\\irr{a}_{2}"
+    },
+    "B_{1}": {
+     "id": "B1",
+     "doc": "\\irr{b}_{1}"
+    },
+    "B_{2}": {
+     "id": "B2",
+     "doc": "\\irr{b}_{2}"
+    },
+    "E_{1}": {
+     "id": "E1",
+     "doc": "\\irr{e}_{1}"
+    },
+    "E_{2}": {
+     "id": "E2",
+     "doc": "\\irr{e}_{2}"
+    },
+    "E_{3}": {
+     "id": "E3",
+     "doc": "\\irr{e}_{3}"
+    },
+    "E_{4}": {
+     "id": "E4",
+     "doc": "\\irr{e}_{4}"
+    },
+    "E_{5}": {
+     "id": "E5",
+     "doc": "\\irr{e}_{5}"
+    },
+    "E_{6}": {
+     "id": "E6",
+     "doc": "\\irr{e}_{6}"
+    },
+    "E_{7}": {
+     "id": "E7",
+     "doc": "\\irr{e}_{7}"
+    },
+    "E_{8}": {
+     "id": "E8",
+     "doc": "\\irr{e}_{8}"
+    },
+    "E_{9}": {
+     "id": "E9",
+     "doc": "\\irr{e}_{9}"
     }
    }
   },
@@ -2129,22 +2532,18 @@
    "labels": {
     "A": {
      "id": "A",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "{}^{2}E": {
      "id": "2E",
-     "display": "{}^{2}E",
      "doc": "\\conjpair{2}\\irr{e}"
     },
     "{}^{1}E": {
      "id": "1E",
-     "display": "{}^{1}E",
      "doc": "\\conjpair{1}\\irr{e}"
     },
     "T": {
      "id": "T",
-     "display": "T",
      "doc": "\\irr{t}"
     }
    }
@@ -2154,42 +2553,34 @@
    "labels": {
     "A_{g}": {
      "id": "Ag",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "{}^{2}E_{g}": {
      "id": "2Eg",
-     "display": "{}^{2}E_g",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{g}}"
     },
     "{}^{1}E_{g}": {
      "id": "1Eg",
-     "display": "{}^{1}E_g",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{g}}"
     },
     "T_{g}": {
      "id": "Tg",
-     "display": "T_g",
      "doc": "\\irr{t}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "Au",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "{}^{2}E_{u}": {
      "id": "2Eu",
-     "display": "{}^{2}E_u",
      "doc": "\\conjpair{2}\\irr{e}_{\\ptag{u}}"
     },
     "{}^{1}E_{u}": {
      "id": "1Eu",
-     "display": "{}^{1}E_u",
      "doc": "\\conjpair{1}\\irr{e}_{\\ptag{u}}"
     },
     "T_{u}": {
      "id": "Tu",
-     "display": "T_u",
      "doc": "\\irr{t}_{\\ptag{u}}"
     }
    }
@@ -2199,27 +2590,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E": {
      "id": "E",
-     "display": "E",
      "doc": "\\irr{e}"
     },
     "T_{1}": {
      "id": "T1",
-     "display": "T_{1}",
      "doc": "\\irr{t}_{1}"
     },
     "T_{2}": {
      "id": "T2",
-     "display": "T_{2}",
      "doc": "\\irr{t}_{2}"
     }
    }
@@ -2229,27 +2615,22 @@
    "labels": {
     "A_{1}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "A_{2}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "E": {
      "id": "E",
-     "display": "E",
      "doc": "\\irr{e}"
     },
     "T_{1}": {
      "id": "T1",
-     "display": "T_{1}",
      "doc": "\\irr{t}_{1}"
     },
     "T_{2}": {
      "id": "T2",
-     "display": "T_{2}",
      "doc": "\\irr{t}_{2}"
     }
    }
@@ -2259,52 +2640,42 @@
    "labels": {
     "A_{1g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "A_{2g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "E_{g}": {
      "id": "Eg",
-     "display": "E_g",
      "doc": "\\irr{e}_{\\ptag{g}}"
     },
     "T_{1g}": {
      "id": "T1g",
-     "display": "T_{1g}",
      "doc": "\\irr{t}_{1\\ptag{g}}"
     },
     "T_{2g}": {
      "id": "T2g",
-     "display": "T_{2g}",
      "doc": "\\irr{t}_{2\\ptag{g}}"
     },
     "A_{1u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "A_{2u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "E_{u}": {
      "id": "Eu",
-     "display": "E_u",
      "doc": "\\irr{e}_{\\ptag{u}}"
     },
     "T_{1u}": {
      "id": "T1u",
-     "display": "T_{1u}",
      "doc": "\\irr{t}_{1\\ptag{u}}"
     },
     "T_{2u}": {
      "id": "T2u",
-     "display": "T_{2u}",
      "doc": "\\irr{t}_{2\\ptag{u}}"
     }
    }
@@ -2314,27 +2685,22 @@
    "labels": {
     "A": {
      "id": "A1",
-     "display": "A",
      "doc": "\\irr{a}"
     },
     "T_{1}": {
      "id": "T1",
-     "display": "T_{1}",
      "doc": "\\irr{t}_{1}"
     },
     "T_{2}": {
      "id": "T2",
-     "display": "T_{2}",
      "doc": "\\irr{t}_{2}"
     },
     "G": {
      "id": "G",
-     "display": "G",
      "doc": "\\irr{g}"
     },
     "H": {
      "id": "H",
-     "display": "H",
      "doc": "\\irr{h}"
     }
    }
@@ -2344,168 +2710,43 @@
    "labels": {
     "A_{g}": {
      "id": "A1g",
-     "display": "A_g",
      "doc": "\\irr{a}_{\\ptag{g}}"
     },
     "T_{1g}": {
      "id": "T1g",
-     "display": "T_{1g}",
      "doc": "\\irr{t}_{1\\ptag{g}}"
     },
     "T_{2g}": {
      "id": "T2g",
-     "display": "T_{2g}",
      "doc": "\\irr{t}_{2\\ptag{g}}"
     },
     "G_{g}": {
      "id": "Gg",
-     "display": "G_g",
      "doc": "\\irr{g}_{\\ptag{g}}"
     },
     "H_{g}": {
      "id": "Hg",
-     "display": "H_g",
      "doc": "\\irr{h}_{\\ptag{g}}"
     },
     "A_{u}": {
      "id": "A1u",
-     "display": "A_u",
      "doc": "\\irr{a}_{\\ptag{u}}"
     },
     "T_{1u}": {
      "id": "T1u",
-     "display": "T_{1u}",
      "doc": "\\irr{t}_{1\\ptag{u}}"
     },
     "T_{2u}": {
      "id": "T2u",
-     "display": "T_{2u}",
      "doc": "\\irr{t}_{2\\ptag{u}}"
     },
     "G_{u}": {
      "id": "Gu",
-     "display": "G_u",
      "doc": "\\irr{g}_{\\ptag{u}}"
     },
     "H_{u}": {
      "id": "Hu",
-     "display": "H_u",
      "doc": "\\irr{h}_{\\ptag{u}}"
-    }
-   }
-  },
-  "Cinf": {
-   "o3h_record": "Cinf",
-   "labels": {
-    "\\Sigma": {
-     "id": "A",
-     "display": "A",
-     "doc": "\\irr{a}"
-    },
-    "{}^{2}\\Pi": {
-     "id": "2E1",
-     "display": "{}^{2}E_{1}",
-     "doc": "\\conjpair{2}\\irr{e}_{1}"
-    },
-    "{}^{1}\\Pi": {
-     "id": "1E1",
-     "display": "{}^{1}E_{1}",
-     "doc": "\\conjpair{1}\\irr{e}_{1}"
-    },
-    "{}^{2}\\Delta": {
-     "id": "2E2",
-     "display": "{}^{2}E_{2}",
-     "doc": "\\conjpair{2}\\irr{e}_{2}"
-    },
-    "{}^{1}\\Delta": {
-     "id": "1E2",
-     "display": "{}^{1}E_{2}",
-     "doc": "\\conjpair{1}\\irr{e}_{2}"
-    },
-    "{}^{2}\\Phi": {
-     "id": "2E3",
-     "display": "{}^{2}E_{3}",
-     "doc": "\\conjpair{2}\\irr{e}_{3}"
-    },
-    "{}^{1}\\Phi": {
-     "id": "1E3",
-     "display": "{}^{1}E_{3}",
-     "doc": "\\conjpair{1}\\irr{e}_{3}"
-    }
-   }
-  },
-  "Cinfh": {
-   "o3h_record": "Cinfh",
-   "labels": {
-    "\\Sigma_{g}": {
-     "id": "Ag",
-     "display": "A_g",
-     "doc": "\\irr{a}_{\\ptag{g}}"
-    },
-    "{}^{2}\\Pi_{g}": {
-     "id": "2E1g",
-     "display": "{}^{2}E_{1g}",
-     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{g}}"
-    },
-    "{}^{1}\\Pi_{g}": {
-     "id": "1E1g",
-     "display": "{}^{1}E_{1g}",
-     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{g}}"
-    },
-    "{}^{2}\\Delta_{g}": {
-     "id": "2E2g",
-     "display": "{}^{2}E_{2g}",
-     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{g}}"
-    },
-    "{}^{1}\\Delta_{g}": {
-     "id": "1E2g",
-     "display": "{}^{1}E_{2g}",
-     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{g}}"
-    },
-    "{}^{2}\\Phi_{g}": {
-     "id": "2E3g",
-     "display": "{}^{2}E_{3g}",
-     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{g}}"
-    },
-    "{}^{1}\\Phi_{g}": {
-     "id": "1E3g",
-     "display": "{}^{1}E_{3g}",
-     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{g}}"
-    },
-    "\\Sigma_{u}": {
-     "id": "Au",
-     "display": "A_u",
-     "doc": "\\irr{a}_{\\ptag{u}}"
-    },
-    "{}^{2}\\Pi_{u}": {
-     "id": "2E1u",
-     "display": "{}^{2}E_{1u}",
-     "doc": "\\conjpair{2}\\irr{e}_{1\\ptag{u}}"
-    },
-    "{}^{1}\\Pi_{u}": {
-     "id": "1E1u",
-     "display": "{}^{1}E_{1u}",
-     "doc": "\\conjpair{1}\\irr{e}_{1\\ptag{u}}"
-    },
-    "{}^{2}\\Delta_{u}": {
-     "id": "2E2u",
-     "display": "{}^{2}E_{2u}",
-     "doc": "\\conjpair{2}\\irr{e}_{2\\ptag{u}}"
-    },
-    "{}^{1}\\Delta_{u}": {
-     "id": "1E2u",
-     "display": "{}^{1}E_{2u}",
-     "doc": "\\conjpair{1}\\irr{e}_{2\\ptag{u}}"
-    },
-    "{}^{2}\\Phi_{u}": {
-     "id": "2E3u",
-     "display": "{}^{2}E_{3u}",
-     "doc": "\\conjpair{2}\\irr{e}_{3\\ptag{u}}"
-    },
-    "{}^{1}\\Phi_{u}": {
-     "id": "1E3u",
-     "display": "{}^{1}E_{3u}",
-     "doc": "\\conjpair{1}\\irr{e}_{3\\ptag{u}}"
     }
    }
   },
@@ -2514,27 +2755,22 @@
    "labels": {
     "\\Sigma^{+}": {
      "id": "A1",
-     "display": "A_{1}",
      "doc": "\\irr{a}_{1}"
     },
     "\\Sigma^{-}": {
      "id": "A2",
-     "display": "A_{2}",
      "doc": "\\irr{a}_{2}"
     },
     "\\Pi": {
      "id": "E1",
-     "display": "E_{1}",
      "doc": "\\irr{e}_{1}"
     },
     "\\Delta": {
      "id": "E2",
-     "display": "E_{2}",
      "doc": "\\irr{e}_{2}"
     },
     "\\Phi": {
      "id": "E3",
-     "display": "E_{3}",
      "doc": "\\irr{e}_{3}"
     }
    }
@@ -2544,123 +2780,43 @@
    "labels": {
     "\\Sigma^{+}_{g}": {
      "id": "A1g",
-     "display": "A_{1g}",
      "doc": "\\irr{a}_{1\\ptag{g}}"
     },
     "\\Sigma^{-}_{g}": {
      "id": "A2g",
-     "display": "A_{2g}",
      "doc": "\\irr{a}_{2\\ptag{g}}"
     },
     "\\Pi_{g}": {
      "id": "E1g",
-     "display": "E_{1g}",
      "doc": "\\irr{e}_{1\\ptag{g}}"
     },
     "\\Delta_{g}": {
      "id": "E2g",
-     "display": "E_{2g}",
      "doc": "\\irr{e}_{2\\ptag{g}}"
     },
     "\\Phi_{g}": {
      "id": "E3g",
-     "display": "E_{3g}",
      "doc": "\\irr{e}_{3\\ptag{g}}"
     },
     "\\Sigma^{+}_{u}": {
      "id": "A2u",
-     "display": "A_{2u}",
      "doc": "\\irr{a}_{2\\ptag{u}}"
     },
     "\\Sigma^{-}_{u}": {
      "id": "A1u",
-     "display": "A_{1u}",
      "doc": "\\irr{a}_{1\\ptag{u}}"
     },
     "\\Pi_{u}": {
      "id": "E1u",
-     "display": "E_{1u}",
      "doc": "\\irr{e}_{1\\ptag{u}}"
     },
     "\\Delta_{u}": {
      "id": "E2u",
-     "display": "E_{2u}",
      "doc": "\\irr{e}_{2\\ptag{u}}"
     },
     "\\Phi_{u}": {
      "id": "E3u",
-     "display": "E_{3u}",
      "doc": "\\irr{e}_{3\\ptag{u}}"
-    }
-   }
-  },
-  "K": {
-   "o3h_record": "SO3",
-   "labels": {
-    "\\mathcal D^{(0)}": {
-     "id": "D0",
-     "display": "D^{(0)}",
-     "doc": "\\irrJ{0}"
-    },
-    "\\mathcal D^{(1)}": {
-     "id": "D1",
-     "display": "D^{(1)}",
-     "doc": "\\irrJ{1}"
-    },
-    "\\mathcal D^{(2)}": {
-     "id": "D2",
-     "display": "D^{(2)}",
-     "doc": "\\irrJ{2}"
-    },
-    "\\mathcal D^{(3)}": {
-     "id": "D3",
-     "display": "D^{(3)}",
-     "doc": "\\irrJ{3}"
-    }
-   }
-  },
-  "Kh": {
-   "o3h_record": "O3",
-   "labels": {
-    "\\mathcal D^{(0)}_{g}": {
-     "id": "D0g",
-     "display": "D^{(0,+)}",
-     "doc": "\\irrJp{0}{+}"
-    },
-    "\\mathcal D^{(1)}_{g}": {
-     "id": "D1g",
-     "display": "D^{(1,+)}",
-     "doc": "\\irrJp{1}{+}"
-    },
-    "\\mathcal D^{(2)}_{g}": {
-     "id": "D2g",
-     "display": "D^{(2,+)}",
-     "doc": "\\irrJp{2}{+}"
-    },
-    "\\mathcal D^{(3)}_{g}": {
-     "id": "D3g",
-     "display": "D^{(3,+)}",
-     "doc": "\\irrJp{3}{+}"
-    },
-    "\\mathcal D^{(0)}_{u}": {
-     "id": "D0u",
-     "display": "D^{(0,-)}",
-     "doc": "\\irrJp{0}{-}"
-    },
-    "\\mathcal D^{(1)}_{u}": {
-     "id": "D1u",
-     "display": "D^{(1,-)}",
-     "doc": "\\irrJp{1}{-}"
-    },
-    "\\mathcal D^{(2)}_{u}": {
-     "id": "D2u",
-     "display": "D^{(2,-)}",
-     "doc": "\\irrJp{2}{-}"
-    },
-    "\\mathcal D^{(3)}_{u}": {
-     "id": "D3u",
-     "display": "D^{(3,-)}",
-     "doc": "\\irrJp{3}{-}"
     }
    }
   }

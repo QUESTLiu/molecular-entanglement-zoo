@@ -1,864 +1,252 @@
 {
  "provenance": {
-  "o3harmonics": "10dab5c",
-  "from": "irrep_crosswalk.csv (partner_map_S) and data/json schoenflies"
+  "o3harmonics": "99b3710",
+  "from": "group_tex is each group's name as o3harmonics' documents print it. The stand-ins of Cinfv and Dinfh keep their own basis. For each of their two-dimensional irreps, partner_maps gives the map from the partners of that basis to o3harmonics' partners of the same state: identity, or sign2 (minus partner 2).",
+  "covers": "The 75 groups of the species tables, and K and Kh (o3harmonics' SO3 and O3) for their printed names only."
  },
  "groups": {
   "C1": {
-   "o3h_record": "C1",
-   "partner_maps": {
-    "A": null
-   },
    "group_tex": "\\grp{C_{1}}"
   },
   "Cs": {
-   "o3h_record": "C1h",
-   "partner_maps": {
-    "A'": null,
-    "A''": null
-   },
    "group_tex": "\\grp{C_{1h}}"
   },
   "Ci": {
-   "o3h_record": "S2",
-   "partner_maps": {
-    "A_{g}": null,
-    "A_{u}": null
-   },
    "group_tex": "\\grp{S_{2}}"
   },
   "C2": {
-   "o3h_record": "C2",
-   "partner_maps": {
-    "A": null,
-    "B": null
-   },
    "group_tex": "\\grp{C_{2}}"
   },
   "C3": {
-   "o3h_record": "C3",
-   "partner_maps": {
-    "A": null,
-    "{}^{2}E": null,
-    "{}^{1}E": null
-   },
    "group_tex": "\\grp{C_{3}}"
   },
   "C4": {
-   "o3h_record": "C4",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E": null,
-    "{}^{1}E": null
-   },
    "group_tex": "\\grp{C_{4}}"
   },
   "C5": {
-   "o3h_record": "C5",
-   "partner_maps": {
-    "A": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null
-   },
    "group_tex": "\\grp{C_{5}}"
   },
   "C6": {
-   "o3h_record": "C6",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null
-   },
    "group_tex": "\\grp{C_{6}}"
   },
   "C7": {
-   "o3h_record": "C7",
-   "partner_maps": {
-    "A": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null,
-    "{}^{2}E_{3}": null,
-    "{}^{1}E_{3}": null
-   },
    "group_tex": "\\grp{C_{7}}"
   },
   "C8": {
-   "o3h_record": "C8",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null,
-    "{}^{2}E_{3}": null,
-    "{}^{1}E_{3}": null
-   },
    "group_tex": "\\grp{C_{8}}"
   },
+  "C9": {
+   "group_tex": "\\grp{C_{9}}"
+  },
+  "C10": {
+   "group_tex": "\\grp{C_{10}}"
+  },
   "C2v": {
-   "o3h_record": "C2v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null
-   },
    "group_tex": "\\grp{C_{2v}}"
   },
   "C3v": {
-   "o3h_record": "C3v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E": "identity"
-   },
    "group_tex": "\\grp{C_{3v}}"
   },
   "C4v": {
-   "o3h_record": "C4v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E": "identity"
-   },
    "group_tex": "\\grp{C_{4v}}"
   },
   "C5v": {
-   "o3h_record": "C5v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity"
-   },
    "group_tex": "\\grp{C_{5v}}"
   },
   "C6v": {
-   "o3h_record": "C6v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity"
-   },
    "group_tex": "\\grp{C_{6v}}"
   },
   "C7v": {
-   "o3h_record": "C7v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity"
-   },
    "group_tex": "\\grp{C_{7v}}"
   },
   "C8v": {
-   "o3h_record": "C8v",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity"
-   },
    "group_tex": "\\grp{C_{8v}}"
   },
+  "C9v": {
+   "group_tex": "\\grp{C_{9v}}"
+  },
+  "C10v": {
+   "group_tex": "\\grp{C_{10v}}"
+  },
   "C2h": {
-   "o3h_record": "C2h",
-   "partner_maps": {
-    "A_{g}": null,
-    "B_{g}": null,
-    "A_{u}": null,
-    "B_{u}": null
-   },
    "group_tex": "\\grp{C_{2h}}"
   },
   "C3h": {
-   "o3h_record": "C3h",
-   "partner_maps": {
-    "A'": null,
-    "{}^{2}E'": null,
-    "{}^{1}E'": null,
-    "A''": null,
-    "{}^{2}E''": null,
-    "{}^{1}E''": null
-   },
    "group_tex": "\\grp{C_{3h}}"
   },
   "C4h": {
-   "o3h_record": "C4h",
-   "partner_maps": {
-    "A_{g}": null,
-    "B_{g}": null,
-    "{}^{2}E_{g}": null,
-    "{}^{1}E_{g}": null,
-    "A_{u}": null,
-    "B_{u}": null,
-    "{}^{2}E_{u}": null,
-    "{}^{1}E_{u}": null
-   },
    "group_tex": "\\grp{C_{4h}}"
   },
   "C5h": {
-   "o3h_record": "C5h",
-   "partner_maps": {
-    "A'": null,
-    "{}^{2}E_{1}'": null,
-    "{}^{1}E_{1}'": null,
-    "{}^{2}E_{2}'": null,
-    "{}^{1}E_{2}'": null,
-    "A''": null,
-    "{}^{2}E_{1}''": null,
-    "{}^{1}E_{1}''": null,
-    "{}^{2}E_{2}''": null,
-    "{}^{1}E_{2}''": null
-   },
    "group_tex": "\\grp{C_{5h}}"
   },
   "C6h": {
-   "o3h_record": "C6h",
-   "partner_maps": {
-    "A_{g}": null,
-    "B_{g}": null,
-    "{}^{2}E_{1g}": null,
-    "{}^{1}E_{1g}": null,
-    "{}^{2}E_{2g}": null,
-    "{}^{1}E_{2g}": null,
-    "A_{u}": null,
-    "B_{u}": null,
-    "{}^{2}E_{1u}": null,
-    "{}^{1}E_{1u}": null,
-    "{}^{2}E_{2u}": null,
-    "{}^{1}E_{2u}": null
-   },
    "group_tex": "\\grp{C_{6h}}"
   },
   "C7h": {
-   "o3h_record": "C7h",
-   "partner_maps": {
-    "A'": null,
-    "{}^{2}E_{1}'": null,
-    "{}^{1}E_{1}'": null,
-    "{}^{2}E_{2}'": null,
-    "{}^{1}E_{2}'": null,
-    "{}^{2}E_{3}'": null,
-    "{}^{1}E_{3}'": null,
-    "A''": null,
-    "{}^{2}E_{1}''": null,
-    "{}^{1}E_{1}''": null,
-    "{}^{2}E_{2}''": null,
-    "{}^{1}E_{2}''": null,
-    "{}^{2}E_{3}''": null,
-    "{}^{1}E_{3}''": null
-   },
    "group_tex": "\\grp{C_{7h}}"
   },
   "C8h": {
-   "o3h_record": "C8h",
-   "partner_maps": {
-    "A_{g}": null,
-    "B_{g}": null,
-    "{}^{2}E_{1g}": null,
-    "{}^{1}E_{1g}": null,
-    "{}^{2}E_{2g}": null,
-    "{}^{1}E_{2g}": null,
-    "{}^{2}E_{3g}": null,
-    "{}^{1}E_{3g}": null,
-    "A_{u}": null,
-    "B_{u}": null,
-    "{}^{2}E_{1u}": null,
-    "{}^{1}E_{1u}": null,
-    "{}^{2}E_{2u}": null,
-    "{}^{1}E_{2u}": null,
-    "{}^{2}E_{3u}": null,
-    "{}^{1}E_{3u}": null
-   },
    "group_tex": "\\grp{C_{8h}}"
   },
+  "C9h": {
+   "group_tex": "\\grp{C_{9h}}"
+  },
+  "C10h": {
+   "group_tex": "\\grp{C_{10h}}"
+  },
   "S4": {
-   "o3h_record": "S4",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E": null,
-    "{}^{1}E": null
-   },
    "group_tex": "\\grp{S_{4}}"
   },
   "S6": {
-   "o3h_record": "S6",
-   "partner_maps": {
-    "A_{g}": null,
-    "{}^{2}E_{g}": null,
-    "{}^{1}E_{g}": null,
-    "A_{u}": null,
-    "{}^{2}E_{u}": null,
-    "{}^{1}E_{u}": null
-   },
    "group_tex": "\\grp{S_{6}}"
   },
   "S8": {
-   "o3h_record": "S8",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null,
-    "{}^{2}E_{3}": null,
-    "{}^{1}E_{3}": null
-   },
    "group_tex": "\\grp{S_{8}}"
   },
   "S10": {
-   "o3h_record": "S10",
-   "partner_maps": {
-    "A_{g}": null,
-    "{}^{2}E_{1g}": null,
-    "{}^{1}E_{1g}": null,
-    "{}^{2}E_{2g}": null,
-    "{}^{1}E_{2g}": null,
-    "A_{u}": null,
-    "{}^{2}E_{1u}": null,
-    "{}^{1}E_{1u}": null,
-    "{}^{2}E_{2u}": null,
-    "{}^{1}E_{2u}": null
-   },
    "group_tex": "\\grp{S_{10}}"
   },
   "S12": {
-   "o3h_record": "S12",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null,
-    "{}^{2}E_{3}": null,
-    "{}^{1}E_{3}": null,
-    "{}^{2}E_{4}": null,
-    "{}^{1}E_{4}": null,
-    "{}^{2}E_{5}": null,
-    "{}^{1}E_{5}": null
-   },
    "group_tex": "\\grp{S_{12}}"
   },
   "S14": {
-   "o3h_record": "S14",
-   "partner_maps": {
-    "A_{g}": null,
-    "{}^{2}E_{1g}": null,
-    "{}^{1}E_{1g}": null,
-    "{}^{2}E_{2g}": null,
-    "{}^{1}E_{2g}": null,
-    "{}^{2}E_{3g}": null,
-    "{}^{1}E_{3g}": null,
-    "A_{u}": null,
-    "{}^{2}E_{1u}": null,
-    "{}^{1}E_{1u}": null,
-    "{}^{2}E_{2u}": null,
-    "{}^{1}E_{2u}": null,
-    "{}^{2}E_{3u}": null,
-    "{}^{1}E_{3u}": null
-   },
    "group_tex": "\\grp{S_{14}}"
   },
   "S16": {
-   "o3h_record": "S16",
-   "partner_maps": {
-    "A": null,
-    "B": null,
-    "{}^{2}E_{1}": null,
-    "{}^{1}E_{1}": null,
-    "{}^{2}E_{2}": null,
-    "{}^{1}E_{2}": null,
-    "{}^{2}E_{3}": null,
-    "{}^{1}E_{3}": null,
-    "{}^{2}E_{4}": null,
-    "{}^{1}E_{4}": null,
-    "{}^{2}E_{5}": null,
-    "{}^{1}E_{5}": null,
-    "{}^{2}E_{6}": null,
-    "{}^{1}E_{6}": null,
-    "{}^{2}E_{7}": null,
-    "{}^{1}E_{7}": null
-   },
    "group_tex": "\\grp{S_{16}}"
   },
+  "S18": {
+   "group_tex": "\\grp{S_{18}}"
+  },
+  "S20": {
+   "group_tex": "\\grp{S_{20}}"
+  },
   "D2": {
-   "o3h_record": "D2",
-   "partner_maps": {
-    "A": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "B_{3}": null
-   },
    "group_tex": "\\grp{D_{2}}"
   },
   "D3": {
-   "o3h_record": "D3",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E": "identity"
-   },
    "group_tex": "\\grp{D_{3}}"
   },
   "D4": {
-   "o3h_record": "D4",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E": "identity"
-   },
    "group_tex": "\\grp{D_{4}}"
   },
   "D5": {
-   "o3h_record": "D5",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity"
-   },
    "group_tex": "\\grp{D_{5}}"
   },
   "D6": {
-   "o3h_record": "D6",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity"
-   },
    "group_tex": "\\grp{D_{6}}"
   },
   "D7": {
-   "o3h_record": "D7",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity"
-   },
    "group_tex": "\\grp{D_{7}}"
   },
   "D8": {
-   "o3h_record": "D8",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity"
-   },
    "group_tex": "\\grp{D_{8}}"
   },
+  "D9": {
+   "group_tex": "\\grp{D_{9}}"
+  },
+  "D10": {
+   "group_tex": "\\grp{D_{10}}"
+  },
   "D2h": {
-   "o3h_record": "D2h",
-   "partner_maps": {
-    "A_{g}": null,
-    "B_{1g}": null,
-    "B_{2g}": null,
-    "B_{3g}": null,
-    "A_{u}": null,
-    "B_{1u}": null,
-    "B_{2u}": null,
-    "B_{3u}": null
-   },
    "group_tex": "\\grp{D_{2h}}"
   },
   "D3h": {
-   "o3h_record": "D3h",
-   "partner_maps": {
-    "A_{1}'": null,
-    "A_{2}'": null,
-    "E'": "identity",
-    "A_{1}''": null,
-    "A_{2}''": null,
-    "E''": "sign2"
-   },
    "group_tex": "\\grp{D_{3h}}"
   },
   "D4h": {
-   "o3h_record": "D4h",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "B_{1g}": null,
-    "B_{2g}": null,
-    "E_{g}": "sign2",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "B_{1u}": null,
-    "B_{2u}": null,
-    "E_{u}": "identity"
-   },
    "group_tex": "\\grp{D_{4h}}"
   },
   "D5h": {
-   "o3h_record": "D5h",
-   "partner_maps": {
-    "A_{1}'": null,
-    "A_{2}'": null,
-    "E_{1}'": "identity",
-    "E_{2}'": "identity",
-    "A_{1}''": null,
-    "A_{2}''": null,
-    "E_{1}''": "sign2",
-    "E_{2}''": "sign2"
-   },
    "group_tex": "\\grp{D_{5h}}"
   },
   "D6h": {
-   "o3h_record": "D6h",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "B_{1g}": null,
-    "B_{2g}": null,
-    "E_{1g}": "sign2",
-    "E_{2g}": "identity",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "B_{1u}": null,
-    "B_{2u}": null,
-    "E_{1u}": "identity",
-    "E_{2u}": "sign2"
-   },
    "group_tex": "\\grp{D_{6h}}"
   },
   "D7h": {
-   "o3h_record": "D7h",
-   "partner_maps": {
-    "A_{1}'": null,
-    "A_{2}'": null,
-    "E_{1}'": "identity",
-    "E_{2}'": "identity",
-    "E_{3}'": "identity",
-    "A_{1}''": null,
-    "A_{2}''": null,
-    "E_{1}''": "sign2",
-    "E_{2}''": "sign2",
-    "E_{3}''": "sign2"
-   },
    "group_tex": "\\grp{D_{7h}}"
   },
   "D8h": {
-   "o3h_record": "D8h",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "B_{1g}": null,
-    "B_{2g}": null,
-    "E_{1g}": "sign2",
-    "E_{2g}": "identity",
-    "E_{3g}": "sign2",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "B_{1u}": null,
-    "B_{2u}": null,
-    "E_{1u}": "identity",
-    "E_{2u}": "sign2",
-    "E_{3u}": "identity"
-   },
    "group_tex": "\\grp{D_{8h}}"
   },
+  "D9h": {
+   "group_tex": "\\grp{D_{9h}}"
+  },
+  "D10h": {
+   "group_tex": "\\grp{D_{10h}}"
+  },
   "D2d": {
-   "o3h_record": "D2d",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E": "identity"
-   },
    "group_tex": "\\grp{D_{2d}}"
   },
   "D3d": {
-   "o3h_record": "D3d",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "E_{g}": "sign2",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "E_{u}": "identity"
-   },
    "group_tex": "\\grp{D_{3d}}"
   },
   "D4d": {
-   "o3h_record": "D4d",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "exchange_sign"
-   },
    "group_tex": "\\grp{D_{4d}}"
   },
   "D5d": {
-   "o3h_record": "D5d",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "E_{1g}": "sign2",
-    "E_{2g}": "identity",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "E_{1u}": "identity",
-    "E_{2u}": "sign2"
-   },
    "group_tex": "\\grp{D_{5d}}"
   },
   "D6d": {
-   "o3h_record": "D6d",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity",
-    "E_{4}": "exchange_sign",
-    "E_{5}": "exchange_sign"
-   },
    "group_tex": "\\grp{D_{6d}}"
   },
   "D7d": {
-   "o3h_record": "D7d",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "E_{1g}": "sign2",
-    "E_{2g}": "identity",
-    "E_{3g}": "sign2",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "E_{1u}": "identity",
-    "E_{2u}": "sign2",
-    "E_{3u}": "identity"
-   },
    "group_tex": "\\grp{D_{7d}}"
   },
   "D8d": {
-   "o3h_record": "D8d",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "B_{1}": null,
-    "B_{2}": null,
-    "E_{1}": "identity",
-    "E_{2}": "identity",
-    "E_{3}": "identity",
-    "E_{4}": "identity",
-    "E_{5}": "exchange_sign",
-    "E_{6}": "exchange_sign",
-    "E_{7}": "exchange_sign"
-   },
    "group_tex": "\\grp{D_{8d}}"
   },
+  "D9d": {
+   "group_tex": "\\grp{D_{9d}}"
+  },
+  "D10d": {
+   "group_tex": "\\grp{D_{10d}}"
+  },
   "T": {
-   "o3h_record": "T",
-   "partner_maps": {
-    "A": null,
-    "{}^{2}E": null,
-    "{}^{1}E": null,
-    "T": "identity"
-   },
    "group_tex": "\\grp{T}"
   },
   "Th": {
-   "o3h_record": "Th",
-   "partner_maps": {
-    "A_{g}": null,
-    "{}^{2}E_{g}": null,
-    "{}^{1}E_{g}": null,
-    "T_{g}": "identity",
-    "A_{u}": null,
-    "{}^{2}E_{u}": null,
-    "{}^{1}E_{u}": null,
-    "T_{u}": "identity"
-   },
    "group_tex": "\\grp{T_{h}}"
   },
   "Td": {
-   "o3h_record": "Td",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E": "identity",
-    "T_{1}": "identity",
-    "T_{2}": "identity"
-   },
    "group_tex": "\\grp{T_{d}}"
   },
   "O": {
-   "o3h_record": "O",
-   "partner_maps": {
-    "A_{1}": null,
-    "A_{2}": null,
-    "E": "identity",
-    "T_{1}": "identity",
-    "T_{2}": "identity"
-   },
    "group_tex": "\\grp{O}"
   },
   "Oh": {
-   "o3h_record": "Oh",
-   "partner_maps": {
-    "A_{1g}": null,
-    "A_{2g}": null,
-    "E_{g}": "identity",
-    "T_{1g}": "identity",
-    "T_{2g}": "identity",
-    "A_{1u}": null,
-    "A_{2u}": null,
-    "E_{u}": "identity",
-    "T_{1u}": "identity",
-    "T_{2u}": "identity"
-   },
    "group_tex": "\\grp{O_{h}}"
   },
   "I": {
-   "o3h_record": "I",
-   "partner_maps": {
-    "A": null,
-    "T_{1}": "identity",
-    "T_{2}": "identity",
-    "G": null,
-    "H": null
-   },
    "group_tex": "\\grp{I}"
   },
   "Ih": {
-   "o3h_record": "Ih",
-   "partner_maps": {
-    "A_{g}": null,
-    "T_{1g}": "identity",
-    "T_{2g}": "identity",
-    "G_{g}": null,
-    "H_{g}": null,
-    "A_{u}": null,
-    "T_{1u}": "identity",
-    "T_{2u}": "identity",
-    "G_{u}": null,
-    "H_{u}": null
-   },
    "group_tex": "\\grp{I_{h}}"
   },
-  "Cinf": {
-   "o3h_record": "Cinf",
-   "partner_maps": {
-    "\\Sigma": null,
-    "{}^{2}\\Pi": null,
-    "{}^{1}\\Pi": null,
-    "{}^{2}\\Delta": null,
-    "{}^{1}\\Delta": null,
-    "{}^{2}\\Phi": null,
-    "{}^{1}\\Phi": null
-   },
-   "group_tex": "\\grp{C_{\\infty}}"
-  },
-  "Cinfh": {
-   "o3h_record": "Cinfh",
-   "partner_maps": {
-    "\\Sigma_{g}": null,
-    "{}^{2}\\Pi_{g}": null,
-    "{}^{1}\\Pi_{g}": null,
-    "{}^{2}\\Delta_{g}": null,
-    "{}^{1}\\Delta_{g}": null,
-    "{}^{2}\\Phi_{g}": null,
-    "{}^{1}\\Phi_{g}": null,
-    "\\Sigma_{u}": null,
-    "{}^{2}\\Pi_{u}": null,
-    "{}^{1}\\Pi_{u}": null,
-    "{}^{2}\\Delta_{u}": null,
-    "{}^{1}\\Delta_{u}": null,
-    "{}^{2}\\Phi_{u}": null,
-    "{}^{1}\\Phi_{u}": null
-   },
-   "group_tex": "\\grp{C_{\\infty h}}"
-  },
   "Cinfv": {
-   "o3h_record": "Cinfv",
+   "group_tex": "\\grp{C_{\\infty v}}",
    "partner_maps": {
-    "\\Sigma^{+}": null,
-    "\\Sigma^{-}": null,
     "\\Pi": "identity",
     "\\Delta": "identity",
     "\\Phi": "identity"
-   },
-   "group_tex": "\\grp{C_{\\infty v}}"
+   }
   },
   "Dinfh": {
-   "o3h_record": "Dinfh",
+   "group_tex": "\\grp{D_{\\infty h}}",
    "partner_maps": {
-    "\\Sigma^{+}_{g}": null,
-    "\\Sigma^{-}_{g}": null,
     "\\Pi_{g}": "sign2",
     "\\Delta_{g}": "identity",
     "\\Phi_{g}": "sign2",
-    "\\Sigma^{+}_{u}": null,
-    "\\Sigma^{-}_{u}": null,
     "\\Pi_{u}": "identity",
     "\\Delta_{u}": "sign2",
     "\\Phi_{u}": "identity"
-   },
-   "group_tex": "\\grp{D_{\\infty h}}"
+   }
   },
   "K": {
-   "o3h_record": "SO3",
-   "partner_maps": {
-    "\\mathcal D^{(0)}": null,
-    "\\mathcal D^{(1)}": "identity",
-    "\\mathcal D^{(2)}": "identity",
-    "\\mathcal D^{(3)}": "identity"
-   },
    "group_tex": "\\grp{SO}(3)"
   },
   "Kh": {
-   "o3h_record": "O3",
-   "partner_maps": {
-    "\\mathcal D^{(0)}_{g}": null,
-    "\\mathcal D^{(1)}_{g}": "identity",
-    "\\mathcal D^{(2)}_{g}": "identity",
-    "\\mathcal D^{(3)}_{g}": "identity",
-    "\\mathcal D^{(0)}_{u}": null,
-    "\\mathcal D^{(1)}_{u}": "identity",
-    "\\mathcal D^{(2)}_{u}": "identity",
-    "\\mathcal D^{(3)}_{u}": "identity"
-   },
    "group_tex": "\\grp{O}(3)"
   }
  }

@@ -2,9 +2,9 @@
 __pycache__/
 *.pkl
 species_tables/results/
-species_tables/build/
+species_tables/species_tables.tex
 *.aux
 *.log
 *.out
 *.toc
-*.synctex.gz
+*.tmp

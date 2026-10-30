@@ -1,5 +1,7 @@
-% o3harmonics macros (10dab5c) for the REPO outputs: the generated block without its \ket line and without
-% its six element-letter lines (route B, SCOPE-notation.md D3), then the letter commands (SCOPE §4.10).
+% This file is the macro block of o3harmonics' generated documents at commit 99b3710, verbatim except for seven lines.
+% Its \ket line is left out because make_pdf.py defines \ket. Its six element-letter lines, which set the math letters
+% g, h, Q, R and \xi in the element font everywhere, are left out as well. Here an element is written with \elt or \gel
+% instead. The file goes into the preamble of species_tables.tex through make_pdf.py.
 \DeclareMathAlphabet{\mathelt}{OT1}{cmss}{m}{sl}
 \DeclareSymbolFont{eltgreek}{OML}{cmssm}{m}{it}
 \DeclareMathSymbol{\eltsigma}{\mathord}{eltgreek}{"1B}
@@ -82,15 +84,3 @@
 \newcommand{\term}[2]{{}^{#1}#2}
 \newcommand{\occ}[1]{\lvert #1\rangle}
 \newcommand{\sdet}[1]{\lvert #1\rvert}
-% Letters by role (SCOPE-notation.md §4.10). Every letter that a notation decision may change is
-% written as one of these commands, so its letter and font are set here, once. The definitions are
-% the recommendation; each comment says what the command stands for and which decision sets it.
-% Load after O3H's macro block (route B: the block without its six element-letter lines).
-\newcommand{\gel}{\elt{g}}             % a group element (was R, and g in Secs. V-VII); D3, D7
-\newcommand{\hel}{\elt{h}}             % a second group element (was h); D3
-\newcommand{\rotpart}{\elt{R}}         % the rotation part (\det g)\,g of g (was \bar R); D7
-\newcommand{\rotax}[1]{\elt{R_{#1}}}   % the rotation about an axis, up to its angle: \rotax{z}(\alpha)
-\newcommand{\orient}{S}                % an orientation in O(3) (was S, R, R_0 and r); D6
-\newcommand{\crep}{{\sf a}}            % a point of O(3)/G, the coset label (was {\sf a}); D6 picks the letter
-\newcommand{\epsmat}{D}                % the 3x3 matrix of the epsilon proof (was R); B1-024
-\newcommand{\gmat}{P(\gel)^{\top}}     % an element as its own 3x3 matrix (was g); S-keep spelling, B1-024
