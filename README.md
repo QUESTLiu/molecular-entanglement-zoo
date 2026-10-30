@@ -83,7 +83,7 @@ This file lists the 21 catalogue states in the order of the table [below](#the-c
 
 ## The catalogue of AME states
 
-Every reduced state of |C⟩ on a single carrier X is 𝕀/d_X (Schur's lemma), and so is that of every member of an N = 2 coupling space. Each coupling tensor is therefore an absolutely maximally entangled (AME) state of its format, the sorted carrier dimensions. Every cut X|YZ has a flat Schmidt spectrum of rank d_X. With no multidimensional carrier the state is a product, with two it is a maximally entangled pair (a single one cannot occur), and with three it has genuine tripartite entanglement. AME states are critical, so SLOCC equivalence coincides with LU equivalence (Kempf–Ness). For N = 1, the state ρ_YZ of two carriers Y, Z is the projector onto the Γ*_X ⊗ Γ_mol isotypic component of Γ_Y ⊗ Γ_Z, divided by d_X, with X the third carrier.
+Every reduced state of |C⟩ on a single carrier X is 𝕀/d_X (Schur's lemma; Proposition 2.1 of the PDF), and so is that of every member of an N = 2 coupling space. Each coupling tensor is therefore an absolutely maximally entangled (AME) state of its format, the sorted carrier dimensions. Every cut X|YZ has a flat Schmidt spectrum of rank d_X. With no multidimensional carrier the state is a product, with two it is a maximally entangled pair (a single one cannot occur), and with three it has genuine tripartite entanglement. AME states are critical, so SLOCC equivalence coincides with LU equivalence (Kempf–Ness). For N = 1, the state ρ_YZ of two carriers Y, Z is the projector onto the Γ*_X ⊗ Γ_mol isotypic component of Γ_Y ⊗ Γ_Z, divided by d_X, with X the third carrier.
 
 Bryan, Reichstein and Van Raamsdonk, who call AME states locally maximally entangled, give the dimension of the space of AME states of each format up to LU ([arXiv:1708.01645](https://arxiv.org/abs/1708.01645), Thms. 1.2 and 1.3; Ann. Henri Poincaré 19, 2491 (2018)). In the formats (1,d,d), (2,2,2) and (2,3,3) this space is a single point, so AME alone fixes the state up to LU. In the other formats of the catalogue the AME states form a continuous family, from which the point groups pick particular members.
 
@@ -156,4 +156,4 @@ The Coriolis statement (item 5, and Sec. 3 of the PDF) uses that the angular-mom
 
 ## Requirements
 
-Python ≥ 3.10 with NumPy. To build the PDF: pdflatex with the packages of `make_pdf.py`'s preamble (cmap, geometry, amsmath, amssymb, booktabs, longtable, array, ragged2e, multicol, multirow, xcolor, fancyhdr, tikz, hyperref, fontenc and lmodern), and sansmathfonts for o3harmonics' element font. A full TeX Live installation has them all.
+Python ≥ 3.10 with NumPy. To build the PDF: pdflatex with the packages of `make_pdf.py`'s preamble (cmap, geometry, amsmath, amssymb, amsthm, booktabs, longtable, array, ragged2e, multicol, multirow, xcolor, fancyhdr, tikz, hyperref, fontenc and lmodern), and sansmathfonts for o3harmonics' element font. A full TeX Live installation has them all.

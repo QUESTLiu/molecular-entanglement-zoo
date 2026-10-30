@@ -1343,6 +1343,12 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 @@O3H_STYLE@@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{amsthm}
+% Proposition 2.1: amsthm's plain style, with the head in the font of o3harmonics' \paragraph headings
+\newtheoremstyle{o3hplain}{\topsep}{\topsep}{\itshape}{}{\normalfont\small\sffamily\bfseries\color{parttitle}}{.}
+  {5pt plus 1pt minus 1pt}{}
+\theoremstyle{o3hplain}
+\newtheorem{proposition}{Proposition}[section]
 \hypersetup{pdftitle={@@TITLE@@}}
 \fancyhead[L]{\small\textsc{Species tables}}
 @@O3H_MACROS@@
@@ -1518,15 +1524,39 @@ rows $\Grot$ and columns $\Gspin$, and every entry is admissible.
 
 CATALOGUE_HEAD = r"""
 \section{The catalogue of AME states}\label{sec:catalogue}
-Every coupling tensor is an absolutely maximally entangled (AME) state of its three carriers. By Schur's lemma, the reduced
-state $\redstate_{\Gamma}$ of $\ket{C}$ on any one carrier $\Gamma$ is $\mathbb{I}/d_{\Gamma}$, and so is that of every member
-of an $N=2$ coupling space. Thus every cut between one carrier and the other two is maximally entangled for its dimensions,
-with a flat Schmidt spectrum of rank $d_{\Gamma}$. AME states are critical, so by the Kempf--Ness theorem two of them are
-SLOCC-equivalent exactly when they are LU-equivalent. The number of carriers of dimension above one fixes the kind of
-entanglement. With none the state is the product state, and with two it is a maximally entangled pair of equal dimensions
-(a single one is impossible). With three it is genuinely tripartite. For $N=1$ the triple also fixes the reduced states
-on two carriers. The one on $(\Gspin,\Gvib)$ is the projector onto the $\conj{\Grot}\irrprod\Gmol$ isotypic component of
-$\Gspin\irrprod\Gvib$, divided by $d_{\mathrm r}$, and likewise for the other two pairs.
+Let $\ket{\psi}$ be a unit vector in the product of three carriers. For a carrier $\Gamma$, with $\Gamma'$ and
+$\Gamma''$ the other two, its reduced state is $\redstate_{\Gamma}=\trace_{\Gamma'\Gamma''}\ket{\psi}\langle\psi|$. We
+call $\ket{\psi}$ \emph{absolutely maximally entangled} (AME) when $\redstate_{\Gamma}=\mathbb{I}/d_{\Gamma}$ on each of
+the three carriers. With three carriers, every cut separates one carrier from the other two. An AME state is thus
+maximally entangled across every cut, with a flat Schmidt spectrum of rank $d_{\Gamma}$.
+
+\begin{proposition}\label{prop:ame}
+Every unit vector $\ket{\psi}$ in the coupling space of an admissible triple has
+$\redstate_{\Gamma}=\mathbb{I}/d_{\Gamma}$ on each of its three carriers $\Gamma$. In particular, every copy is AME, and
+so is every member of an $N=2$ space.
+\end{proposition}
+
+\begin{proof}
+The irrep matrices of the tables are unitary, and so is
+$U(\gel)=\repD{\Grot}(\gel)\irrprod\repD{\Gspin}(\gel)\irrprod\repD{\Gvib}(\gel)$. Since $\Gmol$ is one-dimensional,
+every $U(\gel)$ multiplies each vector in the range of $\molproj$ by the phase $\irchar{\Gmol}(\gel)$. Hence
+$U(\gel)\ket{\psi}\langle\psi|U(\gel)^{\dagger}=\ket{\psi}\langle\psi|$ for every $\gel\in\grp{G}$. Up to the order of
+the factors, $U(\gel)=\repD{\Gamma}(\gel)\irrprod\repD{\Gamma'}(\gel)\irrprod\repD{\Gamma''}(\gel)$. The partial trace
+over $\Gamma'$ and $\Gamma''$ removes the unitary $\repD{\Gamma'}(\gel)\irrprod\repD{\Gamma''}(\gel)$, so
+$\repD{\Gamma}(\gel)\,\redstate_{\Gamma}\,\repD{\Gamma}(\gel)^{\dagger}=\redstate_{\Gamma}$ for every $\gel$. Thus
+$\redstate_{\Gamma}$ commutes with every matrix of the irrep $\Gamma$, which is irreducible over $\mathbb{C}$. By
+Schur's lemma, $\redstate_{\Gamma}=c\,\mathbb{I}$, and $c=1/d_{\Gamma}$ since
+$\trace\redstate_{\Gamma}=\langle\psi|\psi\rangle=1$.
+\end{proof}
+
+Bryan, Leutheusser, Reichstein and Van Raamsdonk give this argument for a state that a group fixes up to a phase
+(\href{https://arxiv.org/abs/1801.03508}{arXiv:1801.03508}, Sec.~3; Quantum \textbf{3}, 115 (2019)). AME states are
+critical, so by the Kempf--Ness theorem two of them are SLOCC-equivalent exactly when they are LU-equivalent. The number
+of carriers of dimension above one fixes the kind of entanglement. With none the state is the product state, and with
+two it is a maximally entangled pair of equal dimensions (a single one is impossible). With three it is genuinely
+tripartite. For $N=1$ the triple also fixes the reduced states on two carriers. The one on $(\Gspin,\Gvib)$ is the
+projector onto the $\conj{\Grot}\irrprod\Gmol$ isotypic component of $\Gspin\irrprod\Gvib$, divided by $d_{\mathrm r}$,
+and likewise for the other two pairs.
 
 We call the sorted triple of carrier dimensions the \emph{format} of a triple. Bryan, Reichstein and Van Raamsdonk, who
 call AME states locally maximally entangled, give the dimension of the space of AME states of each format up to LU
@@ -1648,7 +1678,7 @@ stored with its first nonzero entry, in the lexicographic order of $(\intx_{\mat
 real and positive. This fixes the relative phase of the two copies for the coefficients below, where
 $\ket{\catT{k}}$ is the stored copy whose state is $\catT{k}$.
 
-\paragraph{Codes.} The Schur argument of Sec.~\ref{sec:catalogue} extends to two members $\ket{C}$, $\ket{C'}$ of an
+\paragraph{Codes.} The proof of Proposition~\ref{prop:ame} extends to two members $\ket{C}$, $\ket{C'}$ of an
 $N=2$ space. For a carrier $\Gamma$, with $\Gamma'$ and $\Gamma''$ the other two, and an operator $\secop$ on $\Gamma$,
 \begin{equation}\label{eq:schur}
 \trace_{\Gamma'\Gamma''}\ket{C}\langle C'|=\langle C'|C\rangle\,\frac{\mathbb{I}}{d_{\Gamma}} ,\qquad
@@ -1661,9 +1691,7 @@ operator on one carrier can tell members apart or turn one into another. In codi
 code of distance two on the three carriers. It is a $((3,2,2))$ code with local dimensions $(3,3,3)$, $(4,5,5)$ or
 $(5,5,5)$. The second equation is its Knill--Laflamme condition. The first is Wang and Feng's criterion for a pure code
 with arbitrary local dimensions (\href{https://doi.org/10.1007/s11464-012-0209-2}{Front.\ Math.\ China \textbf{7}, 573
-(2012)}, Thm.~2(ii)). Bryan, Leutheusser, Reichstein and Van Raamsdonk give the Schur argument for one state that the
-group fixes up to a phase (\href{https://arxiv.org/abs/1801.03508}{arXiv:1801.03508}, Sec.~3; Quantum \textbf{3}, 115
-(2019)).
+(2012)}, Thm.~2(ii)).
 
 An operator on two carriers that commutes with the action of $\grp{G}$ on them maps each space into itself, since it
 commutes with the projector $\molproj$ of Sec.~\ref{sec:tabulated}. For each space and each pair of carriers, such operators
