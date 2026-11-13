@@ -1,6 +1,6 @@
 # Molecular Entanglement Zoo: Admissible rovibrational species and their symmetry-enforced entanglement
 
-Identical-particle statistics selects the physical states of a molecule. These states factor into multiplicity spaces that symmetry leaves free and coupling tensors that it fixes, independently of the molecular Hamiltonian (E. R. Das, J.-C. Zhang, V. V. Albert and Y. Liu, *Classification of rovibrational molecular states*, in preparation). This repository computes these coupling tensors for the 75 point groups of Altmann and Herzig's *Point-Group Theory Tables*. It also gives the **symmetry-enforced entanglement** that each tensor carries between rotation, nuclear spin and vibration.
+Identical-particle statistics selects the physical states of a molecule. These states factor into multiplicity spaces that symmetry leaves free and coupling tensors that it fixes, independently of the molecular Hamiltonian (E. R. Das, J.-C. Zhang, V. V. Albert and Y. Liu, *Molecular Entanglement in symmetry-classified phase space*, in preparation). This repository computes these coupling tensors for the 75 point groups of Altmann and Herzig's *Point-Group Theory Tables*. It also gives the **symmetry-enforced entanglement** that each tensor carries between rotation, nuclear spin and vibration.
 
 A molecule with point group **G** has its total wavefunction fixed by spin statistics to a one-dimensional species Γ_mol. A triple (Γ_r, Γ_n, Γ_v) of rotational, nuclear-spin and vibrational species is **admissible** when
 
@@ -30,6 +30,8 @@ and its entanglement across the three sectors is a property of the triple. For N
 | `species_tables/o3h_macros.tex` | o3harmonics' LaTeX macros (99b3710), without its `\ket` line and its six element-letter lines. `make_pdf.py` puts them in the preamble of the PDF |
 | `species_tables/o3h_style.tex` | o3harmonics' layout (99b3710): the headings, contents, running heads, link colour and equation numbers of its documents, with a margin of 1.6 cm (1.8 cm there). `make_pdf.py` puts it in the preamble of the PDF |
 | `species_tables/check_examples.py` | Checks three worked molecules, H₂O, NH₃/CaOCH₃ and CH₄, against values written out by hand: admissible rows, catalogue ids and coupling tensors, with exit status 1 on any mismatch |
+| [`abinitio/`](abinitio/README.md) | Scripts, inputs and raw outputs of the ab initio calculations behind the calcium monomethoxide (CaOCH₃) example of the paper: the Coriolis constant ζ₈ (EA-EOM-CCSD), the anharmonic constants x₈,₈ and g₈,₈ and the bend transition dipole μ₈ (B3LYP), and the level, line, pulse and magnetic-field numbers of its appendix. Its README says which script and stored output gives each number |
+| [`abinitio/paper_links.json`](abinitio/paper_links.json) | The same in machine-readable form: each number, the LaTeX string where the paper quotes it, and the stored output and pattern that give it |
 
 ## Scope
 
@@ -156,4 +158,4 @@ The Coriolis statement (item 5, and Sec. 3 of the PDF) uses that the angular-mom
 
 ## Requirements
 
-Python ≥ 3.10 with NumPy. To build the PDF: pdflatex with the packages of `make_pdf.py`'s preamble (cmap, geometry, amsmath, amssymb, amsthm, booktabs, longtable, array, ragged2e, multicol, multirow, xcolor, fancyhdr, tikz, hyperref, fontenc and lmodern), and sansmathfonts for o3harmonics' element font. A full TeX Live installation has them all.
+Python ≥ 3.10 with NumPy. To build the PDF: pdflatex with the packages of `make_pdf.py`'s preamble (cmap, geometry, amsmath, amssymb, amsthm, booktabs, longtable, array, ragged2e, multicol, multirow, xcolor, fancyhdr, tikz, hyperref, fontenc and lmodern), and sansmathfonts for o3harmonics' element font. A full TeX Live installation has them all. The calculations in `abinitio/` also need PySCF, SciPy and SymPy, at the versions in `abinitio/requirements.txt`.

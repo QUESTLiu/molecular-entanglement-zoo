@@ -1,0 +1,900 @@
+{
+ "_about": "Every number in the manuscript that comes from the calculations in this folder. 'tex' lists strings that must appear in the named manuscript file; 'source' says which stored output holds the number ('regex' is the pattern that extracts it, 'block' the section of the output it is read from).",
+ "manuscript": {
+  "main": "main_arxiv_submission.tex",
+  "appendix": "appendix.tex",
+  "labels": {
+   "main": [
+    "sec:experiment",
+    "eq:caoch3_hamiltonian",
+    "fig:caoch3_tree",
+    "eq:caoch3_target",
+    "eq:caoch3_areas"
+   ],
+   "appendix": [
+    "app:caoch3_prep",
+    "app:caoch3_ham",
+    "tab:caoch3_constants",
+    "eq:caoch3_lines",
+    "tab:caoch3_levels",
+    "app:caoch3_dipoles",
+    "eq:caoch3_dipole_factors",
+    "app:caoch3_pulses",
+    "tab:caoch3_pulses"
+   ]
+  }
+ },
+ "measured_inputs": {
+  "_about": "Literature constants used by caoch3_bend_constants/check_tree_measured.py (Table tab:caoch3_constants). Not computed here. nu8, A, B enter Eq. eq:caoch3_hamiltonian and every energy; the D's only give the size of the omitted distortion shifts; the spin constants set the Rabi-frequency limit and, with the electron Zeeman term, the magnetic-field limits (zeeman_limits.py).",
+  "nu8_cm": 144.0,
+  "A_cm": 5.448303,
+  "B_cm": 0.11626491,
+  "D_N_cm": 2.6885e-08,
+  "D_NK_cm": 2.358e-06,
+  "D_K_cm": 7.03e-05,
+  "eps_bc_MHz": 12.4505,
+  "a_F_MHz": -0.421,
+  "T_aa_MHz": 1.07
+ },
+ "links": [
+  {
+   "id": "zeta8",
+   "value": 0.926,
+   "what": "Coriolis constant of the nu8 bend",
+   "method": "EA-EOM-CCSD/cc-pCVTZ(Ca), cc-pVTZ(O,C,H) from the CaOCH3+ reference; e-block Hessian by finite differences; zeta = l_x . (M_z l_y)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham",
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "$\\zeta_8=0.926$",
+     "$\\zeta_8$ & $0.926$ & EA-EOM-CCSD, this work"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/zeta_from_cc.py",
+    "output": "caoch3_bend_constants/zeta_from_cc.out",
+    "regex": "mode 0: .*zeta\\^z = ([+-][0-9.]+)",
+    "digits": 3,
+    "inputs": [
+     "caoch3_eom_ccsd/out/caoch3_min_tz_X.json",
+     "caoch3_eom_ccsd/out/caoch3_emode_cache_tz_X.json",
+     "caoch3_eom_ccsd/out/caoch3_emode_basis_tz_X.json"
+    ]
+   }
+  },
+  {
+   "id": "x88",
+   "value": -0.53,
+   "unit": "cm-1",
+   "what": "bend anharmonic constant x_{8,8}",
+   "method": "UKS-B3LYP/def2-TZVP cubic and quartic force field along nu8 (step 0.10 amu^1/2 A, C3v averaged); numerical second-order perturbation theory",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham",
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "$x_{8,8}=-0.53\\ \\mathrm{cm^{-1}}$",
+     "$x_{8,8}$ & $-0.53\\ \\mathrm{cm^{-1}}$ & B3LYP, this work"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/vpt2_bend.py",
+    "output": "caoch3_bend_constants/vpt2_bend_b3lyp.out",
+    "block": "--- Richardson False, C3v average True ---",
+    "regex": "x88 = ([+-][0-9.]+)",
+    "digits": 2,
+    "inputs": [
+     "caoch3_bend_constants/dft_force_field_b3lyp_def2tzvp_rich.npz"
+    ]
+   }
+  },
+  {
+   "id": "g_anh",
+   "value": 0.63,
+   "unit": "cm-1",
+   "what": "anharmonic part of g_{8,8}",
+   "method": "same force field and perturbation theory as x88; g_anh = g88 - A_e zeta^2",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham",
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "$g^{\\mathrm{anh}}_{8,8}=0.63\\ \\mathrm{cm^{-1}}$",
+     "$4.672+0.63=5.30\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/vpt2_bend.py",
+    "output": "caoch3_bend_constants/vpt2_bend_b3lyp.out",
+    "block": "--- Richardson False, C3v average True ---",
+    "regex": "g88 - A zeta\\^2 = ([+-][0-9.]+)",
+    "digits": 2
+   }
+  },
+  {
+   "id": "anharmonic_spread",
+   "value": 0.11,
+   "unit": "cm-1",
+   "what": "largest change of x88 or g_anh with finite-difference step (Richardson) or functional (PBE0)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham"
+    ],
+    "tex": [
+     "vary by up to $0.11\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/vpt2_bend.py",
+    "output": [
+     "caoch3_bend_constants/vpt2_bend_b3lyp.out",
+     "caoch3_bend_constants/vpt2_bend_pbe0.out"
+    ],
+    "how": "max |x88 - x88(ref)|, |g_anh - g_anh(ref)| over the 'Richardson True' block and the PBE0 'C3v average True' block"
+   }
+  },
+  {
+   "id": "A_zeta2",
+   "value": 4.672,
+   "unit": "cm-1",
+   "what": "A zeta8^2 with the measured A",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "$4.672+0.63=5.30\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "how": "A_cm * zeta8**2"
+   }
+  },
+  {
+   "id": "omega8",
+   "value": 138.7,
+   "unit": "cm-1",
+   "what": "bend wavenumber that reproduces the measured fundamental",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "$138.70\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "how": "nu8_cm - (A_zeta2 + g_anh)",
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "w8=([0-9.]+)",
+    "digits": 2
+   }
+  },
+  {
+   "id": "levels",
+   "what": "preparation-tree level energies (E - E_G)/hc from Eq. eq:caoch3_hamiltonian alone",
+   "value": {
+    "G": 0.0,
+    "L01": 137.52,
+    "L02": 275.068,
+    "L11": 277.267,
+    "L03_3": 412.642,
+    "L03_4": 413.573,
+    "L12": 412.667,
+    "L21": 416.11
+   },
+   "names_in_paper": {
+    "L03_3": "L_{03}",
+    "L03_4": "L_{30}"
+   },
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_levels"
+    ],
+    "tex": [
+     "& start & 0.000\\\\",
+     "& tree & 137.520\\\\",
+     "& tree & 275.068\\\\",
+     "& tree & 277.267\\\\",
+     "& target & 412.642\\\\",
+     "& target & 413.573\\\\",
+     "& target & 412.667\\\\",
+     "& target & 416.110\\\\"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/check_tree_measured.py",
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "^  (\\S+)\\s+v=.*E-EG =\\s+([0-9.]+) cm-1",
+    "digits": 3
+   }
+  },
+  {
+   "id": "lines",
+   "what": "tree transition wavenumbers (Eq. eq:caoch3_lines, no distortion) and couplings d/mu8",
+   "value": {
+    "P1": [
+     0.121,
+     137.52
+    ],
+    "P2": [
+     0.22,
+     137.547
+    ],
+    "P3": [
+     0.545,
+     139.746
+    ],
+    "P4": [
+     0.231,
+     137.575
+    ],
+    "P5": [
+     -0.509,
+     138.505
+    ],
+    "P6": [
+     0.164,
+     135.4
+    ],
+    "P7": [
+     0.124,
+     138.843
+    ]
+   },
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "eq:caoch3_lines",
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "$+0.121$ & 137.520",
+     "$+0.220$ & 137.547",
+     "$+0.545$ & 139.746",
+     "$+0.231$ & 137.575",
+     "$-0.509$ & 138.505",
+     "$+0.164$ & 135.400",
+     "$+0.124$ & 138.843"
+    ]
+   },
+   "source": {
+    "script": "caoch3_bend_constants/check_tree_measured.py",
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "^  (P\\d): .*d=([+-][0-9.]+) mu8\\s+nu=\\s*([0-9.]+) cm-1",
+    "digits": 3
+   }
+  },
+  {
+   "id": "closest_tree_lines",
+   "value": 0.81,
+   "unit": "GHz",
+   "what": "equal spacing of the consecutive q=+1, dN=0 lines P1, P2, P4: 2x88+2g_anh+2A(1-zeta8)^2-2B = 0.027 cm-1",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham"
+    ],
+    "tex": [
+     "=0.027\\ \\mathrm{cm^{-1}}$, or $0.81$~GHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "equal spacing .* = [0-9.]+ cm-1 = ([0-9.]+) GHz",
+    "digits": 2
+   }
+  },
+  {
+   "id": "closest_competing_line",
+   "value": 0.73,
+   "unit": "GHz",
+   "what": "nearest competing rovibrational line touching a populated level (from P4)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham",
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "at least $0.73$~GHz",
+     "$\\Delta/2\\pi=0.73$~GHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "overall closest: P\\d [0-9.]+ cm-1 = ([0-9.]+) GHz",
+    "digits": 2
+   }
+  },
+  {
+   "id": "offresonant_error",
+   "value": 4e-09,
+   "what": "(Omega/Delta)^2 at the largest Rabi frequency used (44 kHz, P3) and the nearest competing rovibrational line (0.73 GHz); bound quoted as 'below'",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "below $4\\times10^{-9}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "\\(Omega/Delta\\)\\^2 <= ([0-9.e+-]+)",
+    "rel_tol": 0.15
+   }
+  },
+  {
+   "id": "P4_near_coincidence",
+   "value": 0.57,
+   "unit": "MHz",
+   "what": "line from L30 that coincides with P4 in Eq. eq:caoch3_hamiltonian; value = its splitting by centrifugal distortion alone (estimate, not used in any energy)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham"
+    ],
+    "tex": [
+     "separates the two lines by $0.57$~MHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "distortion alone splits it by ([+-][0-9.]+) MHz",
+    "digits": 2
+   }
+  },
+  {
+   "id": "nearest_spin_component",
+   "value": 0.36,
+   "unit": "MHz",
+   "what": "nearest unwanted hyperfine component (P7)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "$0.36$~MHz from P7"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "P7: \\|d\\|=.*:\\s+([0-9.]+) kHz away",
+    "scale": 0.001,
+    "digits": 2
+   }
+  },
+  {
+   "id": "rabi_limit",
+   "value": 12,
+   "unit": "kHz",
+   "what": "largest Omega/2pi that keeps hyperfine leakage below 1e-3",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "$\\Omega/2\\pi\\le12$~kHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "common Omega/2pi <= ([0-9.]+) kHz",
+    "digits": 0
+   }
+  },
+  {
+   "id": "max_spin_shift",
+   "value": 25,
+   "unit": "MHz",
+   "what": "largest spin-rotation + hyperfine shift of a tree level",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham"
+    ],
+    "tex": [
+     "at most $25$~MHz ($0.0008\\ \\mathrm{cm^{-1}}$)"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "largest spin shift of a tree level .*: ([0-9.]+) MHz",
+    "digits": 0
+   }
+  },
+  {
+   "id": "max_distortion_shift",
+   "value": 0.013,
+   "unit": "cm-1",
+   "what": "largest centrifugal-distortion shift of a tree level relative to G, or of a tree line (estimate; not added to the energies)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_ham"
+    ],
+    "tex": [
+     "at most $0.013\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/check_tree_measured.out",
+    "regex": "largest shift of a tree line: ([0-9.]+) cm-1",
+    "digits": 3
+   }
+  },
+  {
+   "id": "mu8",
+   "value": 0.15,
+   "unit": "D",
+   "what": "nu8 fundamental transition dipole <1|mu_x|0>, UKS-B3LYP/def2-TZVP, double-harmonic",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses",
+     "tab:caoch3_constants"
+    ],
+    "tex": [
+     "obtain $\\mu_8=0.150$~D",
+     "$\\mu_8$ ($\\nu_8$ transition dipole) & $0.150$~D"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/bend_dipole_b3lyp.out",
+    "regex": "MU8_DEBYE = ([0-9.]+)",
+    "digits": 3
+   }
+  },
+  {
+   "id": "permanent_dipole_b3lyp",
+   "value": 1.45,
+   "unit": "D",
+   "what": "B3LYP permanent dipole at equilibrium (check against the measured 1.58(8) D, Namiki 1998)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "permanent dipole of $1.45$~D"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/bend_dipole_b3lyp.out",
+    "regex": "\\|mu\\| = ([0-9.]+) D",
+    "digits": 2
+   }
+  },
+  {
+   "id": "omega8_harmonic_b3lyp",
+   "value": 150.7,
+   "unit": "cm-1",
+   "what": "B3LYP harmonic wavenumber of nu8 used in <1|Q|0>",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "harmonic wavenumber is $150.7\\ \\mathrm{cm^{-1}}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/bend_dipole_b3lyp.out",
+    "regex": "harmonic omega_8 = ([0-9.]+) cm-1",
+    "digits": 1
+   }
+  },
+  {
+   "id": "field_amplitude",
+   "value": 107,
+   "unit": "V/m",
+   "what": "field amplitude giving P7 Omega/2pi = 10 kHz",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "$\\mathcal E=107$~V/m"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "field amplitude E = ([0-9.]+) V/m",
+    "digits": 0
+   }
+  },
+  {
+   "id": "intensity",
+   "value": 1.5,
+   "unit": "mW/cm2",
+   "what": "common intensity of all seven tones, I = c eps0 E^2 / 2",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses",
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "$I=c\\varepsilon_0\\mathcal E^2/2=1.5\\ \\mathrm{mW/cm^2}$",
+     "common intensity $I=1.5\\ \\mathrm{mW/cm^2}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "= ([0-9.]+) mW/cm\\^2",
+    "digits": 1
+   }
+  },
+  {
+   "id": "rabi_min",
+   "value": 9.8,
+   "unit": "kHz",
+   "what": "smallest Omega/2pi at the common intensity (P1)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "between $9.8$ and $44$~kHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P1: .*?Omega/2pi =\\s+([0-9.]+) kHz",
+    "digits": 1
+   }
+  },
+  {
+   "id": "rabi_max",
+   "value": 44,
+   "unit": "kHz",
+   "what": "largest Omega/2pi at the common intensity (P3)",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "between $9.8$ and $44$~kHz",
+     "all at most $44$~kHz"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "largest Omega/2pi = ([0-9.]+) kHz",
+    "digits": 0
+   }
+  },
+  {
+   "id": "hyperfine_leakage_max",
+   "value": 0.0007,
+   "what": "largest estimated hyperfine leakage at the common intensity (P7); quoted as 'below'",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "below $7\\times10^{-4}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "largest hyperfine leakage ([0-9.e+-]+)",
+    "rel_tol": 0.1
+   }
+  },
+  {
+   "id": "tau_pi_P1",
+   "value": 50.9,
+   "unit": "us",
+   "what": "pi-pulse duration of P1 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 50.9\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P1: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P2",
+   "value": 28.1,
+   "unit": "us",
+   "what": "pi-pulse duration of P2 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 28.1\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P2: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P3",
+   "value": 11.4,
+   "unit": "us",
+   "what": "pi-pulse duration of P3 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 11.4\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P3: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P4",
+   "value": 26.7,
+   "unit": "us",
+   "what": "pi-pulse duration of P4 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 26.7\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P4: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P5",
+   "value": 12.2,
+   "unit": "us",
+   "what": "pi-pulse duration of P5 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 12.2\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P5: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P6",
+   "value": 37.8,
+   "unit": "us",
+   "what": "pi-pulse duration of P6 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 37.8\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P6: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_P7",
+   "value": 50.0,
+   "unit": "us",
+   "what": "pi-pulse duration of P7 at the common intensity",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "tab:caoch3_pulses"
+    ],
+    "tex": [
+     "& 50.0\\\\"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "P7: .*?pi pulse\\s+([0-9.]+) us",
+    "digits": 1
+   }
+  },
+  {
+   "id": "tau_pi_range",
+   "value": [
+    11,
+    51
+   ],
+   "unit": "us",
+   "what": "shortest (P3) and longest (P1) pi pulse",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "from $11$ to $51~\\mu\\mathrm{s}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "pi pulse\\s+([0-9.]+) us",
+    "digits": 0,
+    "note": "min and max over P1-P7"
+   }
+  },
+  {
+   "id": "single_salc_range",
+   "value": [
+    91,
+    112
+   ],
+   "unit": "us",
+   "what": "sequences (b) and (c): L30 91, L03 106, L12 100, L21 112 us",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "last $91$ to $112~\\mu\\mathrm{s}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "= ([0-9]+) us",
+    "note": "min and max over the four single-SALC totals"
+   }
+  },
+  {
+   "id": "equal_superposition",
+   "value": [
+    171,
+    145
+   ],
+   "unit": "us",
+   "what": "every c = 1/2: pulses in sequence, and with P6, P7 overlapping P4, P5",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "takes $171~\\mu\\mathrm{s}$, or $145~\\mu\\mathrm{s}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "one after another ([0-9]+) us; with P6, P7 overlapping P4, P5 ([0-9]+) us"
+   }
+  },
+  {
+   "id": "any_target_max",
+   "value": 217,
+   "unit": "us",
+   "what": "upper bound for (a): all seven as pi pulses in sequence",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "longer than $217~\\mu\\mathrm{s}$",
+     "at most $0.22$~ms"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "upper bound .*: ([0-9]+) us",
+    "digits": 0
+   }
+  },
+  {
+   "id": "main_durations",
+   "value": [
+    1.5,
+    51,
+    91,
+    112,
+    217
+   ],
+   "unit": "mW/cm2, us",
+   "what": "main-text summary of intensity and durations",
+   "paper": {
+    "file": "main",
+    "labels": [
+     "sec:experiment"
+    ],
+    "tex": [
+     "assumed intensity of $1.5\\ \\mathrm{mW/cm^2}$",
+     "at most $51~\\mu\\mathrm{s}$, a single-SALC sequence $91$ to $112~\\mu\\mathrm{s}$, and any superposition at most $217~\\mu\\mathrm{s}$"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/pulse_durations.out",
+    "regex": "intensity I = .* = ([0-9.]+) mW/cm\\^2",
+    "note": "see the appendix entries for each number"
+   }
+  },
+  {
+   "id": "zeeman_limits",
+   "value": [
+    0.17,
+    0.39,
+    0.54,
+    20,
+    4
+   ],
+   "unit": "-, -, MHz/G, uG, kHz",
+   "what": "condition (vi): g_F range of the tree levels, largest precession rate, transverse-field limit (loss < 1e-3 over 0.217 ms), largest quadratic line shift at B_Z = 50 mG",
+   "paper": {
+    "file": "appendix",
+    "labels": [
+     "app:caoch3_pulses"
+    ],
+    "tex": [
+     "the tree levels have Land\\'e factors $g_F$ between $0.17$ and $0.39$",
+     "precess at up to $0.54$~MHz/G",
+     "requires $B_\\perp\\lesssim20~\\mu$G",
+     "by at most $4$~kHz (P1) at $B_Z=50$~mG"
+    ]
+   },
+   "source": {
+    "output": "caoch3_bend_constants/zeeman_limits.out",
+    "regex": "g_F range ([0-9.]+) to ([0-9.]+); largest rate ([0-9.]+) MHz/G",
+    "note": "B_perp limit: 'smallest limit' line (21.3 uG, quoted as <~20 uG); P1 shift: the 'B_Z = 50 mG' line"
+   }
+  }
+ ],
+ "main_text": {
+  "_about": "The main text quotes no ab initio number; it points to the appendix.",
+  "file": "main",
+  "tex": [
+   "are estimated through ab initio calculations (Appendix~\\ref{app:caoch3_ham})",
+   "\\frac{E}{hc}={}&\\tilde\\omega_8v+x_{8,8}v(v-1)+g_{8,8}\\ell^2+BN(N+1)"
+  ]
+ }
+}

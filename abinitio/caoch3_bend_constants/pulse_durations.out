@@ -1,0 +1,15 @@
+mu8 = 0.1504 D; reference P7 at Omega/2pi = 10 kHz
+field amplitude E = 106.7 V/m, intensity I = c eps0 E^2/2 = 15.11 W/m^2 = 1.511 mW/cm^2
+  P1: |d| = 0.1215 mu8  Omega/2pi =   9.8 kHz (bound    13.7 kHz)  pi pulse  50.9 us  leakage ~ 5.1e-04
+  P2: |d| = 0.2204 mu8  Omega/2pi =  17.8 kHz (bound    37.8 kHz)  pi pulse  28.1 us  leakage ~ 2.2e-04
+  P3: |d| = 0.5450 mu8  Omega/2pi =  44.0 kHz (bound  1022.7 kHz)  pi pulse  11.4 us  leakage ~ 1.9e-06
+  P4: |d| = 0.2315 mu8  Omega/2pi =  18.7 kHz (bound    41.7 kHz)  pi pulse  26.7 us  leakage ~ 2.0e-04
+  P5: |d| = 0.5092 mu8  Omega/2pi =  41.1 kHz (bound   850.3 kHz)  pi pulse  12.2 us  leakage ~ 2.3e-06
+  P6: |d| = 0.1638 mu8  Omega/2pi =  13.2 kHz (bound    35.6 kHz)  pi pulse  37.8 us  leakage ~ 1.4e-04
+  P7: |d| = 0.1238 mu8  Omega/2pi =  10.0 kHz (bound    12.0 kHz)  pi pulse  50.0 us  leakage ~ 6.9e-04
+largest Omega/2pi = 44.0 kHz; nearest competing rovibrational line 0.73 GHz -> (Omega/Delta)^2 <= 3.6e-09;  largest hyperfine leakage 6.9e-04
+Totals (pulses in sequence):
+  (b) L30: P1 P2 P5 = 91 us;  L03: P1 P2 P4 = 106 us
+  (c) L21: P1 P3 P7 = 112 us;  L12: P1 P3 P6 = 100 us
+  (a) every c = 1/2: one after another 171 us; with P6, P7 overlapping P4, P5 145 us
+  (a) any target, upper bound (all seven as pi pulses, in sequence): 217 us

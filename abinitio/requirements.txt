@@ -1,0 +1,5 @@
+# Versions used for the stored outputs (Python 3.12-3.13, macOS arm64).
+pyscf==2.14.0
+numpy==2.5.3
+scipy==1.18.1
+sympy                  # caoch3_bend_constants/check_tree_measured.py and zeeman_limits.py only

@@ -1,0 +1,7 @@
+[4s] equilibrium dipole (D): [ 0.      0.     -1.4468]  (|mu| = 1.447 D, along the C3 axis z)
+[9s] d mu / d Q8a (x-like) = [-4.4973e-01 -0.0000e+00 -1.1000e-04] D/(amu^1/2 A)
+[14s] d mu / d Q8b (y-like) = [-0.      -0.44973  0.     ] D/(amu^1/2 A)
+harmonic omega_8 = 150.66 cm-1, <1|Q|0> = 0.3345 amu^1/2 A
+mu8 = <1|mu_x|0> = 0.1504 D (from Q8a);  <1|mu_y|0> = 0.1504 D (from Q8b)
+off-axis components (should vanish by symmetry): dmu_y/dQ8a = -4.5e-09, dmu_z/dQ8a = -1.1e-04, dmu_x/dQ8b = -1.4e-06, dmu_z/dQ8b = 3.0e-07
+MU8_DEBYE = 0.1504

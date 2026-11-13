@@ -1,0 +1,10 @@
+[303s] optimized q = [  1.9705    1.38099   1.10007 111.78496], E = -792.4767790074, |g| = 2.5e-06
+[398s] reference Hessian done
+harmonic wavenumbers (cm-1): [ 149.62  149.64  513.15 1179.51 1179.51 1208.03 1474.49 1490.3  1490.31
+ 2963.96 3012.99 3012.99]
+zeta^z_{8a,8b} = 0.926
+[475s] displaced Hessian comp 0 sign 1 done
+[574s] displaced Hessian comp 0 sign -1 done
+[681s] displaced Hessian comp 1 sign 1 done
+[784s] displaced Hessian comp 1 sign -1 done
+[784s] saved dft_force_field_pbe0_def2tzvp.npz; A_e=5.3433, B_e=0.11713
