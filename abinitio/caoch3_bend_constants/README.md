@@ -1,7 +1,8 @@
 # CaOCH₃ ν₈ bend constants (used in the paper)
 
 Sources of the "this work" entries of Table `tab:caoch3_constants` and of the numbers derived
-from them in Appendix `app:caoch3_prep`. The table of paper numbers is in `../README.md`.
+from them in Appendix `app:caoch3_prep`. The table of paper numbers is in the
+[repository README](../../README.md#ab-initio-constants-for-calcium-monomethoxide).
 
 Run the scripts from this folder. `zeta_from_cc.py`, `dft_force_field.py`, `dft_half_step.py`,
 `vpt2_bend.py` and `bend_dipole.py` import the geometry and symmetry routines from `../caoch3_eom_ccsd/`.
