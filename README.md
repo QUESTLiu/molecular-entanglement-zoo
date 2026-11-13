@@ -1,6 +1,6 @@
 # Molecular Entanglement Zoo: Admissible rovibrational species and their symmetry-enforced entanglement
 
-Identical-particle statistics selects the physical states of a molecule. These states factor into multiplicity spaces that symmetry leaves free and coupling tensors that it fixes, independently of the molecular Hamiltonian (E. R. Das, J.-C. Zhang, V. V. Albert and Y. Liu, *Molecular Entanglement in symmetry-classified phase space*, in preparation). This repository computes these coupling tensors for the 75 point groups of Altmann and Herzig's *Point-Group Theory Tables*. It also gives the **symmetry-enforced entanglement** that each tensor carries between rotation, nuclear spin and vibration.
+Identical-particle statistics selects the physical states of a molecule. These states factor into multiplicity spaces that symmetry leaves free and coupling tensors that it fixes, independently of the molecular Hamiltonian (E. R. Das, J.-C. Zhang, V. V. Albert and Y. Liu, *Symmetry classification of hyperfine rovibrational molecular phase space*, in preparation). This repository computes these coupling tensors for the 75 point groups of Altmann and Herzig's *Point-Group Theory Tables*. It also gives the **symmetry-enforced entanglement** that each tensor carries between rotation, nuclear spin and vibration.
 
 A molecule with point group **G** has its total wavefunction fixed by spin statistics to a one-dimensional species Γ_mol. A triple (Γ_r, Γ_n, Γ_v) of rotational, nuclear-spin and vibrational species is **admissible** when
 
