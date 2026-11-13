@@ -1,0 +1,9 @@
+# The repository root ignores *.log and *.out as LaTeX by-products.
+# Here they are the raw outputs of the calculations, so keep them.
+!*.log
+!*.out
+
+__pycache__/
+*.pyc
+.DS_Store
+*.tmp

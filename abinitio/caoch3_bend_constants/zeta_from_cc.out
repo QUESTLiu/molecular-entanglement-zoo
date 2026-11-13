@@ -1,0 +1,6 @@
+harmonic e frequencies (cm-1): [ 150.71 1204.57 1523.08 3031.2 ]
+mode 0: w =   150.71 cm-1, |lx.ly| = 3.0e-16, zeta^z = +0.9259
+mode 1: w =  1204.57 cm-1, |lx.ly| = 1.1e-16, zeta^z = +0.3444
+mode 2: w =  1523.08 cm-1, |lx.ly| = 8.3e-17, zeta^z = -0.2851
+mode 3: w =  3031.20 cm-1, |lx.ly| = 2.8e-17, zeta^z = +0.0255
+A_e = 5.3772, B_e = 0.11533 cm-1; B_e/(2A_e) = 0.01072; sum zeta = +1.01072; sum |zeta| sign-free check

@@ -1,0 +1,33 @@
+1. Lande factors of the tree components (weak field)
+   level  N |k|  J    F   g_F formula  g_F numerical  rate (MHz/G)
+   G      3  3  3.5  2   0.4291       0.3890         0.544
+   L01    3  2  3.5  3   0.2860       0.2757         0.386
+   L02    3  1  3.5  4   0.2288       0.2251         0.315
+   L11    4  3  4.5  4   0.2280       0.2212         0.310
+   L03    3  0  3.5  5   0.2002       0.2002         0.280
+   L30    4  0  4.5  5   0.1891       0.1876         0.263
+   L12    4  2  4.5  5   0.1891       0.1867         0.261
+   L21    4  4  4.5  5   0.1891       0.1710         0.239
+   g_F range 0.17 to 0.39; largest rate 0.54 MHz/G; largest deviation from the formula 9.6%
+
+2. Transverse field: B_perp for loss < 1e-3 from M_F = 0 during 0.217 ms
+   G     F=2: B_perp < 24.5 uG
+   L01   F=3: B_perp < 24.5 uG
+   L02   F=4: B_perp < 23.2 uG
+   L11   F=4: B_perp < 23.6 uG
+   L03   F=5: B_perp < 21.3 uG
+   L30   F=5: B_perp < 22.8 uG
+   L12   F=5: B_perp < 22.9 uG
+   L21   F=5: B_perp < 25.0 uG
+   smallest limit: 21.3 uG
+
+3. Bias field B_Z along Z
+   B_Z = 20 mG: M_F = 0 -> +-1 splittings 4.8 to 10.9 kHz; largest quadratic line shift 0.66 kHz (P1)
+      level shifts (kHz): G +0.64, L01 -0.02, L02 -0.03, L11 +0.01, L03 -0.03, L30 -0.01, L12 -0.02, L21 -0.13
+      line shifts (kHz):  P1 -0.66, P2 -0.01, P3 +0.03, P4 +0.00, P5 +0.02, P6 -0.02, P7 -0.13
+   B_Z = 50 mG: M_F = 0 -> +-1 splittings 12.0 to 27.2 kHz; largest quadratic line shift 4.09 kHz (P1)
+      level shifts (kHz): G +3.96, L01 -0.12, L02 -0.19, L11 +0.03, L03 -0.17, L30 -0.08, L12 -0.10, L21 -0.79
+      line shifts (kHz):  P1 -4.09, P2 -0.07, P3 +0.16, P4 +0.02, P5 +0.11, P6 -0.13, P7 -0.82
+   B_Z = 100 mG: M_F = 0 -> +-1 splittings 23.9 to 54.4 kHz; largest quadratic line shift 15.79 kHz (P1)
+      level shifts (kHz): G +15.31, L01 -0.48, L02 -0.77, L11 +0.14, L03 -0.68, L30 -0.32, L12 -0.41, L21 -3.12
+      line shifts (kHz):  P1 -15.79, P2 -0.30, P3 +0.62, P4 +0.09, P5 +0.46, P6 -0.55, P7 -3.26
