@@ -169,6 +169,8 @@ The Coriolis statement (item 5, and Sec. 3 of the PDF) uses that the angular-mom
 
 The folder `abinitio/` holds the scripts, inputs and raw outputs behind the calcium monomethoxide (CaOCH₃) example of the paper: its section "Preparing symmetry-adapted bend states of calcium monomethoxide" and the appendix "Experimental preparation of SALCs in calcium monomethoxide".
 
+Each subfolder documents its own files: [`abinitio/README.md`](abinitio/README.md) gives the layout, and [`abinitio/caoch3_bend_constants/README.md`](abinitio/caoch3_bend_constants/README.md) lists every script of that folder with its output. The repository root ignores `*.log` and `*.out` as LaTeX by-products, but `abinitio/.gitignore` keeps them, because here they are the raw outputs of the calculations.
+
 The ν₈ fundamental and the rotational constants A and B are measured. We estimate the remaining constants of the energy formula (Eq. `eq:caoch3_hamiltonian`) with PySCF. Coupled-cluster normal modes give the Coriolis constant ζ₈ = 0.926, and second-order vibrational perturbation theory on a B3LYP force field gives x₈,₈ = −0.53 cm⁻¹ and the anharmonic part of g₈,₈, 0.63 cm⁻¹. The anharmonic estimates vary by up to 0.11 cm⁻¹ with finite-difference step size and density functional. The same force field gives the bend transition dipole μ₈, which only converts Rabi frequencies into a laser intensity.
 
 Every level energy, line position and detuning of the appendix follows from the energy formula alone with these constants. Centrifugal distortion and the spin structure are not added to them; the scripts report their sizes separately. The spin structure sets the Rabi frequency, and with the electron Zeeman term added it gives the magnetic-field limits.
@@ -204,6 +206,17 @@ Run steps 1 and 2 from `abinitio/caoch3_eom_ccsd/out/` (`python ../caoch3_surfac
 
 Keep `caoch3_emode_basis_tz_X.json` with its cache. The four displacement vectors come from a singular-value decomposition with degenerate singular values, so another LAPACK build returns a different set spanning the same space, and the cached energies are labelled by these vectors.
 
+Stored outputs in `abinitio/caoch3_eom_ccsd/out/` (geometries as r(Ca–O), r(O–C), r(C–H) in Å and ∠OCH in degrees; energies in hartree):
+
+| File | Contents |
+|---|---|
+| `caoch3_cache_dz_X.json`, `caoch3_cache_tz_X.json` | Every single point of the double- and triple-zeta optimisations, keyed by the geometry, with the three EA-EOM-CCSD roots: X̃ ²A₁ and the two components of Ã ²E |
+| `caoch3_surface_dz_X.log`, `caoch3_surface_tz_X.log` | Logs of the two optimisations: each single point with its time, each Newton step, and the minimum (triple zeta: r(Ca–O) = 1.9905, r(O–C) = 1.3868, r(C–H) = 1.0966 Å, ∠OCH = 111.79°) |
+| `caoch3_min_dz_X.json`, `caoch3_min_tz_X.json` | The minima: geometry (`q`, `qmin`), energy (`E0`, `Emin`), gradient `g`, Hessian `H` and the roots at `q`. The double-zeta Hessian seeds the triple-zeta run (`--hess-guess`) |
+| `caoch3_emode_cache_tz_X.json` | The single points of the e-mode force field, keyed by displacement (`c` for the minimum, `0+`, `0-`, … for one mode and `01++`, `01--`, … for pairs) |
+| `caoch3_emode_basis_tz_X.json` | The four e-mode displacement vectors `U` that label those single points |
+| `caoch3_emodes_tz_X.json`, `caoch3_emodes_tz_X.log` | The e-block result: harmonic wavenumbers of the four e modes (150.7, 1204.6, 1523.1 and 3031.2 cm⁻¹), their zero-point energy (`ZPE_e_cm`), and `split_at_ref_cm`, the splitting of the two Ã roots at the C₃ᵥ minimum, which is filled only for the Ã state and is null here. The log lists the single points |
+
 ### x₈,₈ and g₈,₈ (B3LYP force field, second-order perturbation theory)
 
 1. `dft_force_field.py` (UKS-B3LYP/def2-TZVP): C₃ᵥ geometry, analytic Hessian, and Hessians displaced by ±0.10 $`\mathrm{amu}^{1/2}\,\mathrm{\AA}`$ along both ν₈ components → cubic constants with a ν₈ index and the ν₈ quartic constants (`dft_force_field_b3lyp_def2tzvp.npz`).
@@ -211,6 +224,17 @@ Keep `caoch3_emode_basis_tz_X.json` with its cache. The four displacement vector
 3. `dft_half_step.py` (half the step) and `XC=pbe0 python dft_force_field.py` give the variation quoted in the appendix.
 
 Run these from `abinitio/caoch3_bend_constants/`. The same B3LYP and PBE0 force fields give ζ₈ = 0.9267 and 0.9260, in agreement with the coupled-cluster value.
+
+Stored outputs in `abinitio/caoch3_bend_constants/`:
+
+| File | Contents |
+|---|---|
+| `dft_force_field_b3lyp_def2tzvp.npz`, `dft_force_field_pbe0_def2tzvp.npz` | The force field of each functional: harmonic wavenumbers `w`, normal modes `L`, Coriolis constants `zeta`, cubic and quartic constants with a ν₈ index (`cub`, `qua`), `Ae`, `Be`, the minimum and the displacement step |
+| `dft_force_field_b3lyp.log`, `dft_force_field_pbe0.log` | Logs of the two runs: optimised geometry and energy, harmonic wavenumbers, ζ₈ (0.9267 and 0.926) and the times of the displaced Hessians |
+| `dft_force_field_b3lyp_def2tzvp_rich.npz`, `dft_half_step_b3lyp.log` | The B3LYP force field with the half-step constants added (`cub_h`, `qua_h`, `d_h`), for the Richardson extrapolation, and the log of the half-step run |
+| `anharmonic.json` | The two values the paper uses, x₈,₈ (`x88`) and the anharmonic part of g₈,₈ (`g_anh`), and a note on how they were obtained (`_source`: B3LYP force field along ν₈, C₃ᵥ averaged, numerical second-order perturbation theory) |
+
+`vpt2_bend_b3lyp.out` has several blocks. The paper quotes "Richardson False, C3v average True"; the "Richardson True" block and `vpt2_bend_pbe0.out` give the spread of 0.11 cm⁻¹.
 
 ### μ₈ (B3LYP, double harmonic)
 
