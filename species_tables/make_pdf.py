@@ -9,16 +9,16 @@ The PDF: the contents; Sec. 1 what is tabulated (the coupling tensors, their 3j 
 how to read a group section); Sec. 2 the catalogue of AME states (ame.CATALOGUE) with its notes; Sec. 3 the N = 2
 spaces; Sec. 4 the summary; then one section per family of groups, each group with a legend of the catalogue states it
 meets and one table per Gamma_mol, a row per triple with the states of its copies (an Abelian group: one grid per
-Gamma_mol, side by side), the legends and tables set in up to three panels side by side as o3harmonics sets its snake
-tables (snake_table). The layout is o3harmonics' (o3h_style.tex), with its macros (o3h_macros.tex). Groups, irreps and
-the catalogue's LaTeX go through names_tex and o3h_tex, so they print in o3harmonics' notation, and the catalogue ids
-through the PREAMBLE commands \\catP, \\catB, \\catT. Every build re-checks on results.pkl the tables and every stored
-copy (check_copies), the rules that Secs. 2 and 3 state and the groups of the occurs-in column of Table 1
-(check_rules), the LU equivalence of the copies of each state (check_lu_classes), the members of the N = 2 spaces that
-Sec. 3 identifies with named states (check_special_members) and the other claims of Sec. 3 (check_n2_spaces), and it
-computes the numbers that the text prints.
+Gamma_mol, side by side), the legends and tables set in up to three panels side by side as the Point Group Atlas sets
+its snake tables (snake_table). The layout is the atlas's (atlas_style.tex), with its macros (atlas_macros.tex).
+Groups, irreps and the catalogue's LaTeX go through names_tex and atlas_tex, so they print in the atlas's notation, and
+the catalogue ids through the PREAMBLE commands \\catP, \\catB, \\catT. Every build re-checks on results.pkl the tables
+and every stored copy (check_copies), the rules that Secs. 2 and 3 state and the groups of the occurs-in column of
+Table 1 (check_rules), the LU equivalence of the copies of each state (check_lu_classes), the members of the N = 2
+spaces that Sec. 3 identifies with named states (check_special_members) and the other claims of Sec. 3
+(check_n2_spaces), and it computes the numbers that the text prints.
 
-species_data.json: a list of group dicts {group, o3h_record, order, irreps [{label, id, dim}], tables {Gamma_mol:
+species_data.json: a list of group dicts {group, atlas_record, order, irreps [{label, id, dim}], tables {Gamma_mol:
 [row]}}, keyed by this code's labels. A row of a non-Abelian group is one copy of a coupling space: {r, n, v, dims, N,
 tau, state, K (N = 2 only), tensor [[i, j, k, Re, Im], ...] (the entries above 1e-10)}, with tau = 1..N in ascending
 K and state its catalogue id (P, B1..B4, T1..T16). A row of an Abelian group is {r, n, v, dims, N, state}, state "P".
@@ -36,7 +36,7 @@ from fractions import Fraction
 import numpy as np
 
 import ame
-import o3h_tex
+import atlas_tex
 from species import SCHEMA, input_digest, phase_fix, real1d, tkey
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,10 +51,10 @@ NO_EEE = ("C4v", "D4", "D2d", "D4h")    # the non-Abelian axial groups with no a
 
 def names_tex(s):
     """fill the placeholders @@G:<group>@@ and @@L:<group>:<label>@@ of a hand-written string with
-    o3harmonics' printed group and irrep (o3h_tex; this code's group names and labels), so the prose
+    the atlas's printed group and irrep (atlas_tex; this code's group names and labels), so the prose
     names them as the tables do"""
-    s = re.sub(r"@@G:(\w+)@@", lambda m: o3h_tex.group_tex(m.group(1)), s)
-    s = re.sub(r"@@L:(\w+):(.+?)@@", lambda m: o3h_tex.label_tex(m.group(1), m.group(2)), s)
+    s = re.sub(r"@@G:(\w+)@@", lambda m: atlas_tex.group_tex(m.group(1)), s)
+    s = re.sub(r"@@L:(\w+):(.+?)@@", lambda m: atlas_tex.label_tex(m.group(1), m.group(2)), s)
     assert not re.search(r"@@[GL]:", s), s
     return s
 
@@ -95,7 +95,7 @@ def mag_tex(x):
         return "%.4f" % x
     if f == 1:
         return ""
-    # o3harmonics' rationalised form: sqrt(p/q) = (a/q) sqrt(b) with pq = a^2 b, b squarefree
+    # the atlas's rationalised form: sqrt(p/q) = (a/q) sqrt(b) with pq = a^2 b, b squarefree
     a, b = 1, f.numerator * f.denominator
     k = 2
     while k * k <= b:
@@ -120,7 +120,7 @@ def ket_labels(d, cubic):
 
 
 def tensor_tex(T, cubic, irreps):
-    """irreps: the printed labels of the triple; a one-dimensional partner is written |Gamma>, as o3harmonics does"""
+    """irreps: the printed labels of the triple; a one-dimensional partner is written |Gamma>, as the atlas does"""
     dims = T.shape
     labs = [ket_labels(d, cubic) for d in dims]
     terms = []
@@ -267,7 +267,7 @@ def swap_t(label):
 
 def check_rules(results):
     """the statements of Secs. 2 and 3 that hold row by row, among them the two facts of the Labels note: two
-    admissible triples that differ only in g/u tags (of the carriers or of Gamma_mol, compared on o3harmonics' ids, the
+    admissible triples that differ only in g/u tags (of the carriers or of Gamma_mol, compared on the atlas's ids, the
     printed names) have the same states, and in I and Ih, replacing every T1 of a triple by T2 and every T2 by T1 keeps
     it admissible with the same states. It also checks the groups, types, K and states of the N = 2 triples, and the
     groups that the occurs-in column of Table 1 names for each state. Returns the numbers the text prints."""
@@ -930,11 +930,11 @@ def check_n2_spaces(results):
 
 
 def standin_signs(g):
-    """the printed irreps of a linear group whose partner 2, in the stand-in's own basis, is minus o3harmonics' partner
-    2 (o3h_print.json: sign2); every other irrep of dimension 2 must have the identity map"""
+    """the printed irreps of a linear group whose partner 2, in the stand-in's own basis, is minus the atlas's partner
+    2 (atlas_print.json: sign2); every other irrep of dimension 2 must have the identity map"""
     out = []
     for lab, key, d in zip(g["labels"], g["repo_labels"], g["dims"]):
-        pm = o3h_tex.partner_map(g["name"], key)
+        pm = atlas_tex.partner_map(g["name"], key)
         if d == 2 and pm == "sign2":
             out.append("$%s$" % lab)
         else:
@@ -949,7 +949,7 @@ def and_list(items):
 # ----------------------------------------------------------------------------
 # the layout of the tables
 # ----------------------------------------------------------------------------
-# A list-like table is set as o3harmonics sets its snake tables. Its columns repeat in up to SNAKE_PANELS panels side
+# A list-like table is set as the atlas sets its snake tables. Its columns repeat in up to SNAKE_PANELS panels side
 # by side, SNAKE_GAP pt apart. There are as many panels as fit the text width by the estimated width of a panel
 # (cell_width, times SNAKE_SLACK), with at least SNAKE_MIN_ROWS rows each. The rows run down the first panel, then
 # down the next, in groups of about SNAKE_GROUP_LINES lines (snake_layout). A group does not break across pages, and a
@@ -1219,7 +1219,7 @@ def group_section(g, data):
     """the LaTeX lines of the section of group g, and its room (\\needspace) up to the first place where a page may
     end. It appends the group's tables to data (species_data.json)."""
     out = []
-    labs = g["labels"]                 # o3harmonics' printed forms
+    labs = g["labels"]                 # the atlas's printed forms
     keys = g["repo_labels"]            # this code's labels, kept as the JSON keys
     out.append(r"\subsection{\texorpdfstring{$%s$}{%s}}" % (g["latex"], plain_group(g["latex"])))
     out.append(r"\label{sec:%s}" % g["name"])
@@ -1245,7 +1245,7 @@ def group_section(g, data):
     out += intro
     room = HEADING_ROOM["subsection"] + TEXT_LINE * text_lines("".join(intro))
     ids = g.get("ids") or [None] * len(keys)
-    gd = dict(group=g["name"], o3h_record=g.get("o3h_record"), order=g["order"],
+    gd = dict(group=g["name"], atlas_record=g.get("atlas_record"), order=g["order"],
               irreps=[dict(label=k, id=i, dim=d) for k, i, d in zip(keys, ids, g["dims"])], tables={})
     data.append(gd)
     if g["abelian"]:
@@ -1333,32 +1333,33 @@ def summary_table(results, out):
 
 
 TITLE = "Admissible rovibrational species and their symmetry-enforced entanglement"
-CITATION = (r"E.~R.~Das, J.-C.~Zhang, V.~V.~Albert and Y.~Liu, \emph{Classification of rovibrational molecular "
-            r"states}, in preparation")     # cited once, at the opening of Sec. 1, for its main result
+# cited once, at the opening of Sec. 1, for its main result
+CITATION = (r"E.~R.~Das, J.-C.~Zhang, V.~V.~Albert and Y.~Liu, \emph{Symmetry classification of hyperfine "
+            r"rovibrational molecular phase space}, in preparation")
 
 PREAMBLE = r"""\pdfinfoomitdate=1
 \pdftrailerid{}
 \pdfsuppressptexinfo=-1
 \documentclass[10pt,a4paper]{article}
-@@O3H_STYLE@@
+@@ATLAS_STYLE@@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsthm}
-% Proposition 2.1: amsthm's plain style, with the head in the font of o3harmonics' \paragraph headings
-\newtheoremstyle{o3hplain}{\topsep}{\topsep}{\itshape}{}{\normalfont\small\sffamily\bfseries\color{parttitle}}{.}
+% Proposition 2.1: amsthm's plain style, with the head in the font of the atlas's \paragraph headings
+\newtheoremstyle{atlasplain}{\topsep}{\topsep}{\itshape}{}{\normalfont\small\sffamily\bfseries\color{parttitle}}{.}
   {5pt plus 1pt minus 1pt}{}
-\theoremstyle{o3hplain}
+\theoremstyle{atlasplain}
 \newtheorem{proposition}{Proposition}[section]
 \hypersetup{pdftitle={@@TITLE@@}}
-\fancyhead[L]{\small\textsc{Species tables}}
-@@O3H_MACROS@@
+\fancyhead[L]{\small\textsc{Molecular Entanglement Zoo}}
+@@ATLAS_MACROS@@
 % the layout. \partrule: the heavy rule between two parts of a snake table, across the columns only, as longtable and
 % booktabs draw their rules. The rows end with \\*, so a page may end after the space below this rule and nowhere else
 % in the table: that space stays on the page that ends, and the next page starts with the table's head. \keeprule: the
 % same rule at the light width, with no page break after it, so Table 1, whose rows also end with \\*, is never split.
 % \LTpre, \LTpost: the space above and below a longtable. \cellmax{<cell>}: \colwidth raised to the width of the cell,
-% for a paragraph column of the remaining width (\fillwidth), as o3harmonics sets it. \legendhead{<text>}: a run-in
-% label in the font of o3harmonics' \paragraph headings
+% for a paragraph column of the remaining width (\fillwidth), as the atlas sets it. \legendhead{<text>}: a run-in
+% label in the font of the atlas's \paragraph headings
 \makeatletter
 \newcommand{\partrule}{\noalign{\nobreak\vskip\aboverulesep}\multispan\LT@cols\unskip\leaders\hrule\@height
   \heavyrulewidth\hfill\cr\noalign{\nobreak\vskip\belowrulesep\penalty\z@}}
@@ -1371,7 +1372,7 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \newcommand{\cellmax}[1]{\settowidth{\cellwidth}{#1}\ifdim\cellwidth>\colwidth\setlength{\colwidth}{\cellwidth}\fi}
 \newcommand{\ket}[1]{|#1\rangle}
 % the role commands, each defined here and nowhere else
-\newcommand{\gel}{\elt{g}}      % a group element, in o3harmonics' element font
+\newcommand{\gel}{\elt{g}}      % a group element, in the atlas's element font
 % the sector species
 \newcommand{\Gmol}{\Gamma_{\mathrm{mol}}}
 \newcommand{\Grot}{\Gamma_{\mathrm{r}}}
@@ -1381,7 +1382,7 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \newcommand{\rotJ}{J}           % the angular momentum of a rotational level (Secs. 1 and 3)
 \newcommand{\molproj}{P_{\Gmol}}  % the projector onto the Gamma_mol component (Secs. 1 and 3)
 % the 3j blocks (Sec. 1)
-\newcommand{\brmult}{b}         % the multiplicity of an irrep in a restriction, o3harmonics' b_Gamma(J), written
+\newcommand{\brmult}{b}         % the multiplicity of an irrep in a restriction, the atlas's b_Gamma(J), written
                                 % b_Gamma(j) here
 \newcommand{\sdc}[4]{\bigl\langle{}^{#1}_{\,#2}\bigm\vert{}^{#3}_{\,#4}\bigr\rangle}   % <j m|Gamma mu>, subduction
 % the catalogue ids (Sec. 2): the product state P, the pairs B_k and the tripartite states T_k, in one font
@@ -1404,7 +1405,7 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \begin{center}
 {\LARGE\sffamily\bfseries\color{parttitle}@@TITLE@@\par}
 \end{center}
-{\setlength{\parskip}{3.5pt}\contentspage}  % 3.5pt between the entries (o3harmonics: 4pt), so they fit the first page
+{\setlength{\parskip}{3.5pt}\contentspage}  % 3.5pt between the entries (the atlas: 4pt), so they fit the first page
 """
 
 INTRO = r"""
@@ -1487,20 +1488,22 @@ $@@L:Td:E@@$ and $@@L:Td:T_{2}@@$, which keep @@CH4KEEP@@ of the @@TDA2@@ $@@G:T
 $\Gmol=@@L:Td:A_{2}@@$.
 \end{itemize}
 
-\paragraph{Conventions and o3harmonics.} Group elements act on states actively, by $U(\gel)$. Matrices act on column
+\paragraph{Conventions and the atlas.} Group elements act on states actively, by $U(\gel)$. Matrices act on column
 vectors, and products compose from right to left. The irrep matrices of the 73 finite groups of Altmann and Herzig are
-those of o3harmonics (commit @@O3H_COMMIT@@), read in this convention. o3harmonics uses row vectors,
+those of the Point Group Atlas (V.~V.~Albert, \url{https://github.com/valbert4/point-group-atlas}, 2026; commit
+@@ATLAS_COMMIT@@), read in this convention. The atlas uses row vectors,
 $\mathbf r\mapsto\mathbf r P(\gel)$, and lets $\gel$ act on a function by $U(\gel)^{-1}$, so
-$\repD{\Gamma}(\gel)=\repD{\Gamma}_{\mathrm{o3h}}(\gel^{-1})=\repD{\Gamma}_{\mathrm{o3h}}(\gel)^\dagger$, with $\gel$ the
-same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\intx$ and the
-coupling tensors are o3harmonics' for the same state. Irreps are irreducible over $\mathbb C$, so a complex-conjugate
+$\repD{\Gamma}(\gel)=\repD{\Gamma}_{\mathrm{atlas}}(\gel^{-1})=\repD{\Gamma}_{\mathrm{atlas}}(\gel)^\dagger$, with $\gel$
+the same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\intx$ and
+the coupling tensors are the atlas's for the same state. Irreps are irreducible over $\mathbb C$, so a complex-conjugate
 pair counts as two irreps, $\conjpair{1}\irr{e}_k$ and $\conjpair{2}\irr{e}_k$. Their characters are the complex
-conjugates of o3harmonics' values, so $\conjpair{2}\irr{e}$ has character $\iunit$ at $\elt{C_{4}}$ in $@@G:C4@@$ and at
+conjugates of the atlas's values, so $\conjpair{2}\irr{e}$ has character $\iunit$ at $\elt{C_{4}}$ in $@@G:C4@@$ and at
 $\elt{S_{4}}$ in $@@G:S4@@$. Principal axis $z$, $\elt{C_{2}'}$ along $x$, $\elt{\sigma_{v}}$ the $xz$ plane. The
 tables of $@@G:Cinfv@@$ and $@@G:Dinfh@@$ are computed with finite stand-ins, $\grp{C_{13v}}$ and $\grp{D_{14h}}$. These
 keep their own complex bases, in which $\elt{\sigma_{v}}$ (in $\grp{C_{13v}}$) or $\elt{C_{2}'}$ (in $\grp{D_{14h}}$)
-acts on the two partners of a two-dimensional irrep as the plain exchange. Their partners are o3harmonics', except that
-partner 2 of @@STANDIN@@ is minus o3harmonics' partner 2. A change of carrier basis is a local unitary, so no catalogue state depends on these choices.
+acts on the two partners of a two-dimensional irrep as the plain exchange. Their partners are the atlas's, except that
+partner 2 of @@STANDIN@@ is minus the atlas's partner 2. A change of carrier basis is a local unitary, so no catalogue
+state depends on these choices.
 
 \paragraph{The group sections.} Each group section gives the order and irreps of the group and its possible $\Gmol$. A
 non-Abelian group then has a legend of the catalogue states that its tables meet, and one table per $\Gmol$. The legend
@@ -1509,7 +1512,7 @@ onto $\Gmol$. In $@@G:I@@$ and $@@G:Ih@@$ the legend leaves out the coupling ten
 \texttt{species\_data.json}. Elsewhere the legend also gives the coupling tensor, and letters after an id mark the
 different tensors of a state in the group, up to carrier order and global phase. The kets of a tensor list the partners
 of its degenerate carriers only, in the order $(\mathrm r,\mathrm n,\mathrm v)$ of the representative. They are
-o3harmonics' partners $\intx$, namely $x,y,z$ of a $\irr{t}$ and $1,2$ of a two-dimensional irrep, up to the stand-in
+the atlas's partners $\intx$, namely $x,y,z$ of a $\irr{t}$ and $1,2$ of a two-dimensional irrep, up to the stand-in
 signs above. The product state has no degenerate carrier, and its tensor is written as the kets of its three irreps. In
 the tensors and in Table~\ref{tab:catalogue}, $\rootunity{3}=\expe^{2\pi\iunit/3}$. A table entry gives a triple, its
 carrier dimensions and its state, or for an $N=2$ triple the states of its two copies (Sec.~\ref{sec:n2}). The heading
@@ -1780,16 +1783,16 @@ def write_rows(fn, rows):
         f.write("[\n" + ",\n".join(json.dumps(r) for r in rows) + "\n]\n")
 
 
-def o3h_commit(blocks):
-    """the o3harmonics commit that the three o3h_*.json files record (they must agree), also named by the headers of
-    the blocks o3h_macros.tex and o3h_style.tex"""
+def atlas_commit(blocks):
+    """the atlas commit that the three atlas_*.json files record (they must agree), also named by the headers of
+    the blocks atlas_macros.tex and atlas_style.tex"""
     commits = set()
-    for fn in ("o3h_irreps.json", "o3h_labels.json", "o3h_print.json"):
+    for fn in ("atlas_irreps.json", "atlas_labels.json", "atlas_print.json"):
         with open(os.path.join(HERE, fn), encoding="utf-8") as f:
-            commits.add(json.load(f)["provenance"]["o3harmonics"])
+            commits.add(json.load(f)["provenance"]["atlas"])
     assert len(commits) == 1, commits
     commit = commits.pop()
-    assert all("at commit %s," % commit in b.split("\n")[0] for b in blocks), "an o3h_*.tex names another commit"
+    assert all("at commit %s," % commit in b.split("\n")[0] for b in blocks), "an atlas_*.tex names another commit"
     return commit
 
 
@@ -1808,25 +1811,25 @@ def main():
         sys.exit("make_pdf.py: %s has %d groups, not 75; rerun species.py without arguments" % (src, len(results)))
     if ame.IDS != ["P"] + list(B_IDS) + ["T%d" % k for k in range(1, 17)]:
         sys.exit("make_pdf.py: ame.CATALOGUE is not in the order P, B1 to B4, T1 to T16")
-    for g in results:          # print o3harmonics' forms; keep this code's labels as the JSON keys
+    for g in results:          # print the atlas's forms; keep this code's labels as the JSON keys
         g["repo_labels"] = list(g["labels"])
-        g["labels"] = [o3h_tex.label_tex(g["name"], lab) for lab in g["labels"]]
-        g["latex"] = o3h_tex.group_tex(g["name"])
+        g["labels"] = [atlas_tex.label_tex(g["name"], lab) for lab in g["labels"]]
+        g["latex"] = atlas_tex.group_tex(g["name"])
     ncopies = check_copies(results)                # every stored copy against the current irreps
     macros, style = (open(os.path.join(HERE, fn), encoding="utf-8").read().rstrip("\n")
-                     for fn in ("o3h_macros.tex", "o3h_style.tex"))
+                     for fn in ("atlas_macros.tex", "atlas_style.tex"))
     standin = [r"%s of $%s$" % (and_list(s), g["latex"]) for g in results if g["truncated"] for s in [standin_signs(g)]
                if s]
     assert standin, "no stand-in irrep with a sign: the Sec. 1 sentence on the stand-ins must change"
     intro = (INTRO.replace("@@STANDIN@@", and_list(standin)).replace("@@CITATION@@", CITATION)
-             .replace("@@O3H_COMMIT@@", o3h_commit([macros, style])))
+             .replace("@@ATLAS_COMMIT@@", atlas_commit([macros, style])))
     td = next(g for g in results if g["name"] == "Td")
     ch4 = td["tables"][td["repo_labels"].index("A_{2}")]
     keep = sum(td["repo_labels"][row["n"]] in ("A_{1}", "E", "T_{2}") for row in ch4)
     intro = names_tex(intro.replace("@@CH4KEEP@@", str(keep)).replace("@@TDA2@@", str(len(ch4))))
     assert "@@" not in intro, "a placeholder of Sec. 1 is left"
-    preamble = (names_tex(PREAMBLE).replace("@@TITLE@@", TITLE).replace("@@O3H_STYLE@@", style)
-                .replace("@@O3H_MACROS@@", macros))
+    preamble = (names_tex(PREAMBLE).replace("@@TITLE@@", TITLE).replace("@@ATLAS_STYLE@@", style)
+                .replace("@@ATLAS_MACROS@@", macros))
     nums = check_rules(results)                    # Secs. 2 and 3, row by row (the N = 2 counts first)
     check_lu_classes(results)                      # Sec. 2: the copies of each state are LU-equivalent
     n2 = check_n2_spaces(results)                  # Sec. 3; SystemExit on a mismatch

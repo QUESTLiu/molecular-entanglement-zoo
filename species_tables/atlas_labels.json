@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "o3harmonics": "99b3710",
-  "from": "Each irrep label of this code is matched to the o3harmonics irrep of the same state, with that irrep's id and LaTeX (doc). In a complex pair, {}^2E_k is the member with character e^{+2 pi i k/n} on the generator under this code's active U(g), the complex conjugate of o3harmonics' tabulated value.",
+  "atlas": "99b3710",
+  "from": "Each irrep label of this code is matched to the atlas irrep of the same state, with that irrep's id and LaTeX (doc). In a complex pair, {}^2E_k is the member with character e^{+2 pi i k/n} on the generator under this code's active U(g), the complex conjugate of the atlas's tabulated value.",
   "covers": "The 75 groups of the species tables, with the stand-ins of Cinfv and Dinfh under their Greek labels."
  },
  "groups": {
   "C1": {
-   "o3h_record": "C1",
+   "atlas_record": "C1",
    "labels": {
     "A": {
      "id": "A",
@@ -15,7 +15,7 @@
    }
   },
   "Cs": {
-   "o3h_record": "C1h",
+   "atlas_record": "C1h",
    "labels": {
     "A'": {
      "id": "Ap",
@@ -28,7 +28,7 @@
    }
   },
   "Ci": {
-   "o3h_record": "S2",
+   "atlas_record": "S2",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -41,7 +41,7 @@
    }
   },
   "C2": {
-   "o3h_record": "C2",
+   "atlas_record": "C2",
    "labels": {
     "A": {
      "id": "A",
@@ -54,7 +54,7 @@
    }
   },
   "C3": {
-   "o3h_record": "C3",
+   "atlas_record": "C3",
    "labels": {
     "A": {
      "id": "A",
@@ -71,7 +71,7 @@
    }
   },
   "C4": {
-   "o3h_record": "C4",
+   "atlas_record": "C4",
    "labels": {
     "A": {
      "id": "A",
@@ -92,7 +92,7 @@
    }
   },
   "C5": {
-   "o3h_record": "C5",
+   "atlas_record": "C5",
    "labels": {
     "A": {
      "id": "A",
@@ -117,7 +117,7 @@
    }
   },
   "C6": {
-   "o3h_record": "C6",
+   "atlas_record": "C6",
    "labels": {
     "A": {
      "id": "A",
@@ -146,7 +146,7 @@
    }
   },
   "C7": {
-   "o3h_record": "C7",
+   "atlas_record": "C7",
    "labels": {
     "A": {
      "id": "A",
@@ -179,7 +179,7 @@
    }
   },
   "C8": {
-   "o3h_record": "C8",
+   "atlas_record": "C8",
    "labels": {
     "A": {
      "id": "A",
@@ -216,7 +216,7 @@
    }
   },
   "C9": {
-   "o3h_record": "C9",
+   "atlas_record": "C9",
    "labels": {
     "A": {
      "id": "A",
@@ -257,7 +257,7 @@
    }
   },
   "C10": {
-   "o3h_record": "C10",
+   "atlas_record": "C10",
    "labels": {
     "A": {
      "id": "A",
@@ -302,7 +302,7 @@
    }
   },
   "C2v": {
-   "o3h_record": "C2v",
+   "atlas_record": "C2v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -323,7 +323,7 @@
    }
   },
   "C3v": {
-   "o3h_record": "C3v",
+   "atlas_record": "C3v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -340,7 +340,7 @@
    }
   },
   "C4v": {
-   "o3h_record": "C4v",
+   "atlas_record": "C4v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -365,7 +365,7 @@
    }
   },
   "C5v": {
-   "o3h_record": "C5v",
+   "atlas_record": "C5v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -386,7 +386,7 @@
    }
   },
   "C6v": {
-   "o3h_record": "C6v",
+   "atlas_record": "C6v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -415,7 +415,7 @@
    }
   },
   "C7v": {
-   "o3h_record": "C7v",
+   "atlas_record": "C7v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -440,7 +440,7 @@
    }
   },
   "C8v": {
-   "o3h_record": "C8v",
+   "atlas_record": "C8v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -473,7 +473,7 @@
    }
   },
   "C9v": {
-   "o3h_record": "C9v",
+   "atlas_record": "C9v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -502,7 +502,7 @@
    }
   },
   "C10v": {
-   "o3h_record": "C10v",
+   "atlas_record": "C10v",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -539,7 +539,7 @@
    }
   },
   "C2h": {
-   "o3h_record": "C2h",
+   "atlas_record": "C2h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -560,7 +560,7 @@
    }
   },
   "C3h": {
-   "o3h_record": "C3h",
+   "atlas_record": "C3h",
    "labels": {
     "A'": {
      "id": "Ap",
@@ -589,7 +589,7 @@
    }
   },
   "C4h": {
-   "o3h_record": "C4h",
+   "atlas_record": "C4h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -626,7 +626,7 @@
    }
   },
   "C5h": {
-   "o3h_record": "C5h",
+   "atlas_record": "C5h",
    "labels": {
     "A'": {
      "id": "Ap",
@@ -671,7 +671,7 @@
    }
   },
   "C6h": {
-   "o3h_record": "C6h",
+   "atlas_record": "C6h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -724,7 +724,7 @@
    }
   },
   "C7h": {
-   "o3h_record": "C7h",
+   "atlas_record": "C7h",
    "labels": {
     "A'": {
      "id": "Ap",
@@ -785,7 +785,7 @@
    }
   },
   "C8h": {
-   "o3h_record": "C8h",
+   "atlas_record": "C8h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -854,7 +854,7 @@
    }
   },
   "C9h": {
-   "o3h_record": "C9h",
+   "atlas_record": "C9h",
    "labels": {
     "A'": {
      "id": "Ap",
@@ -931,7 +931,7 @@
    }
   },
   "C10h": {
-   "o3h_record": "C10h",
+   "atlas_record": "C10h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1016,7 +1016,7 @@
    }
   },
   "S4": {
-   "o3h_record": "S4",
+   "atlas_record": "S4",
    "labels": {
     "A": {
      "id": "A",
@@ -1037,7 +1037,7 @@
    }
   },
   "S6": {
-   "o3h_record": "S6",
+   "atlas_record": "S6",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1066,7 +1066,7 @@
    }
   },
   "S8": {
-   "o3h_record": "S8",
+   "atlas_record": "S8",
    "labels": {
     "A": {
      "id": "A",
@@ -1103,7 +1103,7 @@
    }
   },
   "S10": {
-   "o3h_record": "S10",
+   "atlas_record": "S10",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1148,7 +1148,7 @@
    }
   },
   "S12": {
-   "o3h_record": "S12",
+   "atlas_record": "S12",
    "labels": {
     "A": {
      "id": "A",
@@ -1201,7 +1201,7 @@
    }
   },
   "S14": {
-   "o3h_record": "S14",
+   "atlas_record": "S14",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1262,7 +1262,7 @@
    }
   },
   "S16": {
-   "o3h_record": "S16",
+   "atlas_record": "S16",
    "labels": {
     "A": {
      "id": "A",
@@ -1331,7 +1331,7 @@
    }
   },
   "S18": {
-   "o3h_record": "S18",
+   "atlas_record": "S18",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1408,7 +1408,7 @@
    }
   },
   "S20": {
-   "o3h_record": "S20",
+   "atlas_record": "S20",
    "labels": {
     "A": {
      "id": "A",
@@ -1493,7 +1493,7 @@
    }
   },
   "D2": {
-   "o3h_record": "D2",
+   "atlas_record": "D2",
    "labels": {
     "A": {
      "id": "A",
@@ -1514,7 +1514,7 @@
    }
   },
   "D3": {
-   "o3h_record": "D3",
+   "atlas_record": "D3",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1531,7 +1531,7 @@
    }
   },
   "D4": {
-   "o3h_record": "D4",
+   "atlas_record": "D4",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1556,7 +1556,7 @@
    }
   },
   "D5": {
-   "o3h_record": "D5",
+   "atlas_record": "D5",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1577,7 +1577,7 @@
    }
   },
   "D6": {
-   "o3h_record": "D6",
+   "atlas_record": "D6",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1606,7 +1606,7 @@
    }
   },
   "D7": {
-   "o3h_record": "D7",
+   "atlas_record": "D7",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1631,7 +1631,7 @@
    }
   },
   "D8": {
-   "o3h_record": "D8",
+   "atlas_record": "D8",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1664,7 +1664,7 @@
    }
   },
   "D9": {
-   "o3h_record": "D9",
+   "atlas_record": "D9",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1693,7 +1693,7 @@
    }
   },
   "D10": {
-   "o3h_record": "D10",
+   "atlas_record": "D10",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -1730,7 +1730,7 @@
    }
   },
   "D2h": {
-   "o3h_record": "D2h",
+   "atlas_record": "D2h",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -1767,7 +1767,7 @@
    }
   },
   "D3h": {
-   "o3h_record": "D3h",
+   "atlas_record": "D3h",
    "labels": {
     "A_{1}'": {
      "id": "A1p",
@@ -1796,7 +1796,7 @@
    }
   },
   "D4h": {
-   "o3h_record": "D4h",
+   "atlas_record": "D4h",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -1841,7 +1841,7 @@
    }
   },
   "D5h": {
-   "o3h_record": "D5h",
+   "atlas_record": "D5h",
    "labels": {
     "A_{1}'": {
      "id": "A1p",
@@ -1878,7 +1878,7 @@
    }
   },
   "D6h": {
-   "o3h_record": "D6h",
+   "atlas_record": "D6h",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -1931,7 +1931,7 @@
    }
   },
   "D7h": {
-   "o3h_record": "D7h",
+   "atlas_record": "D7h",
    "labels": {
     "A_{1}'": {
      "id": "A1p",
@@ -1976,7 +1976,7 @@
    }
   },
   "D8h": {
-   "o3h_record": "D8h",
+   "atlas_record": "D8h",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2037,7 +2037,7 @@
    }
   },
   "D9h": {
-   "o3h_record": "D9h",
+   "atlas_record": "D9h",
    "labels": {
     "A_{1}'": {
      "id": "A1p",
@@ -2090,7 +2090,7 @@
    }
   },
   "D10h": {
-   "o3h_record": "D10h",
+   "atlas_record": "D10h",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2159,7 +2159,7 @@
    }
   },
   "D2d": {
-   "o3h_record": "D2d",
+   "atlas_record": "D2d",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2184,7 +2184,7 @@
    }
   },
   "D3d": {
-   "o3h_record": "D3d",
+   "atlas_record": "D3d",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2213,7 +2213,7 @@
    }
   },
   "D4d": {
-   "o3h_record": "D4d",
+   "atlas_record": "D4d",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2246,7 +2246,7 @@
    }
   },
   "D5d": {
-   "o3h_record": "D5d",
+   "atlas_record": "D5d",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2283,7 +2283,7 @@
    }
   },
   "D6d": {
-   "o3h_record": "D6d",
+   "atlas_record": "D6d",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2324,7 +2324,7 @@
    }
   },
   "D7d": {
-   "o3h_record": "D7d",
+   "atlas_record": "D7d",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2369,7 +2369,7 @@
    }
   },
   "D8d": {
-   "o3h_record": "D8d",
+   "atlas_record": "D8d",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2418,7 +2418,7 @@
    }
   },
   "D9d": {
-   "o3h_record": "D9d",
+   "atlas_record": "D9d",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2471,7 +2471,7 @@
    }
   },
   "D10d": {
-   "o3h_record": "D10d",
+   "atlas_record": "D10d",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2528,7 +2528,7 @@
    }
   },
   "T": {
-   "o3h_record": "T",
+   "atlas_record": "T",
    "labels": {
     "A": {
      "id": "A",
@@ -2549,7 +2549,7 @@
    }
   },
   "Th": {
-   "o3h_record": "Th",
+   "atlas_record": "Th",
    "labels": {
     "A_{g}": {
      "id": "Ag",
@@ -2586,7 +2586,7 @@
    }
   },
   "Td": {
-   "o3h_record": "Td",
+   "atlas_record": "Td",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2611,7 +2611,7 @@
    }
   },
   "O": {
-   "o3h_record": "O",
+   "atlas_record": "O",
    "labels": {
     "A_{1}": {
      "id": "A1",
@@ -2636,7 +2636,7 @@
    }
   },
   "Oh": {
-   "o3h_record": "Oh",
+   "atlas_record": "Oh",
    "labels": {
     "A_{1g}": {
      "id": "A1g",
@@ -2681,7 +2681,7 @@
    }
   },
   "I": {
-   "o3h_record": "I",
+   "atlas_record": "I",
    "labels": {
     "A": {
      "id": "A1",
@@ -2706,7 +2706,7 @@
    }
   },
   "Ih": {
-   "o3h_record": "Ih",
+   "atlas_record": "Ih",
    "labels": {
     "A_{g}": {
      "id": "A1g",
@@ -2751,7 +2751,7 @@
    }
   },
   "Cinfv": {
-   "o3h_record": "Cinfv",
+   "atlas_record": "Cinfv",
    "labels": {
     "\\Sigma^{+}": {
      "id": "A1",
@@ -2776,7 +2776,7 @@
    }
   },
   "Dinfh": {
-   "o3h_record": "Dinfh",
+   "atlas_record": "Dinfh",
    "labels": {
     "\\Sigma^{+}_{g}": {
      "id": "A1g",

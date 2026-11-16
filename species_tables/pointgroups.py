@@ -1,26 +1,26 @@
 """
 Point groups of O(3): construction, irreducible representations (over C), their bases,
-and Mulliken labels, matched to o3harmonics.
+and Mulliken labels, matched to the Point Group Atlas (the atlas).
 
 Groups (all_finite_groups(10)): Altmann and Herzig's 75. These are the 73 finite groups C1, Cs, Ci;
 C_n, C_nv, C_nh, S_2n, D_n, D_nh, D_nd for n = 2..10; T, Th, Td, O, Oh, I, Ih, each with its
-o3harmonics record (o3h_irreps.json, 73 records), and the linear groups C_inf v and D_inf h as
+atlas record (atlas_irreps.json, 73 records), and the linear groups C_inf v and D_inf h as
 finite stand-ins (C13v, D14h), valid for Xi <= 3 (Xi the subscript n of E_n, 0 for the A irreps).
 
 Conventions:
   * elements act actively on column vectors, and products compose from right to left:
     D(g) D(h) = D(gh), gh = "h first";
   * principal axis z, C2' axis along x, sigma_v = xz plane;
-  * every irrep of a finite group is o3harmonics' (o3h_irreps.json, from o3harmonics 99b3710),
-    read in this convention: D(g) = D_o3h(phys g)^dagger, where phys g is the o3harmonics
-    element with row matrix P = R^T (the same physical operation). o3harmonics acts on rows,
+  * every irrep of a finite group is the atlas's (atlas_irreps.json, from the atlas at 99b3710),
+    read in this convention: D(g) = D_atlas(phys g)^dagger, where phys g is the atlas element
+    with row matrix P = R^T (the same physical operation). The atlas acts on rows,
     r -> r P(g), and on functions by U(g)^{-1}, so its tabulated D(g) is ours at g^{-1}. Labels,
-    partner order and coupling coefficients are therefore o3harmonics' for the same state;
-  * complex-conjugate pairs of 1D irreps are labelled as o3harmonics labels the same state, and
-    in this active convention their characters are the complex conjugates of o3harmonics'
+    partner order and coupling coefficients are therefore the atlas's for the same state;
+  * complex-conjugate pairs of 1D irreps are labelled as the atlas labels the same state, and
+    in this active convention their characters are the complex conjugates of the atlas's
     tabulated ones ({}^2E has character i at C_4 in C_4, and at S_4 in S_4);
   * the finite stand-ins of the linear groups keep their own matrices (complex basis, the swap
-    as the plain permutation) and take o3harmonics' labels and ids.
+    as the plain permutation) and take the atlas's labels and ids.
 """
 import json
 import os
@@ -178,19 +178,19 @@ class FiniteGroup:
         self.dims = [self.dims[i] for i in order]
         self.labels = [self.labels[i] for i in order]
         assert len(set(self.labels)) == len(self.labels), (self.name, self.labels)
-        self._import_o3h()
+        self._import_atlas()
 
-    def _import_o3h(self):
-        """replace each irrep by o3harmonics' for the same state: D(g) = D_o3h(phys g)^dagger"""
-        rec = O3H_RECORD.get(self.name, self.name)
-        data = o3h_data()["records"].get(rec)
+    def _import_atlas(self):
+        """replace each irrep by the atlas's for the same state: D(g) = D_atlas(phys g)^dagger"""
+        rec = ATLAS_RECORD.get(self.name, self.name)
+        data = atlas_data()["records"].get(rec)
         if data is None:
             if self.family not in LINEAR:
-                raise LookupError("no o3harmonics record %s for %s in o3h_irreps.json; only the linear "
+                raise LookupError("no atlas record %s for %s in atlas_irreps.json; only the linear "
                                   "stand-ins %s keep their own matrices" % (rec, self.name, ", ".join(LINEAR)))
-            self.o3h_record, self.ids = None, None      # the stand-in's ids are set after the cut
+            self.atlas_record, self.ids = None, None      # the stand-in's ids are set after the cut
             return
-        self.o3h_record, self.ids = o3h_ids(self.name, self.labels)
+        self.atlas_record, self.ids = atlas_ids(self.name, self.labels)
         keys = {mkey(np.array(e["P"]).T): k for k, e in enumerate(data["elements"])}
         phys = np.array([keys[mkey(R)] for R in self.elems])
         mats = [np.array([[[complex(*z) for z in row] for row in m] for m in ir["mats"]]) for ir in data["irreps"]]
@@ -223,7 +223,7 @@ class FiniteGroup:
     def _adapt(self, D):
         """a two-dimensional irrep of a linear stand-in in its own complex basis: partner 1 the e^{+i theta}
         eigenvector of C_n, partner 2 its image under C2' (or sigma_v), which is then the plain exchange. Every other
-        irrep is returned unchanged, and _import_o3h replaces each irrep of a finite group by o3harmonics' matrices."""
+        irrep is returned unchanged, and _import_atlas replaces each irrep of a finite group by the atlas's matrices."""
         if D.shape[1] != 2 or self.family not in LINEAR:
             return D
         P = self.probes["Cn"]
@@ -312,7 +312,7 @@ def _cyclic_core(n, z):
     if 2 * k == n:
         return "B", "", 0
     if k < n / 2:
-        return "E", "2", k      # e^{+2 pi i k/n} on the generator: o3harmonics' {}^2E_k
+        return "E", "2", k      # e^{+2 pi i k/n} on the generator: the atlas's {}^2E_k
     return "E", "1", n - k
 
 
@@ -382,7 +382,7 @@ def label_cubic(G, i):
             k = _frac_angle(G.chi(i, "C3"), 3)
             if k == 0:
                 return mk("A", par)
-            return mk("E", par, "2" if k == 1 else "1")      # o3harmonics' label of the state
+            return mk("E", par, "2" if k == 1 else "1")      # the atlas's label of the state
         if fam == "Td":
             return mk("A", ("1" if _sign(G.chi(i, "sd")) > 0 else "2") + par)
         return mk("A", ("1" if _sign(G.chi(i, "C4")) > 0 else "2") + par)
@@ -420,31 +420,31 @@ for f in LINEAR:
 
 
 # ----------------------------------------------------------------------------
-# o3harmonics data (o3h_irreps.json, o3h_labels.json)
+# the atlas's data (atlas_irreps.json, atlas_labels.json)
 # ----------------------------------------------------------------------------
 HERE = os.path.dirname(os.path.abspath(__file__))
-O3H_RECORD = {"Cs": "C1h", "Ci": "S2"}     # every other finite group has o3harmonics' name
-_O3H = {}
+ATLAS_RECORD = {"Cs": "C1h", "Ci": "S2"}     # every other finite group has the atlas's name
+_ATLAS = {}
 
 
-def o3h_data():
-    if "irreps" not in _O3H:
-        with open(os.path.join(HERE, "o3h_irreps.json")) as f:
-            _O3H["irreps"] = json.load(f)
-    return _O3H["irreps"]
+def atlas_data():
+    if "irreps" not in _ATLAS:
+        with open(os.path.join(HERE, "atlas_irreps.json")) as f:
+            _ATLAS["irreps"] = json.load(f)
+    return _ATLAS["irreps"]
 
 
-def o3h_labels():
-    if "labels" not in _O3H:
-        with open(os.path.join(HERE, "o3h_labels.json"), encoding="utf-8") as f:
-            _O3H["labels"] = json.load(f)["groups"]
-    return _O3H["labels"]
+def atlas_labels():
+    if "labels" not in _ATLAS:
+        with open(os.path.join(HERE, "atlas_labels.json"), encoding="utf-8") as f:
+            _ATLAS["labels"] = json.load(f)["groups"]
+    return _ATLAS["labels"]
 
 
-def o3h_ids(name, labels):
-    """o3harmonics' record and the id of each irrep, from the label map"""
-    g = o3h_labels()[name]
-    return g["o3h_record"], [g["labels"][lab]["id"] for lab in labels]
+def atlas_ids(name, labels):
+    """the atlas's record and the id of each irrep, from the label map"""
+    g = atlas_labels()[name]
+    return g["atlas_record"], [g["labels"][lab]["id"] for lab in labels]
 
 
 # ----------------------------------------------------------------------------
@@ -511,7 +511,7 @@ def linear_groups():
         G.chars = [G.chars[i] for i in keep]
         G.dims = [G.dims[i] for i in keep]
         G.labels = [G.labels[i] for i in keep]
-        G.o3h_record, G.ids = o3h_ids(G.name, G.labels)
+        G.atlas_record, G.ids = atlas_ids(G.name, G.labels)
         G.truncated = True
         out.append(G)
     return out

@@ -55,7 +55,7 @@ Fields of a CATALOGUE row:
   occurs_tex       where the state occurs (carriers up to order, any Gamma_mol) in LaTeX
   rep              the representative: dict(group, labels=(r, n, v), mol, K) in this code's names, K for N = 2
   block_rep        (T1 only) the triple, in O, whose 3j block block3j and block_tex describe
-The LaTeX fields use make_pdf.names_tex's placeholders @@G:<group>@@ and @@L:<group>:<label>@@, o3harmonics' macros
+The LaTeX fields use make_pdf.names_tex's placeholders @@G:<group>@@ and @@L:<group>:<label>@@, the atlas's macros
 (\\irr, \\grp, \\irrprod, \\rootunity) and the PREAMBLE commands \\ket, \\Gmol, \\pairK (the SO(3) pair label K) and
 \\catP, \\catB, \\catT (the catalogue ids).
 

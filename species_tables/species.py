@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SCHEMA = "ame-4"      # the group dict of results/<G>.pkl and results.pkl, comps dict(T, K, state), state an id of
                       # ame.CATALOGUE (P, B1..B4, T1..T16)
 # the files that a group's result depends on, hashed by input_digest
-INPUTS = ("pointgroups.py", "ame.py", "species.py", "o3h_irreps.json", "o3h_labels.json")
+INPUTS = ("pointgroups.py", "ame.py", "species.py", "atlas_irreps.json", "atlas_labels.json")
 
 
 @functools.lru_cache(maxsize=None)
@@ -155,7 +155,7 @@ def analyse_group(G):
     mols = real1d(G)
     out = dict(name=G.name, family=G.family, order=G.order,
                labels=list(G.labels), dims=list(G.dims), mols=mols,
-               o3h_record=getattr(G, "o3h_record", None), ids=list(getattr(G, "ids", None) or []),
+               atlas_record=getattr(G, "atlas_record", None), ids=list(getattr(G, "ids", None) or []),
                truncated=getattr(G, "truncated", False), tables={})
     abelian = max(G.dims) == 1
     out["abelian"] = abelian

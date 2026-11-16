@@ -1,8 +1,8 @@
 # Ab initio constants for the CaOCH₃ example
 
 Scripts, inputs and raw outputs behind the calcium monomethoxide example of the paper
-*Molecular Entanglement in symmetry-classified phase space* (E. R. Das, J.-C. Zhang,
-V. V. Albert and Y. Liu, in preparation). The section
+*Symmetry classification of hyperfine rovibrational molecular phase space* (E. R. Das,
+J.-C. Zhang, V. V. Albert and Y. Liu, in preparation). The section
 [Ab initio constants for calcium monomethoxide](../README.md#ab-initio-constants-for-calcium-monomethoxide)
 of the repository README says how each number of the paper was computed, which script and stored
 output gives it, and how to rerun the scripts.

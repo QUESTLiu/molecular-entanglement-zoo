@@ -1,8 +1,8 @@
 {
  "provenance": {
-  "o3harmonics": "99b3710",
-  "from": "group_tex is each group's name as o3harmonics' documents print it. The stand-ins of Cinfv and Dinfh keep their own basis. For each of their two-dimensional irreps, partner_maps gives the map from the partners of that basis to o3harmonics' partners of the same state: identity, or sign2 (minus partner 2).",
-  "covers": "The 75 groups of the species tables, and K and Kh (o3harmonics' SO3 and O3) for their printed names only."
+  "atlas": "99b3710",
+  "from": "group_tex is each group's name as the atlas's documents print it. The stand-ins of Cinfv and Dinfh keep their own basis. For each of their two-dimensional irreps, partner_maps gives the map from the partners of that basis to the atlas's partners of the same state: identity, or sign2 (minus partner 2).",
+  "covers": "The 75 groups of the species tables, and K and Kh (the atlas's SO3 and O3) for their printed names only."
  },
  "groups": {
   "C1": {
