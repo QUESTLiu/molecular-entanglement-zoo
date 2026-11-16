@@ -88,7 +88,7 @@ This file lists the 21 catalogue states in the order of the table [below](#the-c
 
 ## The catalogue of AME states
 
-Every reduced state of |C⟩ on a single carrier X is $`\mathbb{1}/d_X`$ (Schur's lemma; Proposition 2.1 of the PDF), and so is that of every member of an N = 2 coupling space. Each coupling tensor is therefore an absolutely maximally entangled (AME) state of its format, the sorted carrier dimensions. Every cut $`X\vert YZ`$ has a flat Schmidt spectrum of rank $`d_X`$. With no multidimensional carrier the state is a product, with two it is a maximally entangled pair (a single one cannot occur), and with three it has genuine tripartite entanglement. AME states are critical, so SLOCC equivalence coincides with LU equivalence (Kempf–Ness). For N = 1, the state $`\rho_{YZ}`$ of two carriers Y, Z is the projector onto the $`\Gamma^*_X\otimes\Gamma_{\rm mol}`$ isotypic component of $`\Gamma_Y\otimes\Gamma_Z`$, divided by $`d_X`$, with X the third carrier.
+Every reduced state of |C⟩ on a single carrier X is $`\mathbb{I}/d_X`$ (Schur's lemma; Proposition 2.1 of the PDF), and so is that of every member of an N = 2 coupling space. Each coupling tensor is therefore an absolutely maximally entangled (AME) state of its format, the sorted carrier dimensions. Every cut $`X\vert YZ`$ has a flat Schmidt spectrum of rank $`d_X`$. With no multidimensional carrier the state is a product, with two it is a maximally entangled pair (a single one cannot occur), and with three it has genuine tripartite entanglement. AME states are critical, so SLOCC equivalence coincides with LU equivalence (Kempf–Ness). For N = 1, the state $`\rho_{YZ}`$ of two carriers Y, Z is the projector onto the $`\Gamma^*_X\otimes\Gamma_{\rm mol}`$ isotypic component of $`\Gamma_Y\otimes\Gamma_Z`$, divided by $`d_X`$, with X the third carrier.
 
 Bryan, Reichstein and Van Raamsdonk, who call AME states locally maximally entangled, give the dimension of the space of AME states of each format up to LU ([arXiv:1708.01645](https://arxiv.org/abs/1708.01645), Thms. 1.2 and 1.3; Ann. Henri Poincaré 19, 2491 (2018)). In the formats (1,d,d), (2,2,2) and (2,3,3) this space is a single point, so AME alone fixes the state up to LU. In the other formats of the catalogue the AME states form a continuous family, from which the point groups pick particular members.
 
@@ -219,7 +219,7 @@ Stored outputs in `abinitio/caoch3_eom_ccsd/out/` (geometries as r(Ca–O), r(O�
 
 ### x₈,₈ and g₈,₈ (B3LYP force field, second-order perturbation theory)
 
-1. `dft_force_field.py` (UKS-B3LYP/def2-TZVP): C₃ᵥ geometry, analytic Hessian, and Hessians displaced by ±0.10 $`\mathrm{amu}^{1/2}\,\mathrm{\AA}`$ along both ν₈ components → cubic constants with a ν₈ index and the ν₈ quartic constants (`dft_force_field_b3lyp_def2tzvp.npz`).
+1. `dft_force_field.py` (UKS-B3LYP/def2-TZVP): C₃ᵥ geometry, analytic Hessian, and Hessians displaced by ±0.10 $`\mathrm{amu}^{1/2}\,\text{Å}`$ along both ν₈ components → cubic constants with a ν₈ index and the ν₈ quartic constants (`dft_force_field_b3lyp_def2tzvp.npz`).
 2. `vpt2_bend.py <npz>` applies second-order perturbation theory numerically in each v₈ manifold and fits the levels to Eq. `eq:caoch3_hamiltonian`.
 3. `dft_half_step.py` (half the step) and `XC=pbe0 python dft_force_field.py` give the variation quoted in the appendix.
 
@@ -238,7 +238,7 @@ Stored outputs in `abinitio/caoch3_bend_constants/`:
 
 ### μ₈ (B3LYP, double harmonic)
 
-`bend_dipole.py dft_force_field_b3lyp_def2tzvp.npz` evaluates the dipole moment at ±0.10 $`\mathrm{amu}^{1/2}\,\mathrm{\AA}`$ along both ν₈ components and gives $`\mu_8=\langle1|\mu_x|0\rangle=(\hbar/2\omega)^{1/2}\,\partial\mu_x/\partial Q`$ = 0.150 D. As a check, it also gives the permanent dipole, 1.45 D, against the measured 1.58(8) D.
+`bend_dipole.py dft_force_field_b3lyp_def2tzvp.npz` evaluates the dipole moment at ±0.10 $`\mathrm{amu}^{1/2}\,\text{Å}`$ along both ν₈ components and gives $`\mu_8=\langle1|\mu_x|0\rangle=(\hbar/2\omega)^{1/2}\,\partial\mu_x/\partial Q`$ = 0.150 D. As a check, it also gives the permanent dipole, 1.45 D, against the measured 1.58(8) D.
 
 ### Levels, lines, pulses and magnetic-field limits
 
