@@ -1353,6 +1353,10 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \hypersetup{pdftitle={@@TITLE@@}}
 \fancyhead[L]{\small\textsc{Molecular Entanglement Zoo}}
 @@ATLAS_MACROS@@
+% The PG Atlas, in the bold extended Computer Modern sans of its title sheet (cmssbx10), at the current size
+\DeclareRobustCommand{\pgatlasfont}[1]{{\usefont{OT1}{cmss}{bx}{n}#1}}
+\newcommand{\PGAtlasName}{\pgatlasfont{Point Group Atlas}}
+\newcommand{\PGAtlas}{\pgatlasfont{PG Atlas}}
 % the layout. \partrule: the heavy rule between two parts of a snake table, across the columns only, as longtable and
 % booktabs draw their rules. The rows end with \\*, so a page may end after the space below this rule and nowhere else
 % in the table: that space stays on the page that ends, and the next page starts with the table's head. \keeprule: the
@@ -1488,21 +1492,21 @@ $@@L:Td:E@@$ and $@@L:Td:T_{2}@@$, which keep @@CH4KEEP@@ of the @@TDA2@@ $@@G:T
 $\Gmol=@@L:Td:A_{2}@@$.
 \end{itemize}
 
-\paragraph{Conventions and the atlas.} Group elements act on states actively, by $U(\gel)$. Matrices act on column
+\paragraph{Conventions and the \texorpdfstring{\PGAtlas}{PG Atlas}.} Group elements act on states actively, by $U(\gel)$. Matrices act on column
 vectors, and products compose from right to left. The irrep matrices of the 73 finite groups of Altmann and Herzig are
-those of the Point Group Atlas (V.~V.~Albert, \url{https://github.com/valbert4/point-group-atlas}, 2026; commit
-@@ATLAS_COMMIT@@), read in this convention. The atlas uses row vectors,
+those of the \PGAtlasName{} (\PGAtlas) by V.~V.~Albert (\url{https://github.com/valbert4/point-group-atlas}, 2026, commit
+@@ATLAS_COMMIT@@), read in this convention. The \PGAtlas{} uses row vectors,
 $\mathbf r\mapsto\mathbf r P(\gel)$, and lets $\gel$ act on a function by $U(\gel)^{-1}$, so
 $\repD{\Gamma}(\gel)=\repD{\Gamma}_{\mathrm{atlas}}(\gel^{-1})=\repD{\Gamma}_{\mathrm{atlas}}(\gel)^\dagger$, with $\gel$
 the same physical operation. States are identified by their wavefunctions, so the irrep names, the partners $\intx$ and
-the coupling tensors are the atlas's for the same state. Irreps are irreducible over $\mathbb C$, so a complex-conjugate
+the coupling tensors are the \PGAtlas's for the same state. Irreps are irreducible over $\mathbb C$, so a complex-conjugate
 pair counts as two irreps, $\conjpair{1}\irr{e}_k$ and $\conjpair{2}\irr{e}_k$. Their characters are the complex
-conjugates of the atlas's values, so $\conjpair{2}\irr{e}$ has character $\iunit$ at $\elt{C_{4}}$ in $@@G:C4@@$ and at
+conjugates of the \PGAtlas's values, so $\conjpair{2}\irr{e}$ has character $\iunit$ at $\elt{C_{4}}$ in $@@G:C4@@$ and at
 $\elt{S_{4}}$ in $@@G:S4@@$. Principal axis $z$, $\elt{C_{2}'}$ along $x$, $\elt{\sigma_{v}}$ the $xz$ plane. The
 tables of $@@G:Cinfv@@$ and $@@G:Dinfh@@$ are computed with finite stand-ins, $\grp{C_{13v}}$ and $\grp{D_{14h}}$. These
 keep their own complex bases, in which $\elt{\sigma_{v}}$ (in $\grp{C_{13v}}$) or $\elt{C_{2}'}$ (in $\grp{D_{14h}}$)
-acts on the two partners of a two-dimensional irrep as the plain exchange. Their partners are the atlas's, except that
-partner 2 of @@STANDIN@@ is minus the atlas's partner 2. A change of carrier basis is a local unitary, so no catalogue
+acts on the two partners of a two-dimensional irrep as the plain exchange. Their partners are the \PGAtlas's, except that
+partner 2 of @@STANDIN@@ is minus the \PGAtlas's partner 2. A change of carrier basis is a local unitary, so no catalogue
 state depends on these choices.
 
 \paragraph{The group sections.} Each group section gives the order and irreps of the group and its possible $\Gmol$. A
@@ -1512,7 +1516,7 @@ onto $\Gmol$. In $@@G:I@@$ and $@@G:Ih@@$ the legend leaves out the coupling ten
 \texttt{species\_data.json}. Elsewhere the legend also gives the coupling tensor, and letters after an id mark the
 different tensors of a state in the group, up to carrier order and global phase. The kets of a tensor list the partners
 of its degenerate carriers only, in the order $(\mathrm r,\mathrm n,\mathrm v)$ of the representative. They are
-the atlas's partners $\intx$, namely $x,y,z$ of a $\irr{t}$ and $1,2$ of a two-dimensional irrep, up to the stand-in
+the \PGAtlas's partners $\intx$, namely $x,y,z$ of a $\irr{t}$ and $1,2$ of a two-dimensional irrep, up to the stand-in
 signs above. The product state has no degenerate carrier, and its tensor is written as the kets of its three irreps. In
 the tensors and in Table~\ref{tab:catalogue}, $\rootunity{3}=\expe^{2\pi\iunit/3}$. A table entry gives a triple, its
 carrier dimensions and its state, or for an $N=2$ triple the states of its two copies (Sec.~\ref{sec:n2}). The heading
