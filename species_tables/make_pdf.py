@@ -95,7 +95,7 @@ def mag_tex(x):
         return "%.4f" % x
     if f == 1:
         return ""
-    # the atlas's rationalised form: sqrt(p/q) = (a/q) sqrt(b) with pq = a^2 b, b squarefree
+    # the atlas's rationalized form: sqrt(p/q) = (a/q) sqrt(b) with pq = a^2 b, b squarefree
     a, b = 1, f.numerator * f.denominator
     k = 2
     while k * k <= b:
@@ -358,7 +358,7 @@ def cubic_group(name):
 def gl_map(T):
     """the map (X, Y, Z) -> (X.1.1 + 1.Y.1 + 1.1.Z) T on triples of complex matrices, one column per matrix unit E_ab
     of each leg. It is linear in T. For a critical T (every AME state) its kernel dimension is ame.sym_dim(T), since
-    the stabiliser of a critical point is the complexification of the compact one (Kempf-Ness)."""
+    the stabilizer of a critical point is the complexification of the compact one (Kempf-Ness)."""
     cols = []
     for leg, d in enumerate(T.shape):
         Tl = np.moveaxis(T, leg, 0)
@@ -1310,10 +1310,12 @@ def summary_table(results, out):
     out.append(hdr + r"\endfirsthead")
     out.append(r"\multicolumn{10}{@{}l@{}}{\rlap{\legendhead{Summary} \small(continued)}}\\[2pt]")   # as snake_table
     out.append(hdr + r"\endhead")
+    out.append(r"\bottomrule\endfoot\endlastfoot")   # the foot of the atlas's longtables, on every page but the last
     for k, g in enumerate(results):
         if k and family(g) != family(results[k - 1]):
-            # between the families of the group sections; the penalty puts a page break after the rule's space
-            out.append(r"\midrule\noalign{\penalty-1}")
+            # between the families of the group sections, the atlas's group rule (atlas_style.tex). A page that
+            # ends there leaves the rule out and closes with the foot.
+            out.append(r"\grouprule{0pt}{\lightrulewidth}")
         m = g["mols"][0]
         cnt = state_counts(g, m)
         tri = sum(row["comps"][0]["state"][0] == "T" for row in g["tables"][m])   # tripartite triples, N = 2 once
@@ -1342,8 +1344,6 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \pdfsuppressptexinfo=-1
 \documentclass[10pt,a4paper]{article}
 @@ATLAS_STYLE@@
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{amsthm}
 % Proposition 2.1: amsthm's plain style, with the head in the font of the atlas's \paragraph headings
 \newtheoremstyle{atlasplain}{\topsep}{\topsep}{\itshape}{}{\normalfont\small\sffamily\bfseries\color{parttitle}}{.}
@@ -1429,7 +1429,7 @@ N^{\Gmol}_{\Grot\Gspin\Gvib}=\frac1{|\grp{G}|}\sum_{\gel\in\grp{G}}
 The coupling space, of dimension $N$, is the range of the projector
 $\molproj=\frac1{|\grp{G}|}\sum_{\gel}\conj{\irchar{\Gmol}}(\gel)\,\repD{\Grot}(\gel)\irrprod\repD{\Gspin}(\gel)
 \irrprod\repD{\Gvib}(\gel)$. The tables give an orthonormal basis of it, its $N$ \emph{copies}. For $N=1$ the copy is the
-normalised tensor $C_{\intx_{\mathrm r}\intx_{\mathrm n}\intx_{\mathrm v}}$, the Clebsch--Gordan coupling to $\Gmol$, and
+normalized tensor $C_{\intx_{\mathrm r}\intx_{\mathrm n}\intx_{\mathrm v}}$, the Clebsch--Gordan coupling to $\Gmol$, and
 the carrier state is
 \begin{equation}\label{eq:carrier}
 \ket{C}=\sum_{\intx_{\mathrm r},\intx_{\mathrm n},\intx_{\mathrm v}}C_{\intx_{\mathrm r}\intx_{\mathrm n}\intx_{\mathrm v}}
@@ -1439,9 +1439,9 @@ with each $\intx$ running over the partners of its carrier.
 
 Each tripartite state of the catalogue (Sec.~\ref{sec:catalogue}) is, for one of its triples, a block of a Wigner $3j$
 symbol. In a group $\grp{G}$ of proper rotations, the states $\jm{j}{m}$ carry the irrep $\irrJ{j}$ of
-$\grp{SO}(3)$, and $\brmult_{\Gamma}(j)$ is the multiplicity of an irrep $\Gamma$ in $\irrJ{j}$ restricted to $\grp{G}$.
+$\grp{SO(3)}$, and $\brmult_{\Gamma}(j)$ is the multiplicity of an irrep $\Gamma$ in $\irrJ{j}$ restricted to $\grp{G}$.
 When $\brmult_{\Gamma}(j)=1$, the partners of $\Gamma$ are $\irket{\Gamma}{\intx}=\sum_{m}\sdc{j}{m}{\Gamma}{\intx}\,
-\jm{j}{m}$. The matrices of $\Gamma$ fix these subduction coefficients of $\grp{SO}(3)\supset\grp{G}$ up to one overall
+\jm{j}{m}$. The matrices of $\Gamma$ fix these subduction coefficients of $\grp{SO(3)}\supset\grp{G}$ up to one overall
 phase. For irreps $\Gamma_{1},\Gamma_{2},\Gamma_{3}$ of $\grp{G}$ with
 $\brmult_{\Gamma_{1}}(j_{1})=\brmult_{\Gamma_{2}}(j_{2})=\brmult_{\Gamma_{3}}(j_{3})=1$, the $3j(j_{1},j_{2},j_{3})$ block is
 \begin{equation}\label{eq:block3j}
@@ -1452,15 +1452,15 @@ C^{(j_{1}j_{2}j_{3})}_{\intx_{1}\intx_{2}\intx_{3}}
 \end{equation}
 
 Like $C$ in Eq.~(\ref{eq:carrier}), the block is a tensor in the partners of the three irreps. The $3j$ symbol is
-invariant under $\grp{SO}(3)$, so the block is invariant under $\grp{G}$. It thus lies in the coupling space of
+invariant under $\grp{SO(3)}$, so the block is invariant under $\grp{G}$. It thus lies in the coupling space of
 $(\Gamma_{1},\Gamma_{2},\Gamma_{3})$ for the trivial $\Gmol$, whose character is $1$ on every element. For $N=1$,
 \begin{equation}\label{eq:racah}
 C^{(j_{1}j_{2}j_{3})}=\lambda\,C ,
 \end{equation}
-with $C$ the coupling tensor of the triple and $\lambda$ a number, possibly zero. This is Racah's factorisation of
-$\grp{SO}(3)$ coupling coefficients into point-group ones, with factors tabulated by Butler (P.~H.~Butler, \emph{Point
+with $C$ the coupling tensor of the triple and $\lambda$ a number, possibly zero. This is Racah's factorization of
+$\grp{SO(3)}$ coupling coefficients into point-group ones, with factors tabulated by Butler (P.~H.~Butler, \emph{Point
 Group Symmetry Applications: Methods and Tables}, Plenum, New York, 1981). The $j$'s enter only through $\lambda$, so
-every choice with $\lambda\neq0$ gives $C$ up to normalisation and phase. They are auxiliary labels, and none is a
+every choice with $\lambda\neq0$ gives $C$ up to normalization and phase. They are auxiliary labels, and none is a
 quantum number of the molecule. In particular, $\grp{G}$ acts on nuclear spins only by permuting the nuclei, so the $j$
 of a nuclear-spin carrier is not its total nuclear spin. For example, the three protons of
 para-$\mathrm{NH_3}$ ($\Gspin=\irr{e}$) have total spin $1/2$, while every $j$ is an integer. For $N=2$, Sec.~\ref{sec:n2} writes the copies in
@@ -1601,7 +1601,7 @@ $\irrJ{j}$. In $@@G:O@@$, for example, the five states of $\irrJ{2}$, read as sy
 tensors, split into the off-diagonal $\irr{t}_{2}$ and the traceless diagonal $\irr{e}$. The $3j(1,1,2)$ block on
 $(\irr{t}_{1},\irr{t}_{1},\irr{t}_{2})$ is then $|\epsilon|$ ($\catT{4}$), and that on $(\irr{t}_{1},\irr{t}_{1},\irr{e})$
 is trine-GHZ ($\catT{2}$). The 't~Hooft symbol is $\catT{8}$ because, in a suitable basis,
-$@@L:I:G@@$ realises $@@G:I@@$ inside $\grp{SO}(4)$. Then $\Lambda^{2}@@L:I:G@@=@@L:I:T_{1}@@\oplus@@L:I:T_{2}@@$ is the
+$@@L:I:G@@$ realizes $@@G:I@@$ inside $\grp{SO(4)}$. Then $\Lambda^{2}@@L:I:G@@=@@L:I:T_{1}@@\oplus@@L:I:T_{2}@@$ is the
 split of 2-forms into self-dual and anti-self-dual parts, which the 't~Hooft symbols embed in $@@L:I:G@@\irrprod@@L:I:G@@$.
 The simplex cubic is $\catT{11}$ because $@@L:I:G@@$ is the standard representation of $\Alt{5}\subset\Sym{5}$ and
 $(@@L:I:G@@,@@L:I:G@@,@@L:I:G@@)$ has $N=1$. The self-test of \texttt{ame.py} also checks that GHZ, trine-GHZ,
@@ -1733,11 +1733,11 @@ qutrits (\href{https://arxiv.org/abs/quant-ph/9901025}{arXiv:quant-ph/9901025}; 
 $\tfrac{1}{3}\sqrt{3}\sum_{k}\expe^{\iunit\extphase_{k}}\ket{kkk}$. Adding one gives $[[3,1,2]]_{3}$ up to a diagonal
 local unitary.
 \item $(@@L:I:G@@,@@L:I:H@@,@@L:I:H@@)$. Here $\extsp=0$, so the space lies in no larger distance-two code. Nor is
-there a stabiliser code of distance two and dimension above one on
+there a stabilizer code of distance two and dimension above one on
 $\mathbb{C}^{4}\otimes\mathbb{C}^{5}\otimes\mathbb{C}^{5}$, in Wang, Feng and Feng's construction over Abelian groups
 (\href{https://doi.org/10.1007/s11425-010-4072-x}{Sci.\ China Math.\ \textbf{53}, 2501 (2010)}). This holds for either
 group of order 4 on $\mathbb{C}^{4}$, $\Cyc{4}$ or $\Cyc{2}\dirprod\Cyc{2}$. The group $\Cyc{5}\dirprod\Cyc{5}$ on
-the two $@@L:I:H@@$ carriers has an order coprime to 4. Every stabiliser group thus splits into Weyl operators on the
+the two $@@L:I:H@@$ carriers has an order coprime to 4. Every stabilizer group thus splits into Weyl operators on the
 $@@L:I:G@@$ carrier and Weyl operators on the two $@@L:I:H@@$ carriers, and its code is a product of one code on each
 part. Distance two makes each factor one-dimensional. Two orthonormal codewords of a factor would have equal marginals
 on one of its carriers. Since a distance-two code corrects the erasure of the rest of the factor, these marginals

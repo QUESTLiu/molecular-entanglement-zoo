@@ -1,11 +1,11 @@
 """
-The catalogue of AME states realised by the coupling tensors of the species tables, and the exact checks behind it.
+The catalogue of AME states realized by the coupling tensors of the species tables, and the exact checks behind it.
 
 By Schur's lemma every coupling tensor C of an admissible triple, and every member of an N = 2 coupling space, has
 flat one-sector marginals, rho_X = I/d_X: it is an AME state of its format, the sorted carrier dimensions. With
 each N = 2 space in its K basis, the coupling tensors of the 75 groups are 21 such states up to local unitaries (LU)
 and the order of the carriers: the product state, four maximally entangled pairs and 16 tripartite states. A tensor
-gets its catalogue id from two exact LU invariants, with no optimisation:
+gets its catalogue id from two exact LU invariants, with no optimization:
 
   sym   the real dimension of {(X, Y, Z) Hermitian : (X.1.1 + 1.Y.1 + 1.1.Z) C = 0}, the kernel of a real-linear
         map (SVD threshold 1e-9), with the two trivial phase directions (scalar X, Y, Z summing to zero) included;
@@ -241,7 +241,7 @@ def p3(T):
 
 
 def invariants(T):
-    """(sorted dims, sym, p3) of the normalised tensor T"""
+    """(sorted dims, sym, p3) of the normalized tensor T"""
     return tuple(sorted(np.shape(T))), sym_dim(T), p3(T)
 
 
@@ -349,7 +349,7 @@ def w3j(j1, j2, j3, m1, m2, m3):
 
 
 def tau(j1, j2, j3):
-    """the 3j symbol as a normalised tensor in D^j1 x D^j2 x D^j3 (bases m = j..-j); zero off the triangle"""
+    """the 3j symbol as a normalized tensor in D^j1 x D^j2 x D^j3 (bases m = j..-j); zero off the triangle"""
     T = np.zeros((2 * j1 + 1, 2 * j2 + 1, 2 * j3 + 1))
     for a, m1 in enumerate(range(j1, -j1 - 1, -1)):
         for b, m2 in enumerate(range(j2, -j2 - 1, -1)):
@@ -602,7 +602,7 @@ def forms():
 
 
 def _ray_dev(a, b):
-    """max |b - <a|b> a| for normalised a, b: zero exactly on one ray, linear in the angle"""
+    """max |b - <a|b> a| for normalized a, b: zero exactly on one ray, linear in the angle"""
     a, b = np.ravel(a) / np.linalg.norm(a), np.ravel(b) / np.linalg.norm(b)
     return float(np.abs(b - np.vdot(a, b) * a).max())
 

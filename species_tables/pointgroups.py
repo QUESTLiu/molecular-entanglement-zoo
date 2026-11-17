@@ -11,12 +11,12 @@ Conventions:
   * elements act actively on column vectors, and products compose from right to left:
     D(g) D(h) = D(gh), gh = "h first";
   * principal axis z, C2' axis along x, sigma_v = xz plane;
-  * every irrep of a finite group is the atlas's (atlas_irreps.json, from the atlas at 99b3710),
+  * every irrep of a finite group is the atlas's (atlas_irreps.json, from the atlas at 8cb7020),
     read in this convention: D(g) = D_atlas(phys g)^dagger, where phys g is the atlas element
     with row matrix P = R^T (the same physical operation). The atlas acts on rows,
     r -> r P(g), and on functions by U(g)^{-1}, so its tabulated D(g) is ours at g^{-1}. Labels,
     partner order and coupling coefficients are therefore the atlas's for the same state;
-  * complex-conjugate pairs of 1D irreps are labelled as the atlas labels the same state, and
+  * complex-conjugate pairs of 1D irreps are labeled as the atlas labels the same state, and
     in this active convention their characters are the complex conjugates of the atlas's
     tabulated ones ({}^2E has character i at C_4 in C_4, and at S_4 in S_4);
   * the finite stand-ins of the linear groups keep their own matrices (complex basis, the swap
@@ -252,7 +252,7 @@ class FiniteGroup:
 
 
 # ----------------------------------------------------------------------------
-# labelling helpers.  A label is LaTeX math (without $).
+# labeling helpers.  A label is LaTeX math (without $).
 # ----------------------------------------------------------------------------
 MAIN_ORDER = ["A", "B", "E", "T", "G", "H", r"\Sigma", r"\Pi", r"\Delta", r"\Phi"]
 

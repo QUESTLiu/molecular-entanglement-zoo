@@ -1,8 +1,9 @@
-% This file is the layout block of the generated documents of the Point Group Atlas at commit 99b3710, verbatim except
+% This file is the layout block of the generated documents of the Point Group Atlas at commit 8cb7020, verbatim except
 % for one line. That line, the geometry, sets a margin of 1.6 cm here (1.8 cm there), the width for which make_pdf.py
-% lays out its tables (TEXT_WIDTH). The block is STYLE in the atlas's generator/formats/style.py, and it sets the
-% headings, the contents, the running heads, the link colour and the equation numbers. The file goes into the preamble
-% of species_tables.tex through make_pdf.py.
+% lays out its tables (TEXT_WIDTH). The block is STYLE in the atlas's generator/formats/style.py, before the atlas
+% adds its mark and the sheet style that draws it (opening). It sets the headings, the contents, the running heads,
+% the link color, the equation numbers and the rules between groups of the rows of a longtable (\grouprule,
+% \groupspace). The file goes into the preamble of species_tables.tex through make_pdf.py.
 \usepackage{cmap}
 \usepackage[margin=1.6cm,headheight=14pt,headsep=10pt]{geometry}
 \usepackage[leqno]{amsmath}
@@ -14,6 +15,7 @@
 \setcounter{secnumdepth}{2}\setcounter{tocdepth}{2}
 \definecolor{partshade}{gray}{0.9}
 \definecolor{parttitle}{rgb}{0.6,0.1,0.1}
+\definecolor{parttitlelight}{HTML}{EC6B60}
 \makeatletter
 \renewcommand\section{\@startsection{section}{1}{\z@}{-3ex plus -1ex minus -.2ex}%
   {1.2ex plus .2ex}{\normalfont\large\sffamily\bfseries\color{parttitle}}}
@@ -23,7 +25,7 @@
   {.6ex plus .2ex}{\normalfont\small\sffamily\bfseries\color{parttitle}}}
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}{1.5ex plus .5ex minus .2ex}{-1em}%
   {\normalfont\small\sffamily\bfseries\color{parttitle}}}
-\renewcommand\tagform@[1]{\maketag@@@{\textsf{\bfseries\footnotesize #1}}}
+\renewcommand\tagform@[1]{\maketag@@@{\textsf{\bfseries\footnotesize (#1)}}}
 \renewcommand*\l@part[2]{\par\addvspace{1.6ex}\noindent{\sffamily\bfseries #1}\hfill
   {\sffamily\bfseries #2}\par\nobreak}
 \newcommand\tocnumber{1.8em}
@@ -35,8 +37,7 @@
 \renewcommand*\l@subsection[2]{\tocline{2.2em}{2.6em}{#1}{#2}}
 \newcommand\contentspage{{\setlength{\columnsep}{24pt}\begin{multicols}{2}\@starttoc{toc}%
   \end{multicols}}}
-\newcommand{\partbox}[1]{\par\vskip 0pt plus .2\textheight\penalty-250%
-  \vskip 0pt plus -.2\textheight\addvspace{12pt}\phantomsection\addcontentsline{toc}{part}{#1}%
+\newcommand{\partbox}[1]{\par\addvspace{12pt}\phantomsection\addcontentsline{toc}{part}{#1}%
   \noindent\colorbox{partshade}{\makebox[%
   \dimexpr\textwidth-2\fboxsep\relax]{\rule[-6pt]{0pt}{20pt}\Large\sffamily\bfseries%
   \textcolor{parttitle}{#1}}}\par\nobreak\@nobreaktrue\addvspace{2pt}}
@@ -44,10 +45,24 @@
 \let\LT@startplain\LT@start
 \def\LT@start{\global\advance\LTstartcount\@ne\LT@startplain
   \marks\LTstartmarks{\the\LTstartcount}}
+\newmarks\LTgroupmarks
+\newcount\LTspacebreak\LTspacebreak=-1
+\newcount\LTrulebreak\LTrulebreak=-2
+\def\grouprule#1#2{\noalign{\marks\LTgroupmarks{\the\belowrulesep}\nobreak\vskip#1%
+  \vskip\aboverulesep}\multispan\LT@cols\unskip{\leaders\hrule\@height#2\hfill\kern\z@}\cr
+  \noalign{\penalty\LTrulebreak\vskip\belowrulesep\global\@lastruleclass\z@}}
+\def\groupspace#1{\noalign{\marks\LTgroupmarks{\the\dimexpr#1\relax}\penalty\LTspacebreak
+  \vskip#1\global\@lastruleclass\z@}}
+\def\LT@unskips{\unskip\unpenalty\unskip\unpenalty\unskip\unpenalty\unskip\unpenalty}
+\def\LT@groupcut{\ifnum\outputpenalty=\LTrulebreak
+  \setbox\@cclv\vbox{\unvbox\@cclv\setbox\z@\lastbox\LT@unskips}\fi}
+\def\LT@groupjoin{\ifnum\outputpenalty=\LTspacebreak\vskip-\botmarks\LTgroupmarks\relax\fi
+  \ifnum\outputpenalty=\LTrulebreak\vskip-\botmarks\LTgroupmarks\relax\fi}
 \let\LT@outputplain\LT@output
-\def\LT@output{\ifnum\outputpenalty<-\@Mi\else\edef\LT@marka{\botmarks\LTstartmarks}%
-  \edef\LT@markb{\the\LTstartcount}\ifx\LT@marka\LT@markb\else\setbox\LT@head\box\voidb@x\fi
-  \fi\LT@outputplain}
+\def\LT@output{\ifnum\outputpenalty<-\@Mi\LT@outputplain\else
+  \edef\LT@marka{\botmarks\LTstartmarks}\edef\LT@markb{\the\LTstartcount}%
+  \ifx\LT@marka\LT@markb\LT@groupcut\LT@outputplain\LT@groupjoin
+  \else\setbox\LT@head\box\voidb@x\LT@outputplain\fi\fi}
 \makeatother
 \newcommand{\needspace}[1]{\par\penalty-100\begingroup\dimen0=#1\relax\dimen2=\pagegoal
   \advance\dimen2-\pagetotal\ifdim\dimen0>\dimen2\relax\ifdim\dimen2>0pt\vfil\break\fi\fi

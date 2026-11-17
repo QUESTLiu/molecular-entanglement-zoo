@@ -2,7 +2,7 @@
 atlas_labels.json, atlas_print.json).
 
 - label_tex(G, label): the irrep, \\irr{a}_{1\\ptag{g}}, \\conjpair{2}\\irr{e}_{1};
-- group_tex(G): the group, \\grp{C_{3v}}, \\grp{C_{1h}}, \\grp{SO}(3);
+- group_tex(G): the group, \\grp{C_{3v}}, \\grp{C_{1h}}, \\grp{SO(3)};
 - partner_map(G, label): the map from the partners of a linear stand-in's own basis (Cinfv, Dinfh) to the atlas's
   partners, "identity" or "sign2" (minus partner 2), or None for a one-dimensional irrep.
 """

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "atlas": "99b3710",
+  "atlas": "8cb7020",
   "from": "Each irrep label of this code is matched to the atlas irrep of the same state, with that irrep's id and LaTeX (doc). In a complex pair, {}^2E_k is the member with character e^{+2 pi i k/n} on the generator under this code's active U(g), the complex conjugate of the atlas's tabulated value.",
   "covers": "The 75 groups of the species tables, with the stand-ins of Cinfv and Dinfh under their Greek labels."
  },
