@@ -1353,8 +1353,9 @@ PREAMBLE = r"""\pdfinfoomitdate=1
 \hypersetup{pdftitle={@@TITLE@@}}
 \fancyhead[L]{\small\textsc{Molecular Entanglement Zoo}}
 @@ATLAS_MACROS@@
-% The PG Atlas, in the bold extended Computer Modern sans of its title sheet (cmssbx10), at the current size
-\DeclareRobustCommand{\pgatlasfont}[1]{{\usefont{OT1}{cmss}{bx}{n}#1}}
+% The PG Atlas, in the Computer Modern sans of its title sheet (cmss), upright, at the current size and weight.
+% In running text that is the regular weight of the sheet's volume line. Bold headings keep it bold.
+\DeclareRobustCommand{\pgatlasfont}[1]{{\fontencoding{OT1}\fontfamily{cmss}\fontshape{n}\selectfont#1}}
 \newcommand{\PGAtlasName}{\pgatlasfont{Point Group Atlas}}
 \newcommand{\PGAtlas}{\pgatlasfont{PG Atlas}}
 % the layout. \partrule: the heavy rule between two parts of a snake table, across the columns only, as longtable and
